@@ -1,17 +1,36 @@
-"use client";
+import MandapamMapLoader from "@/components/MandapamMapLoader";
+import { mandapams as fallback, type Mandapam } from "@/data/mandapams";
+import { supabase } from "@/lib/supabase";
 
-import dynamic from "next/dynamic";
+export const metadata = { title: "Kalyana Mandapams — Kulam Heritage" };
+export const dynamic = "force-dynamic";
 
-const MandapamMap = dynamic(() => import("@/components/MandapamMap"), {
-  ssr: false,
-  loading: () => (
-    <div className="flex h-[460px] items-center justify-center rounded-lg border border-kulam-gold/40 bg-white text-stone-400">
-      Loading mandapams…
-    </div>
-  ),
-});
+async function getMandapams(): Promise<Mandapam[]> {
+  if (supabase) {
+    const { data, error } = await supabase
+      .from("venues")
+      .select("id, name, area, district, lat, lng, capacity_min, capacity_max, plate_veg, plate_nonveg, ac")
+      .order("name");
+    if (!error && data && data.length) {
+      return data.map((v) => ({
+        id: String(v.id),
+        name: v.name,
+        area: v.area ?? "",
+        district: v.district ?? "",
+        lat: v.lat ?? 0,
+        lng: v.lng ?? 0,
+        capacityMin: v.capacity_min ?? 0,
+        capacityMax: v.capacity_max ?? 0,
+        plateVeg: v.plate_veg ?? 0,
+        plateNonVeg: v.plate_nonveg ?? undefined,
+      }));
+    }
+  }
+  return fallback;
+}
 
-export default function MandapamsPage() {
+export default async function MandapamsPage() {
+  const data = await getMandapams();
   return (
     <div className="space-y-6">
       <header>
@@ -20,11 +39,11 @@ export default function MandapamsPage() {
         </h1>
         <p className="mt-2 max-w-3xl text-stone-700">
           Real wedding halls in Coimbatore. Set your per-plate budget and guest
-          count, then see matching mandapams on the map. (More cities to follow.)
+          count, then see matching mandapams on the map.
         </p>
       </header>
 
-      <MandapamMap />
+      <MandapamMapLoader data={data} />
 
       <p className="text-xs italic text-stone-500">
         Real listings sourced from public directories; per-plate prices and

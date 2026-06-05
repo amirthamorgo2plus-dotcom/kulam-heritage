@@ -1,6 +1,9 @@
-// SAMPLE / ILLUSTRATIVE "marriage needs in one place" data.
-// A start-to-finish wedding checklist + vendor categories (including
-// Kanchipuram silk shops). Demo data — verify vendors independently.
+// "Marriage needs" data: start-to-finish checklist, vendor categories, real
+// Coimbatore vendor listings (sourced from public web directories — verify
+// contact/price before booking), and return-gift ideas.
+//
+// `vendorsSeed` is the static fallback AND the source for the Supabase
+// `vendors` table seed (supabase/seed-vendors.sql).
 
 export interface ChecklistStage {
   phase: string;
@@ -8,7 +11,6 @@ export interface ChecklistStage {
   tasks: string[];
 }
 
-// Start-to-end journey for a Kammavar Naidu wedding.
 export const checklist: ChecklistStage[] = [
   {
     phase: "Match & fix",
@@ -61,145 +63,95 @@ export const checklist: ChecklistStage[] = [
   },
 ];
 
-export interface Vendor {
-  name: string;
-  area: string;
-  district: string;
-  note?: string;
-}
-
+// Category metadata (display order, heading, icon).
 export interface VendorCategory {
   id: string;
   title: string;
   icon: string;
   blurb: string;
-  vendors: Vendor[];
 }
 
 export const vendorCategories: VendorCategory[] = [
-  {
-    id: "silk",
-    title: "Kanchipuram Silk Shops",
-    icon: "🥻",
-    blurb:
-      "Traditional Kanchipuram (Kanjivaram) silk sarees for the bride, groom's family and guests.",
-    vendors: [
-      { name: "Nalli Silks", area: "Multiple branches", district: "Kanchipuram / Chennai" },
-      { name: "Kumaran Silks", area: "T. Nagar", district: "Chennai" },
-      { name: "RmKV Silks", area: "Multiple branches", district: "Chennai / Tirunelveli" },
-      { name: "Pothys", area: "T. Nagar", district: "Chennai" },
-      { name: "Sundari Silks", area: "Mylapore", district: "Chennai" },
-      { name: "Kanchi Kamakshi Silks", area: "Kanchipuram town", district: "Kanchipuram" },
-      { name: "AS Babu Sah", area: "Gandhi Road", district: "Kanchipuram" },
-    ],
-  },
-  {
-    id: "jewellery",
-    title: "Jewellery",
-    icon: "💍",
-    blurb: "Bridal gold, diamond and temple jewellery.",
-    vendors: [
-      { name: "GRT Jewellers", area: "Multiple branches", district: "Tamil Nadu" },
-      { name: "Lalitha Jewellery", area: "Multiple branches", district: "Tamil Nadu" },
-      { name: "Joyalukkas", area: "Multiple branches", district: "Tamil Nadu" },
-    ],
-  },
-  {
-    id: "purohit",
-    title: "Purohit / Priests",
-    icon: "🕉️",
-    blurb: "Vadhyars for muhurtham, homam and ceremonies.",
-    vendors: [
-      { name: "Sri Vaidika Purohit Service", area: "RS Puram", district: "Coimbatore" },
-      { name: "Madurai Vadhyar Mandram", area: "Mattuthavani", district: "Madurai" },
-    ],
-  },
-  {
-    id: "planners",
-    title: "Wedding Planners",
-    icon: "📋",
-    blurb: "End-to-end planners who coordinate venue, vendors and the day-of run.",
-    vendors: [
-      { name: "Kovai Wedding Planners", area: "RS Puram", district: "Coimbatore" },
-      { name: "Shaadi Events", area: "Anna Nagar", district: "Chennai" },
-      { name: "Madurai Mangalam Planners", area: "K.K. Nagar", district: "Madurai" },
-    ],
-  },
-  {
-    id: "catering",
-    title: "Catering / Food",
-    icon: "🍛",
-    blurb: "Traditional Tamil vegetarian sadya, tiffin counters & wedding feasts.",
-    vendors: [
-      { name: "Kongu Catering Service", area: "Gandhipuram", district: "Coimbatore" },
-      { name: "Sri Annapoorna Caterers", area: "T. Nagar", district: "Chennai" },
-      { name: "Adyar Ananda Bhavan Catering", area: "Multiple branches", district: "Tamil Nadu" },
-    ],
-  },
-  {
-    id: "decor",
-    title: "Decoration & Flowers",
-    icon: "🌸",
-    blurb: "Stage, mandapam and flower decoration.",
-    vendors: [
-      { name: "Malligai Event Decor", area: "Adyar", district: "Chennai" },
-      { name: "Kovai Flower Decorators", area: "RS Puram", district: "Coimbatore" },
-    ],
-  },
-  {
-    id: "photo",
-    title: "Photography & Video",
-    icon: "📸",
-    blurb: "Candid photography, traditional video and drone coverage.",
-    vendors: [
-      { name: "Click Studio", area: "Anna Nagar", district: "Chennai" },
-      { name: "Moments Madurai", area: "K.K. Nagar", district: "Madurai" },
-    ],
-  },
-  {
-    id: "makeup",
-    title: "Bridal Makeup & Mehndi",
-    icon: "💄",
-    blurb: "Bridal makeup artists and mehndi (henna) designers.",
-    vendors: [
-      { name: "Bridal Glow Studio", area: "T. Nagar", district: "Chennai" },
-      { name: "Henna by Priya", area: "Race Course", district: "Coimbatore" },
-    ],
-  },
-  {
-    id: "music",
-    title: "Nadaswaram & Music",
-    icon: "🎵",
-    blurb: "Nadaswaram-thavil troupes and reception music.",
-    vendors: [
-      { name: "Thanjavur Nadaswara Mandram", area: "Town", district: "Thanjavur" },
-      { name: "Melam Events", area: "Anna Nagar", district: "Chennai" },
-    ],
-  },
-  {
-    id: "invites",
-    title: "Invitations",
-    icon: "✉️",
-    blurb: "Printed wedding cards and digital invitations.",
-    vendors: [
-      { name: "Sri Karthik Cards", area: "Town Hall", district: "Coimbatore" },
-      { name: "Chennai Wedding Cards", area: "Sowcarpet", district: "Chennai" },
-    ],
-  },
-  {
-    id: "returngifts",
-    title: "Return Gifts — Shops",
-    icon: "🎁",
-    blurb: "Where to buy thamboolam bags and return gifts in bulk.",
-    vendors: [
-      { name: "Pongal Gift Centre (silver & brass)", area: "Town Hall", district: "Coimbatore" },
-      { name: "Giri Trading (pooja items)", area: "Mylapore", district: "Chennai" },
-      { name: "Poompuhar Handicrafts (TN govt)", area: "Multiple branches", district: "Tamil Nadu" },
-    ],
-  },
+  { id: "silk", title: "Kanchipuram Silk Shops", icon: "🥻", blurb: "Kanchipuram (Kanjivaram) silk sarees for the bride, family and guests." },
+  { id: "jewellery", title: "Jewellery", icon: "💍", blurb: "Bridal gold, diamond and temple jewellery." },
+  { id: "catering", title: "Catering / Food", icon: "🍛", blurb: "Traditional Tamil vegetarian sadya & wedding feasts." },
+  { id: "planner", title: "Wedding Planners", icon: "📋", blurb: "End-to-end planners who coordinate venue, vendors and the day-of run." },
+  { id: "photo", title: "Photography & Video", icon: "📸", blurb: "Candid photography, cinematography and pre-wedding shoots." },
+  { id: "decor", title: "Decoration & Flowers", icon: "🌸", blurb: "Stage, mandapam and floral decoration." },
+  { id: "makeup", title: "Bridal Makeup & Mehndi", icon: "💄", blurb: "Bridal makeup artists, hairstyling and mehndi designers." },
+  { id: "purohit", title: "Purohit / Priests", icon: "🕉️", blurb: "Vadhyars for muhurtham, homam and ceremonies." },
+  { id: "music", title: "Nadaswaram & Music", icon: "🎵", blurb: "Nadaswaram-thavil troupes and reception music." },
+  { id: "invites", title: "Invitations", icon: "✉️", blurb: "Printed wedding cards and digital invitations." },
+  { id: "returngifts", title: "Return Gifts — Shops", icon: "🎁", blurb: "Where to buy thamboolam bags and return gifts in bulk." },
 ];
 
-// Return-gift IDEAS (what to give), with rough budgets, grouped by guest tier.
+export interface Vendor {
+  category: string;
+  name: string;
+  area: string;
+  district: string;
+  priceInfo?: string;
+  phone?: string;
+}
+
+// Real Coimbatore vendors from public directories (WedMeGood / WeddingWire /
+// Sulekha / Justdial). Verify details before booking.
+export const vendorsSeed: Vendor[] = [
+  // Silk
+  { category: "silk", name: "Nalli Silks", area: "Multiple branches", district: "Coimbatore / Chennai" },
+  { category: "silk", name: "Pothys", area: "Multiple branches", district: "Coimbatore / Chennai" },
+  { category: "silk", name: "RmKV Silks", area: "Multiple branches", district: "Coimbatore / Chennai" },
+  { category: "silk", name: "The Chennai Silks", area: "Multiple branches", district: "Coimbatore" },
+  { category: "silk", name: "Kanchi Kamakshi Silks", area: "Kanchipuram town", district: "Kanchipuram" },
+  // Jewellery
+  { category: "jewellery", name: "Sree Kumaran Thangamaligai", area: "Multiple branches", district: "Coimbatore" },
+  { category: "jewellery", name: "Kirtilals", area: "Multiple branches", district: "Coimbatore" },
+  { category: "jewellery", name: "GRT Jewellers", area: "Multiple branches", district: "Tamil Nadu" },
+  { category: "jewellery", name: "Lalitha Jewellery", area: "Multiple branches", district: "Tamil Nadu" },
+  // Catering
+  { category: "catering", name: "Sai Lakshmi Event Management", area: "Coimbatore", district: "Coimbatore", priceInfo: "Pure veg, FSSAI 5-star; from ~₹250/plate" },
+  { category: "catering", name: "Sowbagya Catering", area: "Coimbatore", district: "Coimbatore", priceInfo: "Brahmin pure veg" },
+  { category: "catering", name: "Sri Vaishnava Catering (SVC)", area: "Coimbatore", district: "Coimbatore", priceInfo: "Iyengar Brahmin veg" },
+  { category: "catering", name: "Celebration Catering & Events", area: "Ganapathy", district: "Coimbatore" },
+  { category: "catering", name: "SS Catering", area: "Coimbatore", district: "Coimbatore", priceInfo: "Veg & non-veg" },
+  // Planners
+  { category: "planner", name: "Flora Weddings", area: "Coimbatore", district: "Coimbatore", priceInfo: "Eco-friendly weddings" },
+  { category: "planner", name: "Utsav's Wedding Planners", area: "Coimbatore", district: "Coimbatore" },
+  { category: "planner", name: "Mark 1 Decors", area: "Coimbatore", district: "Coimbatore" },
+  { category: "planner", name: "Marriedly Wedding Planners", area: "Coimbatore", district: "Coimbatore" },
+  { category: "planner", name: "Sarva Weddings", area: "Coimbatore", district: "Coimbatore" },
+  // Photography
+  { category: "photo", name: "OOAK Photography", area: "Coimbatore", district: "Coimbatore", priceInfo: "Candid from ~₹30,000" },
+  { category: "photo", name: "Studio Vaibhava", area: "Coimbatore", district: "Coimbatore", priceInfo: "Candid wedding photography" },
+  { category: "photo", name: "Vimal Photography", area: "Coimbatore", district: "Coimbatore" },
+  { category: "photo", name: "Zero Gravity Photography", area: "Coimbatore", district: "Coimbatore" },
+  { category: "photo", name: "Nakshatra Studioz", area: "Coimbatore", district: "Coimbatore" },
+  { category: "photo", name: "Camouflage Clicks", area: "Coimbatore", district: "Coimbatore" },
+  // Decoration
+  { category: "decor", name: "Vinayaka Decorators", area: "Coimbatore", district: "Coimbatore" },
+  { category: "decor", name: "Vasavi Decoration", area: "Coimbatore", district: "Coimbatore" },
+  { category: "decor", name: "Surprise Machi", area: "Coimbatore", district: "Coimbatore" },
+  { category: "decor", name: "Alayam Decorators", area: "Ganapathy", district: "Coimbatore" },
+  { category: "decor", name: "PartyOne", area: "Coimbatore", district: "Coimbatore" },
+  // Makeup
+  { category: "makeup", name: "SAY Bridal Studio", area: "Coimbatore", district: "Coimbatore", priceInfo: "HD / airbrush bridal makeup" },
+  { category: "makeup", name: "Steff Hair & Makeup", area: "Coimbatore", district: "Coimbatore" },
+  { category: "makeup", name: "Bloom Bridal Studio", area: "Coimbatore", district: "Coimbatore" },
+  { category: "makeup", name: "Makeup by Radha Nandaki", area: "Kavundampalayam", district: "Coimbatore" },
+  { category: "makeup", name: "Sky Makeover Studio", area: "Coimbatore", district: "Coimbatore" },
+  // Purohit
+  { category: "purohit", name: "Kongu Vadhyar Service", area: "RS Puram", district: "Coimbatore" },
+  // Music
+  { category: "music", name: "Melam Events (Nadaswaram troupe)", area: "Coimbatore", district: "Coimbatore" },
+  // Invitations
+  { category: "invites", name: "Sri Karthik Cards", area: "Town Hall", district: "Coimbatore" },
+  // Return gift shops
+  { category: "returngifts", name: "Pongal Gift Centre (silver & brass)", area: "Town Hall", district: "Coimbatore" },
+  { category: "returngifts", name: "Poompuhar Handicrafts (TN govt)", area: "Multiple branches", district: "Tamil Nadu" },
+  { category: "returngifts", name: "Giri Trading (pooja items)", area: "Multiple branches", district: "Tamil Nadu" },
+];
+
+// Return-gift ideas (what to give), with rough budgets.
 export interface GiftIdea {
   name: string;
   budget: string;

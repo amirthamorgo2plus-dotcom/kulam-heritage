@@ -1,0 +1,49 @@
+-- Seed the vendors table — real Coimbatore wedding vendors from public
+-- directories (verify before booking). Paste into the Supabase SQL editor
+-- AFTER running schema.sql. Safe to re-run.
+
+insert into public.vendors (id, category, name, area, district, price_info) values
+  (1,  'silk',        'Nalli Silks',                       'Multiple branches', 'Coimbatore / Chennai', null),
+  (2,  'silk',        'Pothys',                            'Multiple branches', 'Coimbatore / Chennai', null),
+  (3,  'silk',        'RmKV Silks',                        'Multiple branches', 'Coimbatore / Chennai', null),
+  (4,  'silk',        'The Chennai Silks',                 'Multiple branches', 'Coimbatore',           null),
+  (5,  'silk',        'Kanchi Kamakshi Silks',             'Kanchipuram town',  'Kanchipuram',          null),
+  (6,  'jewellery',   'Sree Kumaran Thangamaligai',        'Multiple branches', 'Coimbatore',           null),
+  (7,  'jewellery',   'Kirtilals',                         'Multiple branches', 'Coimbatore',           null),
+  (8,  'jewellery',   'GRT Jewellers',                     'Multiple branches', 'Tamil Nadu',           null),
+  (9,  'jewellery',   'Lalitha Jewellery',                 'Multiple branches', 'Tamil Nadu',           null),
+  (10, 'catering',    'Sai Lakshmi Event Management',      'Coimbatore',        'Coimbatore', 'Pure veg, FSSAI 5-star; from ~₹250/plate'),
+  (11, 'catering',    'Sowbagya Catering',                 'Coimbatore',        'Coimbatore', 'Brahmin pure veg'),
+  (12, 'catering',    'Sri Vaishnava Catering (SVC)',      'Coimbatore',        'Coimbatore', 'Iyengar Brahmin veg'),
+  (13, 'catering',    'Celebration Catering & Events',     'Ganapathy',         'Coimbatore', null),
+  (14, 'catering',    'SS Catering',                       'Coimbatore',        'Coimbatore', 'Veg & non-veg'),
+  (15, 'planner',     'Flora Weddings',                    'Coimbatore',        'Coimbatore', 'Eco-friendly weddings'),
+  (16, 'planner',     'Utsav''s Wedding Planners',         'Coimbatore',        'Coimbatore', null),
+  (17, 'planner',     'Mark 1 Decors',                     'Coimbatore',        'Coimbatore', null),
+  (18, 'planner',     'Marriedly Wedding Planners',        'Coimbatore',        'Coimbatore', null),
+  (19, 'planner',     'Sarva Weddings',                    'Coimbatore',        'Coimbatore', null),
+  (20, 'photo',       'OOAK Photography',                  'Coimbatore',        'Coimbatore', 'Candid from ~₹30,000'),
+  (21, 'photo',       'Studio Vaibhava',                   'Coimbatore',        'Coimbatore', 'Candid wedding photography'),
+  (22, 'photo',       'Vimal Photography',                 'Coimbatore',        'Coimbatore', null),
+  (23, 'photo',       'Zero Gravity Photography',          'Coimbatore',        'Coimbatore', null),
+  (24, 'photo',       'Nakshatra Studioz',                 'Coimbatore',        'Coimbatore', null),
+  (25, 'photo',       'Camouflage Clicks',                 'Coimbatore',        'Coimbatore', null),
+  (26, 'decor',       'Vinayaka Decorators',               'Coimbatore',        'Coimbatore', null),
+  (27, 'decor',       'Vasavi Decoration',                 'Coimbatore',        'Coimbatore', null),
+  (28, 'decor',       'Surprise Machi',                    'Coimbatore',        'Coimbatore', null),
+  (29, 'decor',       'Alayam Decorators',                 'Ganapathy',         'Coimbatore', null),
+  (30, 'decor',       'PartyOne',                          'Coimbatore',        'Coimbatore', null),
+  (31, 'makeup',      'SAY Bridal Studio',                 'Coimbatore',        'Coimbatore', 'HD / airbrush bridal makeup'),
+  (32, 'makeup',      'Steff Hair & Makeup',               'Coimbatore',        'Coimbatore', null),
+  (33, 'makeup',      'Bloom Bridal Studio',               'Coimbatore',        'Coimbatore', null),
+  (34, 'makeup',      'Makeup by Radha Nandaki',           'Kavundampalayam',   'Coimbatore', null),
+  (35, 'makeup',      'Sky Makeover Studio',               'Coimbatore',        'Coimbatore', null),
+  (36, 'purohit',     'Kongu Vadhyar Service',             'RS Puram',          'Coimbatore', null),
+  (37, 'music',       'Melam Events (Nadaswaram troupe)',  'Coimbatore',        'Coimbatore', null),
+  (38, 'invites',     'Sri Karthik Cards',                 'Town Hall',         'Coimbatore', null),
+  (39, 'returngifts', 'Pongal Gift Centre (silver & brass)','Town Hall',        'Coimbatore', null),
+  (40, 'returngifts', 'Poompuhar Handicrafts (TN govt)',   'Multiple branches', 'Tamil Nadu', null),
+  (41, 'returngifts', 'Giri Trading (pooja items)',        'Multiple branches', 'Tamil Nadu', null)
+on conflict (id) do nothing;
+
+select setval(pg_get_serial_sequence('public.vendors', 'id'), (select max(id) from public.vendors));

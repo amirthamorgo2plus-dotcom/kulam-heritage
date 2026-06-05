@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
-import { mandapams, PLATE_FLOOR, PLATE_CEIL } from "@/data/mandapams";
+import { PLATE_FLOOR, PLATE_CEIL, type Mandapam } from "@/data/mandapams";
 
 const icon = L.icon({
   iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
@@ -17,10 +17,10 @@ const icon = L.icon({
 
 const inr = (n: number) => "₹" + n.toLocaleString("en-IN");
 
-export default function MandapamMap() {
+export default function MandapamMap({ mandapams }: { mandapams: Mandapam[] }) {
   const districts = useMemo(
     () => ["All", ...Array.from(new Set(mandapams.map((m) => m.district))).sort()],
-    []
+    [mandapams]
   );
 
   const [maxPlate, setMaxPlate] = useState(PLATE_CEIL);
@@ -35,7 +35,7 @@ export default function MandapamMap() {
           m.capacityMax >= minCapacity &&
           (district === "All" || m.district === district)
       ),
-    [maxPlate, minCapacity, district]
+    [mandapams, maxPlate, minCapacity, district]
   );
 
   return (

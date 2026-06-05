@@ -1,9 +1,38 @@
 import Link from "next/link";
-import { checklist, vendorCategories, returnGiftIdeas } from "@/data/wedding";
+import {
+  checklist,
+  vendorCategories,
+  vendorsSeed,
+  returnGiftIdeas,
+  type Vendor,
+} from "@/data/wedding";
+import { supabase } from "@/lib/supabase";
 
 export const metadata = { title: "Marriage Needs — Kulam Heritage" };
+export const dynamic = "force-dynamic";
 
-export default function WeddingPage() {
+async function getVendors(): Promise<Vendor[]> {
+  if (supabase) {
+    const { data, error } = await supabase
+      .from("vendors")
+      .select("category, name, area, district, price_info")
+      .order("category");
+    if (!error && data && data.length) {
+      return data.map((v) => ({
+        category: v.category,
+        name: v.name,
+        area: v.area ?? "",
+        district: v.district ?? "",
+        priceInfo: v.price_info ?? undefined,
+      }));
+    }
+  }
+  return vendorsSeed;
+}
+
+export default async function WeddingPage() {
+  const vendors = await getVendors();
+
   return (
     <div className="space-y-12">
       <header>
@@ -62,33 +91,41 @@ export default function WeddingPage() {
       <section>
         <h2 className="mb-4 text-xl font-bold text-kulam">Vendors by Need</h2>
         <div className="grid gap-5 sm:grid-cols-2">
-          {vendorCategories.map((c) => (
-            <div
-              key={c.id}
-              className={`rounded-xl border bg-white p-5 shadow-sm ${
-                c.id === "silk"
-                  ? "border-kulam-gold ring-1 ring-kulam-gold/40"
-                  : "border-kulam-gold/40"
-              }`}
-            >
-              <div className="flex items-center gap-2">
-                <span className="text-2xl">{c.icon}</span>
-                <h3 className="text-lg font-bold text-kulam-dark">{c.title}</h3>
+          {vendorCategories.map((c) => {
+            const items = vendors.filter((v) => v.category === c.id);
+            if (items.length === 0) return null;
+            return (
+              <div
+                key={c.id}
+                className={`rounded-xl border bg-white p-5 shadow-sm ${
+                  c.id === "silk"
+                    ? "border-kulam-gold ring-1 ring-kulam-gold/40"
+                    : "border-kulam-gold/40"
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl">{c.icon}</span>
+                  <h3 className="text-lg font-bold text-kulam-dark">{c.title}</h3>
+                </div>
+                <p className="mt-1 text-sm text-stone-600">{c.blurb}</p>
+                <ul className="mt-3 space-y-1.5">
+                  {items.map((v) => (
+                    <li key={v.name} className="text-sm">
+                      <span className="font-semibold">{v.name}</span>
+                      <span className="text-stone-500">
+                        {" "}
+                        — {v.area}
+                        {v.district ? `, ${v.district}` : ""}
+                      </span>
+                      {v.priceInfo && (
+                        <span className="block text-xs text-kulam">{v.priceInfo}</span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <p className="mt-1 text-sm text-stone-600">{c.blurb}</p>
-              <ul className="mt-3 space-y-1.5">
-                {c.vendors.map((v) => (
-                  <li key={v.name} className="text-sm">
-                    <span className="font-semibold">{v.name}</span>
-                    <span className="text-stone-500">
-                      {" "}
-                      — {v.area}, {v.district}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
@@ -111,9 +148,7 @@ export default function WeddingPage() {
             <tbody>
               {returnGiftIdeas.map((g) => (
                 <tr key={g.name} className="border-t border-stone-100">
-                  <td className="px-4 py-2 font-semibold text-kulam-dark">
-                    {g.name}
-                  </td>
+                  <td className="px-4 py-2 font-semibold text-kulam-dark">{g.name}</td>
                   <td className="px-4 py-2 text-kulam">{g.budget}</td>
                   <td className="px-4 py-2 text-stone-600">{g.bestFor}</td>
                 </tr>
