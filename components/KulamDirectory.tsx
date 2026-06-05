@@ -1,20 +1,17 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import kulams from "@/data/kulams.json";
 
-interface Kulam {
+export interface Kulam {
   id: number;
   surname: string;
-  house: string;
-  gothram: string;
-  kuladeivam: string;
-  place: string;
+  house: string | null;
+  gothram: string | null;
+  kuladeivam: string | null;
+  place: string | null;
 }
 
-const data = kulams as Kulam[];
-
-export default function KulamDirectory() {
+export default function KulamDirectory({ data }: { data: Kulam[] }) {
   const [q, setQ] = useState("");
 
   const results = useMemo(() => {
