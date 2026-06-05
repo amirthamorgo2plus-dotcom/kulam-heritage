@@ -10,6 +10,7 @@ const links = [
   { href: "/mandapams", label: "Mandapams" },
   { href: "/wedding", label: "Marriage Needs" },
   { href: "/planner", label: "Planner" },
+  { href: "/guests", label: "Guest List" },
 ];
 
 export default function Nav() {

@@ -49,6 +49,12 @@ const cards = [
     desc: "Track every task start-to-finish with a live progress tracker.",
     icon: "✅",
   },
+  {
+    href: "/guests",
+    title: "Guest List",
+    desc: "Manage guests, RSVP status & head count, with CSV export.",
+    icon: "📇",
+  },
 ];
 
 export default function Home() {
