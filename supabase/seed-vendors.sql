@@ -43,7 +43,17 @@ insert into public.vendors (id, category, name, area, district, price_info) valu
   (38, 'invites',     'Sri Karthik Cards',                 'Town Hall',         'Coimbatore', null),
   (39, 'returngifts', 'Pongal Gift Centre (silver & brass)','Town Hall',        'Coimbatore', null),
   (40, 'returngifts', 'Poompuhar Handicrafts (TN govt)',   'Multiple branches', 'Tamil Nadu', null),
-  (41, 'returngifts', 'Giri Trading (pooja items)',        'Multiple branches', 'Tamil Nadu', null)
+  (41, 'returngifts', 'Giri Trading (pooja items)',        'Multiple branches', 'Tamil Nadu', null),
+  (42, 'catering',    'Malamurthy Catering',               'Coimbatore',        'Coimbatore', 'Authentic veg'),
+  (43, 'catering',    'Kandha Foods',                      'Coimbatore',        'Coimbatore', null),
+  (44, 'planner',     'Nityam Events',                     'Coimbatore',        'Coimbatore', null),
+  (45, 'planner',     'The Tamarind Tree',                 'Coimbatore',        'Coimbatore', null),
+  (46, 'photo',       'Picturesque Studio',                'Coimbatore',        'Coimbatore', null),
+  (47, 'photo',       'Target Big Photography',            'Coimbatore',        'Coimbatore', null),
+  (48, 'photo',       'Twin Hearts Studio',                'Coimbatore',        'Coimbatore', null),
+  (49, 'makeup',      'Pradha Bridal Makeup Studio',       'Coimbatore',        'Coimbatore', null),
+  (50, 'makeup',      'Vaishuz Makeover',                  'Coimbatore',        'Coimbatore', null),
+  (51, 'makeup',      'Pro Makeup Studio',                 'Coimbatore',        'Coimbatore', null)
 on conflict (id) do nothing;
 
 select setval(pg_get_serial_sequence('public.vendors', 'id'), (select max(id) from public.vendors));

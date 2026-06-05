@@ -15,7 +15,7 @@ export interface Mandapam {
   lng: number;
   capacityMin: number;
   capacityMax: number;
-  plateVeg: number; // ₹ per plate (veg)
+  plateVeg?: number; // ₹ per plate (veg); omitted = price on request
   plateNonVeg?: number; // ₹ per plate (non-veg), if offered
 }
 
@@ -134,6 +134,28 @@ export const mandapams: Mandapam[] = [
     capacityMin: 120,
     capacityMax: 200,
     plateVeg: 245,
+  },
+  {
+    id: "cbe-manimahal",
+    name: "Mani Mahal",
+    area: "Peelamedu (Kamarajar Road)",
+    district: "Coimbatore",
+    lat: 11.0262,
+    lng: 77.005,
+    capacityMin: 300,
+    capacityMax: 1200,
+    // Pure-veg, fully AC pillarless hall; plate price on request.
+  },
+  {
+    id: "cbe-krishnagounder",
+    name: "Sri Krishna Gounder Kalyana Mandapam",
+    area: "Ganapathy",
+    district: "Coimbatore",
+    lat: 11.038,
+    lng: 76.97,
+    capacityMin: 1000,
+    capacityMax: 1500,
+    // AC hall, large parking; plate price on request.
   },
 ];
 

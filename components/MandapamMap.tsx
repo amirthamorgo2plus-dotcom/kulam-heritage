@@ -31,7 +31,7 @@ export default function MandapamMap({ mandapams }: { mandapams: Mandapam[] }) {
     () =>
       mandapams.filter(
         (m) =>
-          m.plateVeg <= maxPlate &&
+          (m.plateVeg == null || m.plateVeg <= maxPlate) &&
           m.capacityMax >= minCapacity &&
           (district === "All" || m.district === district)
       ),
@@ -110,10 +110,14 @@ export default function MandapamMap({ mandapams }: { mandapams: Mandapam[] }) {
                     {m.area}, {m.district}
                   </div>
                   <div className="text-xs">
-                    <span className="font-semibold">Veg:</span> {inr(m.plateVeg)}/plate
-                    {m.plateNonVeg
-                      ? ` · Non-veg: ${inr(m.plateNonVeg)}/plate`
-                      : ""}
+                    {m.plateVeg != null ? (
+                      <>
+                        <span className="font-semibold">Veg:</span> {inr(m.plateVeg)}/plate
+                        {m.plateNonVeg ? ` · Non-veg: ${inr(m.plateNonVeg)}/plate` : ""}
+                      </>
+                    ) : (
+                      <span className="italic text-stone-500">Plate price on request</span>
+                    )}
                   </div>
                   <div className="text-xs">
                     <span className="font-semibold">Capacity:</span>{" "}
@@ -137,8 +141,9 @@ export default function MandapamMap({ mandapams }: { mandapams: Mandapam[] }) {
               <span className="text-xs text-stone-500">{m.area}</span>
             </div>
             <div className="mt-1 font-semibold text-kulam">
-              {inr(m.plateVeg)}/plate veg
-              {m.plateNonVeg ? ` · ${inr(m.plateNonVeg)} non-veg` : ""}
+              {m.plateVeg != null
+                ? `${inr(m.plateVeg)}/plate veg${m.plateNonVeg ? ` · ${inr(m.plateNonVeg)} non-veg` : ""}`
+                : "Price on request"}
             </div>
             <div className="text-xs text-stone-500">
               {m.capacityMin}–{m.capacityMax} guests

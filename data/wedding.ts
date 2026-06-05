@@ -114,12 +114,16 @@ export const vendorsSeed: Vendor[] = [
   { category: "catering", name: "Sri Vaishnava Catering (SVC)", area: "Coimbatore", district: "Coimbatore", priceInfo: "Iyengar Brahmin veg" },
   { category: "catering", name: "Celebration Catering & Events", area: "Ganapathy", district: "Coimbatore" },
   { category: "catering", name: "SS Catering", area: "Coimbatore", district: "Coimbatore", priceInfo: "Veg & non-veg" },
+  { category: "catering", name: "Malamurthy Catering", area: "Coimbatore", district: "Coimbatore", priceInfo: "Authentic veg" },
+  { category: "catering", name: "Kandha Foods", area: "Coimbatore", district: "Coimbatore" },
   // Planners
   { category: "planner", name: "Flora Weddings", area: "Coimbatore", district: "Coimbatore", priceInfo: "Eco-friendly weddings" },
   { category: "planner", name: "Utsav's Wedding Planners", area: "Coimbatore", district: "Coimbatore" },
   { category: "planner", name: "Mark 1 Decors", area: "Coimbatore", district: "Coimbatore" },
   { category: "planner", name: "Marriedly Wedding Planners", area: "Coimbatore", district: "Coimbatore" },
   { category: "planner", name: "Sarva Weddings", area: "Coimbatore", district: "Coimbatore" },
+  { category: "planner", name: "Nityam Events", area: "Coimbatore", district: "Coimbatore" },
+  { category: "planner", name: "The Tamarind Tree", area: "Coimbatore", district: "Coimbatore" },
   // Photography
   { category: "photo", name: "OOAK Photography", area: "Coimbatore", district: "Coimbatore", priceInfo: "Candid from ~₹30,000" },
   { category: "photo", name: "Studio Vaibhava", area: "Coimbatore", district: "Coimbatore", priceInfo: "Candid wedding photography" },
@@ -127,6 +131,9 @@ export const vendorsSeed: Vendor[] = [
   { category: "photo", name: "Zero Gravity Photography", area: "Coimbatore", district: "Coimbatore" },
   { category: "photo", name: "Nakshatra Studioz", area: "Coimbatore", district: "Coimbatore" },
   { category: "photo", name: "Camouflage Clicks", area: "Coimbatore", district: "Coimbatore" },
+  { category: "photo", name: "Picturesque Studio", area: "Coimbatore", district: "Coimbatore" },
+  { category: "photo", name: "Target Big Photography", area: "Coimbatore", district: "Coimbatore" },
+  { category: "photo", name: "Twin Hearts Studio", area: "Coimbatore", district: "Coimbatore" },
   // Decoration
   { category: "decor", name: "Vinayaka Decorators", area: "Coimbatore", district: "Coimbatore" },
   { category: "decor", name: "Vasavi Decoration", area: "Coimbatore", district: "Coimbatore" },
@@ -139,6 +146,9 @@ export const vendorsSeed: Vendor[] = [
   { category: "makeup", name: "Bloom Bridal Studio", area: "Coimbatore", district: "Coimbatore" },
   { category: "makeup", name: "Makeup by Radha Nandaki", area: "Kavundampalayam", district: "Coimbatore" },
   { category: "makeup", name: "Sky Makeover Studio", area: "Coimbatore", district: "Coimbatore" },
+  { category: "makeup", name: "Pradha Bridal Makeup Studio", area: "Coimbatore", district: "Coimbatore" },
+  { category: "makeup", name: "Vaishuz Makeover", area: "Coimbatore", district: "Coimbatore" },
+  { category: "makeup", name: "Pro Makeup Studio", area: "Coimbatore", district: "Coimbatore" },
   // Purohit
   { category: "purohit", name: "Kongu Vadhyar Service", area: "RS Puram", district: "Coimbatore" },
   // Music

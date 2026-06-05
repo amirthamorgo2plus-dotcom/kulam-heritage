@@ -12,7 +12,9 @@ insert into public.venues
   (7,  'Suguna Kalyana Mandapam',   'Peelamedu',      'Coimbatore', 11.0265, 77.0025, 800,  1200, 400,  null),
   (8,  'Selvam Mahaal',             'Eachanari',      'Coimbatore', 10.9340, 76.9680, 400,  1800, 350,  450),
   (9,  'Vijay Park Inn',            'Ram Nagar',      'Coimbatore', 11.0035, 76.9712, 30,   550,  300,  400),
-  (10, 'Sree Annapoorna',           'Saibaba Colony', 'Coimbatore', 11.0230, 76.9450, 120,  200,  245,  null)
+  (10, 'Sree Annapoorna',           'Saibaba Colony', 'Coimbatore', 11.0230, 76.9450, 120,  200,  245,  null),
+  (11, 'Mani Mahal',                'Peelamedu (Kamarajar Road)', 'Coimbatore', 11.0262, 77.0050, 300, 1200, null, null),
+  (12, 'Sri Krishna Gounder Kalyana Mandapam', 'Ganapathy', 'Coimbatore', 11.0380, 76.9700, 1000, 1500, null, null)
 on conflict (id) do nothing;
 
 -- Keep the auto-id sequence ahead of the seeded ids (so app inserts don't clash).
