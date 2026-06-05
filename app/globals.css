@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "leaflet/dist/leaflet.css";
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  background: theme("colors.kulam.cream");
+  color: #2b2118;
+}
+
+.leaflet-container {
+  font-family: Georgia, serif;
+}
