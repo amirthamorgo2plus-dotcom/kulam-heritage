@@ -1,8 +1,20 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { useEffect, useMemo, useState } from "react";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
+
+function FitBounds({ pts }: { pts: [number, number][] }) {
+  const map = useMap();
+  const key = pts.map((p) => p.join(",")).join("|");
+  useEffect(() => {
+    if (!pts.length) return;
+    if (pts.length === 1) map.setView(pts[0], 13);
+    else map.fitBounds(pts, { padding: [40, 40], maxZoom: 13 });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key]);
+  return null;
+}
 import { PLATE_FLOOR, PLATE_CEIL, type Mandapam } from "@/data/mandapams";
 
 const icon = L.icon({
@@ -102,11 +114,12 @@ export default function MandapamMap({ mandapams }: { mandapams: Mandapam[] }) {
       </p>
 
       <div className="h-[460px] overflow-hidden rounded-lg border border-kulam-gold/40 shadow">
-        <MapContainer center={[11.02, 77.0]} zoom={11} scrollWheelZoom={false} className="h-full w-full">
+        <MapContainer center={[11.02, 77.0]} zoom={11} scrollWheelZoom className="h-full w-full">
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
+          <FitBounds pts={visible.map((m) => [m.lat, m.lng]) as [number, number][]} />
           {visible.map((m) => (
             <Marker key={m.id} position={[m.lat, m.lng]} icon={icon}>
               <Popup>

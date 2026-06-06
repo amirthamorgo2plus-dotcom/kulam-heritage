@@ -1,9 +1,21 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { useEffect, useMemo, useState } from "react";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
 import kulams from "@/data/kulams.json";
+
+function FitBounds({ pts }: { pts: [number, number][] }) {
+  const map = useMap();
+  const key = pts.map((p) => p.join(",")).join("|");
+  useEffect(() => {
+    if (!pts.length) return;
+    if (pts.length === 1) map.setView(pts[0], 12);
+    else map.fitBounds(pts, { padding: [40, 40], maxZoom: 13 });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key]);
+  return null;
+}
 
 const icon = L.icon({
   iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
@@ -74,11 +86,12 @@ export default function TempleMap() {
       </div>
 
       <div className="h-[520px] overflow-hidden rounded-lg border border-kulam-gold/40 shadow">
-        <MapContainer center={[11.0, 77.4]} zoom={9} scrollWheelZoom={false} className="h-full w-full">
+        <MapContainer center={[11.0, 77.4]} zoom={9} scrollWheelZoom className="h-full w-full">
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
+          <FitBounds pts={groups.map((g) => [g.lat, g.lng]) as [number, number][]} />
           {groups.map((g, i) => (
             <Marker key={i} position={[g.lat, g.lng]} icon={icon}>
               <Popup>

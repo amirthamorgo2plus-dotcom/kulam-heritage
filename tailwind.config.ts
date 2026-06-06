@@ -12,7 +12,7 @@ const config: Config = {
         // on a clean white canvas with deep-ink text.
         kulam: {
           DEFAULT: "#22C55E", // Hyper Matcha (primary)
-          dark: "#0F172A", // Deep Ink (nav bg / headings / hover)
+          dark: "#134E4A", // Deep Teal (nav bg / headings / hover) — softer than black
           // Acid Lemon accent. (Token still named "gold" so existing
           // `kulam-gold` classes pick it up; it now renders acid lemon.)
           gold: "#EAB308",

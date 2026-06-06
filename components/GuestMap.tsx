@@ -1,7 +1,21 @@
 "use client";
 
-import { MapContainer, TileLayer, Marker, Popup, Polyline } from "react-leaflet";
+import { useEffect } from "react";
+import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from "react-leaflet";
 import L from "leaflet";
+
+// Auto zoom/pan so all pins are visible (and centred on the exact spot).
+function FitBounds({ pts }: { pts: [number, number][] }) {
+  const map = useMap();
+  const key = pts.map((p) => p.join(",")).join("|");
+  useEffect(() => {
+    if (!pts.length) return;
+    if (pts.length === 1) map.setView(pts[0], 14);
+    else map.fitBounds(pts, { padding: [40, 40], maxZoom: 14 });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key]);
+  return null;
+}
 
 export interface Stop {
   id: string;
@@ -37,11 +51,12 @@ export default function GuestMap({
 
   return (
     <div className="h-[420px] overflow-hidden rounded-lg border border-kulam-gold/40 shadow">
-      <MapContainer center={center} zoom={stops.length ? 11 : 9} scrollWheelZoom={false} className="h-full w-full">
+      <MapContainer center={center} zoom={stops.length ? 11 : 9} scrollWheelZoom className="h-full w-full">
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        <FitBounds pts={stops.map((s) => [s.lat, s.lng]) as [number, number][]} />
         {showRoute && stops.length > 1 && (
           <Polyline
             positions={stops.map((s) => [s.lat, s.lng]) as [number, number][]}
