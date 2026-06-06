@@ -34,19 +34,28 @@ interface Guest {
 const KEY = "kh_guests_v1";
 const statuses: RSVP[] = ["To invite", "Invited", "Confirmed", "Declined"];
 
-const blankForm = { name: "", pax: 1, phone: "", relation: "", address: "" };
+const blankForm = { name: "", side: "" as Side, pax: 1, phone: "", relation: "", address: "" };
 
-// Geocode an address via OpenStreetMap (on-demand, rate-limited by the user).
+// Geocode an address via OpenStreetMap, trying a few variants for a better hit.
 async function geocode(q: string): Promise<{ lat: number; lng: number } | null> {
-  try {
-    const url =
-      "https://nominatim.openstreetmap.org/search?format=json&limit=1&q=" +
-      encodeURIComponent(q + ", India");
-    const r = await fetch(url, { headers: { Accept: "application/json" } });
-    const j = await r.json();
-    if (j[0]) return { lat: parseFloat(j[0].lat), lng: parseFloat(j[0].lon) };
-  } catch {
-    /* ignore */
+  const variants = [
+    `${q}, Tamil Nadu, India`,
+    `${q}, India`,
+    q,
+    `${q.split(",").pop()?.trim()}, Tamil Nadu, India`, // last part = town/city
+  ];
+  for (const v of variants) {
+    if (!v.trim()) continue;
+    try {
+      const url =
+        "https://nominatim.openstreetmap.org/search?format=json&limit=1&q=" +
+        encodeURIComponent(v);
+      const r = await fetch(url, { headers: { Accept: "application/json" } });
+      const j = await r.json();
+      if (j[0]) return { lat: parseFloat(j[0].lat), lng: parseFloat(j[0].lon) };
+    } catch {
+      /* try next */
+    }
   }
   return null;
 }
@@ -82,6 +91,7 @@ export default function GuestList() {
   const [sideTab, setSideTab] = useState<"All" | "Bride" | "Groom">("All");
   const [showRoute, setShowRoute] = useState(false);
   const [busy, setBusy] = useState<string>("");
+  const [editId, setEditId] = useState<string | null>(null);
 
   useEffect(() => {
     try {
@@ -135,31 +145,52 @@ export default function GuestList() {
 
   const givenPct = filtered.length ? Math.round((stat.given / filtered.length) * 100) : 0;
 
-  const add = () => {
-    if (!form.name.trim()) return;
-    const id =
-      typeof crypto !== "undefined" && crypto.randomUUID ? crypto.randomUUID() : String(Date.now());
-    const side: Side = sideTab === "All" ? "" : sideTab;
-    setGuests((p) => [
-      ...p,
-      {
-        id,
-        name: form.name.trim(),
-        side,
-        pax: Math.max(1, Number(form.pax) || 1),
-        phone: form.phone.trim(),
-        relation: form.relation.trim(),
-        address: form.address.trim(),
-        status: "To invite",
-        invite: "Pending",
-      },
-    ]);
-    setForm(blankForm);
-  };
-
   const update = (id: string, patch: Partial<Guest>) =>
     setGuests((p) => p.map((g) => (g.id === id ? { ...g, ...patch } : g)));
   const remove = (id: string) => setGuests((p) => p.filter((g) => g.id !== id));
+
+  const submit = () => {
+    if (!form.name.trim()) return;
+    const fields = {
+      name: form.name.trim(),
+      side: form.side,
+      pax: Math.max(1, Number(form.pax) || 1),
+      phone: form.phone.trim(),
+      relation: form.relation.trim(),
+      address: form.address.trim(),
+    };
+    if (editId) {
+      const orig = guests.find((g) => g.id === editId);
+      const addrChanged = orig && orig.address !== fields.address;
+      // If the address changed, clear old coords so it re-locates.
+      update(editId, { ...fields, ...(addrChanged ? { lat: undefined, lng: undefined } : {}) });
+      setEditId(null);
+    } else {
+      const id =
+        typeof crypto !== "undefined" && crypto.randomUUID ? crypto.randomUUID() : String(Date.now());
+      const side: Side = fields.side || (sideTab === "All" ? "" : sideTab);
+      setGuests((p) => [...p, { id, ...fields, side, status: "To invite", invite: "Pending" }]);
+    }
+    setForm(blankForm);
+  };
+
+  const startEdit = (g: Guest) => {
+    setEditId(g.id);
+    setForm({
+      name: g.name,
+      side: g.side,
+      pax: g.pax,
+      phone: g.phone,
+      relation: g.relation,
+      address: g.address,
+    });
+    if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const cancelEdit = () => {
+    setEditId(null);
+    setForm(blankForm);
+  };
 
   const locate = async (g: Guest) => {
     if (!g.address.trim()) return;
@@ -253,19 +284,37 @@ export default function GuestList() {
         </div>
       </div>
 
-      {/* Add guest */}
-      <div className="rounded-xl border border-kulam/30 bg-white p-4">
+      {/* Add / edit guest */}
+      <div className={`rounded-xl border bg-white p-4 ${editId ? "border-kulam ring-2 ring-kulam/30" : "border-kulam/30"}`}>
         <h3 className="mb-3 font-bold text-kulam-dark">
-          Add a guest {sideTab !== "All" && <span className="text-kulam">({sideTab}&apos;s side)</span>}
+          {editId ? "✏️ Edit guest" : "Add a guest"}{" "}
+          {!editId && sideTab !== "All" && <span className="text-kulam">({sideTab}&apos;s side)</span>}
         </h3>
         <div className="grid gap-2 sm:grid-cols-6">
           <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Name *" className="rounded border border-stone-300 px-2 py-1.5 text-sm sm:col-span-2" />
+          <select value={form.side} onChange={(e) => setForm({ ...form, side: e.target.value as Side })} className="rounded border border-stone-300 px-2 py-1.5 text-sm">
+            <option value="">Side…</option>
+            <option value="Bride">Bride&apos;s</option>
+            <option value="Groom">Groom&apos;s</option>
+          </select>
           <input type="number" min={1} value={form.pax} onChange={(e) => setForm({ ...form, pax: Number(e.target.value) })} placeholder="Pax" className="rounded border border-stone-300 px-2 py-1.5 text-sm" />
-          <input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder="Phone" className="rounded border border-stone-300 px-2 py-1.5 text-sm" />
-          <input value={form.relation} onChange={(e) => setForm({ ...form, relation: e.target.value })} placeholder="Relation" className="rounded border border-stone-300 px-2 py-1.5 text-sm sm:col-span-2" />
-          <input value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} onKeyDown={(e) => e.key === "Enter" && add()} placeholder="Address / area / city (for the map)" className="rounded border border-stone-300 px-2 py-1.5 text-sm sm:col-span-5" />
-          <button onClick={add} className="rounded bg-kulam px-4 py-1.5 text-sm font-semibold text-white hover:bg-kulam-dark">+ Add</button>
+          <input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder="Phone" className="rounded border border-stone-300 px-2 py-1.5 text-sm sm:col-span-2" />
+          <input value={form.relation} onChange={(e) => setForm({ ...form, relation: e.target.value })} placeholder="Relation (uncle, friend…)" className="rounded border border-stone-300 px-2 py-1.5 text-sm sm:col-span-3" />
+          <input value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} onKeyDown={(e) => e.key === "Enter" && submit()} placeholder="Address / area / city (for the map)" className="rounded border border-stone-300 px-2 py-1.5 text-sm sm:col-span-3" />
+          <div className="flex gap-2">
+            <button onClick={submit} className="rounded bg-kulam px-4 py-1.5 text-sm font-semibold text-white hover:bg-kulam-dark">
+              {editId ? "Save" : "+ Add"}
+            </button>
+            {editId && (
+              <button onClick={cancelEdit} className="rounded border border-stone-300 px-3 py-1.5 text-sm font-semibold text-stone-500 hover:bg-stone-50">
+                Cancel
+              </button>
+            )}
+          </div>
         </div>
+        <p className="mt-2 text-xs text-stone-400">
+          * Name is required. Add the <strong>town/city</strong> in the address for the map to find it.
+        </p>
       </div>
 
       {/* Map + route */}
@@ -349,7 +398,10 @@ export default function GuestList() {
                   </button>
                 </td>
                 <td className="px-3 py-2 text-right">
-                  <button onClick={() => remove(g.id)} className="text-stone-300 hover:text-rose-500" aria-label="Remove">✕</button>
+                  <div className="flex justify-end gap-2">
+                    <button onClick={() => startEdit(g)} className="text-stone-400 hover:text-kulam" aria-label="Edit" title="Edit">✏️</button>
+                    <button onClick={() => remove(g.id)} className="text-stone-300 hover:text-rose-500" aria-label="Remove" title="Remove">✕</button>
+                  </div>
                 </td>
               </tr>
             ))}
