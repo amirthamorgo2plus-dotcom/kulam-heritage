@@ -16,12 +16,14 @@ export default function HoroscopePage() {
           groom&apos;s nakshatra and rasi. A score of 18 or more is traditionally
           considered acceptable.
         </p>
-        <Link
-          href="/compatibility"
-          className="mt-3 inline-block text-sm font-semibold text-kulam underline"
-        >
-          → See which gothrams, rasis &amp; nakshatras match (Porutham Guide)
-        </Link>
+        <div className="mt-3 flex flex-col gap-1 text-sm font-semibold text-kulam">
+          <Link href="/compatibility" className="underline">
+            → See which gothrams, rasis &amp; nakshatras match (Porutham Guide)
+          </Link>
+          <Link href="/sample" className="underline">
+            → View a sample jathagam match (with charts)
+          </Link>
+        </div>
       </header>
 
       <HoroscopeCalculator />
