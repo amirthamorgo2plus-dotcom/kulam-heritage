@@ -7,6 +7,7 @@ const links = [
   { href: "/rituals", label: "Rituals" },
   { href: "/temples", label: "Kula Deivam Map" },
   { href: "/horoscope", label: "Horoscope Match" },
+  { href: "/compatibility", label: "Porutham Guide" },
   { href: "/mandapams", label: "Mandapams" },
   { href: "/wedding", label: "Marriage Needs" },
   { href: "/planner", label: "Planner" },

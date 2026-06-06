@@ -1,3 +1,4 @@
+import Link from "next/link";
 import HoroscopeCalculator from "@/components/HoroscopeCalculator";
 
 export const metadata = { title: "Horoscope Match — Kulam Heritage" };
@@ -14,6 +15,12 @@ export default function HoroscopePage() {
           groom&apos;s nakshatra and rasi. A score of 18 or more is traditionally
           considered acceptable.
         </p>
+        <Link
+          href="/compatibility"
+          className="mt-3 inline-block text-sm font-semibold text-kulam underline"
+        >
+          → See which gothrams, rasis &amp; nakshatras match (Porutham Guide)
+        </Link>
       </header>
 
       <HoroscopeCalculator />

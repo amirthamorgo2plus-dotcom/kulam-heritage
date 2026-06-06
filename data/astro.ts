@@ -214,6 +214,51 @@ export interface MatchResult {
   sameGana: boolean;
 }
 
+// ---- Compatibility rankings (for the Porutham Guide) ----
+
+export interface RasiRank {
+  rasi: Rasi;
+  score: number;
+  max: number;
+  bhakootOk: boolean;
+}
+
+// Rank all rasis against a chosen rasi using the rasi-based kootas
+// (Varna + Vashya + Graha Maitri + Bhakoot; max 15).
+export function rankRasis(rasiId: number): RasiRank[] {
+  const base = rasis.find((r) => r.id === rasiId)!;
+  return rasis
+    .filter((r) => r.id !== rasiId)
+    .map((r) => {
+      const bh = bhakootKoota(base, r);
+      const score =
+        varnaKoota(base, r) + vashyaKoota(base, r) + grahaMaitriKoota(base, r) + bh;
+      return { rasi: r, score, max: 1 + 2 + 5 + 7, bhakootOk: bh > 0 };
+    })
+    .sort((a, b) => b.score - a.score);
+}
+
+export interface NakRank {
+  nak: Nakshatra;
+  score: number;
+  max: number;
+  sameNadi: boolean;
+}
+
+// Rank all nakshatras against a chosen one using the star-based kootas
+// (Tara + Yoni + Gana + Nadi; max 21).
+export function rankNakshatras(nakId: number): NakRank[] {
+  const base = nakshatras.find((n) => n.id === nakId)!;
+  return nakshatras
+    .filter((n) => n.id !== nakId)
+    .map((n) => {
+      const score =
+        taraKoota(base, n) + yoniKoota(base, n) + ganaKoota(base, n) + nadiKoota(base, n);
+      return { nak: n, score, max: 3 + 4 + 6 + 8, sameNadi: base.nadi === n.nadi };
+    })
+    .sort((a, b) => b.score - a.score);
+}
+
 export function matchHoroscopes(
   boyNakId: number,
   boyRasiId: number,
