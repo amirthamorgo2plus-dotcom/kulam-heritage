@@ -10,8 +10,9 @@ export default function GuestsPage() {
           Guest List
         </h1>
         <p className="mt-2 max-w-3xl text-stone-700">
-          Build your wedding guest list — track each guest&apos;s side, head
-          count and RSVP status, and see the totals at a glance.
+          Plan one side at a time — switch between the bride&apos;s and
+          groom&apos;s side, add guests with their address, see them on a map,
+          track which invitations are given vs pending, and plan a delivery route.
         </p>
       </header>
 
