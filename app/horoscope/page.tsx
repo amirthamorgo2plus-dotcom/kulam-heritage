@@ -1,5 +1,6 @@
 import Link from "next/link";
 import HoroscopeCalculator from "@/components/HoroscopeCalculator";
+import JathagamReport from "@/components/JathagamReport";
 
 export const metadata = { title: "Horoscope Match — Kulam Heritage" };
 
@@ -24,6 +25,18 @@ export default function HoroscopePage() {
       </header>
 
       <HoroscopeCalculator />
+
+      <section className="mt-12 border-t border-kulam-gold/30 pt-8">
+        <h2 className="font-serif text-2xl font-bold text-kulam-dark">
+          Upload Horoscopes for an AI Report
+        </h2>
+        <p className="mb-5 mt-2 max-w-3xl text-stone-700">
+          Have the printed jathagam pages? Upload the groom&apos;s and bride&apos;s
+          horoscopes and the AI will read the details (even in Tamil) and give a
+          detailed porutham report.
+        </p>
+        <JathagamReport />
+      </section>
     </div>
   );
 }
