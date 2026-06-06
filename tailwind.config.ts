@@ -9,9 +9,12 @@ const config: Config = {
     extend: {
       colors: {
         kulam: {
-          DEFAULT: "#9a2d1f",
-          dark: "#6f1d14",
-          gold: "#c79a3a",
+          DEFAULT: "#DC143C", // Crimson — modern red (primary)
+          dark: "#A30E2C", // deep crimson — nav background / hover
+          // Emerald — modern green accent. (Token kept named "gold" so all
+          // existing `kulam-gold` classes pick it up; it now renders emerald.)
+          gold: "#50C878",
+          emerald: "#50C878",
           cream: "#fbf6ec",
         },
       },
