@@ -1,21 +1,58 @@
--- Seed the venues (kalyana mandapams) table — Coimbatore.
+-- Seed the venues (kalyana mandapams) table — 50 curated Coimbatore venues.
 -- Paste into the Supabase SQL editor AFTER running schema.sql. Safe to re-run.
 
 insert into public.venues
   (id, name, area, district, lat, lng, capacity_min, capacity_max, plate_veg, plate_nonveg) values
-  (1,  'Jenneys Residency',         'Peelamedu',      'Coimbatore', 11.0259, 77.0010, 10,   2250, 625,  820),
-  (2,  'Hemambigai Marriage Hall',  'Eachanari',      'Coimbatore', 10.9333, 76.9667, 500,  750,  300,  400),
-  (3,  'Sri Ayyapan Pooja Sangam',  'Ram Nagar',      'Coimbatore', 11.0027, 76.9706, 350,  600,  300,  null),
-  (4,  'Le Meridien',               'Neelambur',      'Coimbatore', 11.0750, 77.1300, 14,   2700, 1200, 1400),
-  (5,  'Shree Anandhaas',           'Vadavalli',      'Coimbatore', 11.0260, 76.8870, 100,  400,  400,  null),
-  (6,  'Shree Aksshayam',           'Avarampalayam',  'Coimbatore', 11.0290, 76.9870, 200,  300,  350,  null),
-  (7,  'Suguna Kalyana Mandapam',   'Peelamedu',      'Coimbatore', 11.0265, 77.0025, 800,  1200, 400,  null),
-  (8,  'Selvam Mahaal',             'Eachanari',      'Coimbatore', 10.9340, 76.9680, 400,  1800, 350,  450),
-  (9,  'Vijay Park Inn',            'Ram Nagar',      'Coimbatore', 11.0035, 76.9712, 30,   550,  300,  400),
-  (10, 'Sree Annapoorna',           'Saibaba Colony', 'Coimbatore', 11.0230, 76.9450, 120,  200,  245,  null),
-  (11, 'Mani Mahal',                'Peelamedu (Kamarajar Road)', 'Coimbatore', 11.0262, 77.0050, 300, 1200, null, null),
-  (12, 'Sri Krishna Gounder Kalyana Mandapam', 'Ganapathy', 'Coimbatore', 11.0380, 76.9700, 1000, 1500, null, null)
+  (1, 'Jenneys Residency', 'Peelamedu', 'Coimbatore', 11.0259, 77.001, 10, 2250, 625, 820),
+  (2, 'Le Meridien', 'Neelambur', 'Coimbatore', 11.075, 77.13, 14, 2700, 1200, 1400),
+  (3, 'Suguna Kalyana Mandapam', 'Peelamedu', 'Coimbatore', 11.0265, 77.0025, 500, 1200, 400, null),
+  (4, 'Selvam Mahaal', 'Eachanari', 'Coimbatore', 10.934, 76.968, 400, 1800, 350, 450),
+  (5, 'Hemambigai Marriage Hall', 'Eachanari', 'Coimbatore', 10.9333, 76.9667, 500, 750, 300, 400),
+  (6, 'Sri Ayyapan Pooja Sangam', 'Ram Nagar', 'Coimbatore', 11.0027, 76.9706, 350, 600, 300, null),
+  (7, 'Shree Anandhaas', 'Vadavalli', 'Coimbatore', 11.026, 76.887, 100, 400, 400, null),
+  (8, 'Shree Aksshayam', 'Avarampalayam', 'Coimbatore', 11.029, 76.987, 200, 300, 350, null),
+  (9, 'Vijay Park Inn', 'Ram Nagar', 'Coimbatore', 11.0035, 76.9712, 30, 550, 300, 400),
+  (10, 'Sree Annapoorna', 'Saibaba Colony', 'Coimbatore', 11.023, 76.945, 120, 200, 245, null),
+  (11, 'Mani Mahal (A/C, pure veg)', 'Peelamedu', 'Coimbatore', 11.0262, 77.005, 300, 1200, null, null),
+  (12, 'Sri Krishna Gounder Kalyana Mandapam (A/C)', 'Ganapathy', 'Coimbatore', 11.038, 76.97, 1000, 1500, null, null),
+  (13, 'Tharaga Mahal', 'Periyanaickenpalayam', 'Coimbatore', 11.11, 76.945, null, 500, null, null),
+  (14, 'Grand Plaza JD Hall', 'Gopalapuram', 'Coimbatore', 11.01, 76.975, null, 150, null, null),
+  (15, 'Mangal Akshatha Marriage Hall', 'Thudiyalur', 'Coimbatore', 11.085, 76.945, null, 800, null, null),
+  (16, 'Sankaranarayana Mahal', 'Vadavalli', 'Coimbatore', 11.026, 76.887, null, 500, null, null),
+  (17, 'GSN Thirumana Arangam', 'Sulur', 'Coimbatore', 11.024, 77.124, null, 800, null, null),
+  (18, 'Sara Mahal', 'Ottakkalmandapam', 'Coimbatore', 10.9, 76.96, null, 200, null, null),
+  (19, 'Vilvam Hall', 'Selvapuram', 'Coimbatore', 10.99, 76.94, null, 250, null, null),
+  (20, 'KN Hall', 'Anaikatti Road', 'Coimbatore', 11.06, 76.85, null, 350, null, null),
+  (21, 'Seyon Grand', 'Ram Nagar', 'Coimbatore', 11.003, 76.971, null, 70, null, null),
+  (22, 'Brindhavan Auditorium', 'Chinnampalayam', 'Coimbatore', 11.06, 77.05, null, 800, null, null),
+  (23, 'SMR Thirumana Mandapam', 'Koundampalayam', 'Coimbatore', 11.043, 76.94, null, 1000, null, null),
+  (24, 'Sri Sai Vivaha Mahal', 'Uppilipalayam', 'Coimbatore', 11, 77, null, 1000, null, null),
+  (25, 'Shri Vasavi Mithra Mahal Grand Akshayam', 'Telungupalayam', 'Coimbatore', 11.01, 76.955, null, 250, null, null),
+  (26, 'AKA Kalyana Mandapam', 'Edayarpalayam', 'Coimbatore', 11.03, 76.93, null, 700, null, null),
+  (27, 'Globus Centre', 'Saravanampatti', 'Coimbatore', 11.078, 77.005, null, 1000, null, null),
+  (28, 'Shri BMN Raaj Mahal', 'Perur', 'Coimbatore', 10.975, 76.91, null, 2000, null, null),
+  (29, 'Codissia Trade Fair Complex', 'Avinashi Road', 'Coimbatore', 11.03, 77, null, 3000, null, null),
+  (30, 'Kettimelam Mahal', 'Kalapatti', 'Coimbatore', 11.075, 77.03, 800, 1200, null, null),
+  (31, 'Vignesh Mahal Kalyana Mandapam', 'Puliakulam', 'Coimbatore', 11.005, 76.985, null, null, null, null),
+  (32, 'Ramalakshmi Mahal (A/C)', 'Avinashi Road', 'Coimbatore', 11.03, 77, null, null, null, null),
+  (33, 'GP Grand Galaxy (A/C)', 'Gandhipuram', 'Coimbatore', 11.018, 76.972, null, null, null, null),
+  (34, 'Lotus Mahal (Mahilam Hall)', 'Perur', 'Coimbatore', 10.975, 76.91, null, null, null, null),
+  (35, 'Alankar Grande', 'Ram Nagar', 'Coimbatore', 11.003, 76.971, null, null, null, null),
+  (36, 'The Grand Regent', 'Pappanaicken Palayam', 'Coimbatore', 11.02, 76.96, null, null, null, null),
+  (37, 'Kiscol Grands', 'Tatabad', 'Coimbatore', 11.02, 76.96, null, null, null, null),
+  (38, 'CAG Pride', 'Gandhipuram', 'Coimbatore', 11.018, 76.972, null, null, null, null),
+  (39, 'Sree Rukumaniammal Banquet Hall', 'Periyanaickenpalayam', 'Coimbatore', 11.11, 76.945, null, null, null, null),
+  (40, 'Shivas Arangam (A/C)', 'Ganapathy', 'Coimbatore', 11.038, 76.97, null, null, null, null),
+  (41, 'Geetha Hall', 'Coimbatore Railway Station', 'Coimbatore', 10.999, 76.967, null, null, null, null),
+  (42, 'Surabhi Function Hall', 'Edayarpalayam', 'Coimbatore', 11.03, 76.93, null, null, null, null),
+  (43, 'RR Grand Inn Varni Hall', 'Edayarpalayam', 'Coimbatore', 11.03, 76.93, null, null, null, null),
+  (44, 'The Orbis', 'Peelamedu', 'Coimbatore', 11.026, 77.005, null, null, null, null),
+  (45, 'Hotel Mangala International', 'Ram Nagar', 'Coimbatore', 11.003, 76.971, null, null, null, null),
+  (46, 'Chetinaad Courtyard', 'Saibaba Colony', 'Coimbatore', 11.023, 76.945, null, null, null, null),
+  (47, 'Brookfields Banquet Hall', 'RS Puram', 'Coimbatore', 11.007, 76.949, null, null, null, null),
+  (48, 'The Residency Towers', 'Avinashi Road', 'Coimbatore', 11.02, 76.99, null, null, null, null),
+  (49, 'SVVV Hall', 'Cheran Ma Nagar', 'Coimbatore', 11.05, 77, null, null, null, null),
+  (50, 'Annapoorna Aarunya Hall', 'Peelamedu', 'Coimbatore', 11.026, 77.005, null, null, null, null)
 on conflict (id) do nothing;
 
--- Keep the auto-id sequence ahead of the seeded ids (so app inserts don't clash).
-select setval(pg_get_serial_sequence('public.venues', 'id'), (select max(id) from public.venues));
+select setval(pg_get_serial_sequence('public.venues','id'), (select max(id) from public.venues));

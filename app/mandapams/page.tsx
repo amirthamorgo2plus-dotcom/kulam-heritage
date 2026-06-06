@@ -19,9 +19,9 @@ async function getMandapams(): Promise<Mandapam[]> {
         district: v.district ?? "",
         lat: v.lat ?? 0,
         lng: v.lng ?? 0,
-        capacityMin: v.capacity_min ?? 0,
-        capacityMax: v.capacity_max ?? 0,
-        plateVeg: v.plate_veg ?? 0,
+        capacityMin: v.capacity_min ?? undefined,
+        capacityMax: v.capacity_max ?? undefined,
+        plateVeg: v.plate_veg ?? undefined,
         plateNonVeg: v.plate_nonveg ?? undefined,
       }));
     }

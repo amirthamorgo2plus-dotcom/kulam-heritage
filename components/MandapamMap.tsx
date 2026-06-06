@@ -17,6 +17,12 @@ const icon = L.icon({
 
 const inr = (n: number) => "₹" + n.toLocaleString("en-IN");
 
+const capacityText = (m: { capacityMin?: number; capacityMax?: number }) => {
+  if (m.capacityMax == null) return "Capacity on request";
+  if (m.capacityMin) return `${m.capacityMin}–${m.capacityMax} guests`;
+  return `Up to ${m.capacityMax} guests`;
+};
+
 export default function MandapamMap({ mandapams }: { mandapams: Mandapam[] }) {
   const districts = useMemo(
     () => ["All", ...Array.from(new Set(mandapams.map((m) => m.district))).sort()],
@@ -32,7 +38,7 @@ export default function MandapamMap({ mandapams }: { mandapams: Mandapam[] }) {
       mandapams.filter(
         (m) =>
           (m.plateVeg == null || m.plateVeg <= maxPlate) &&
-          m.capacityMax >= minCapacity &&
+          (m.capacityMax == null || m.capacityMax >= minCapacity) &&
           (district === "All" || m.district === district)
       ),
     [mandapams, maxPlate, minCapacity, district]
@@ -121,7 +127,7 @@ export default function MandapamMap({ mandapams }: { mandapams: Mandapam[] }) {
                   </div>
                   <div className="text-xs">
                     <span className="font-semibold">Capacity:</span>{" "}
-                    {m.capacityMin}–{m.capacityMax} guests
+                    {capacityText(m)}
                   </div>
                 </div>
               </Popup>
@@ -145,9 +151,7 @@ export default function MandapamMap({ mandapams }: { mandapams: Mandapam[] }) {
                 ? `${inr(m.plateVeg)}/plate veg${m.plateNonVeg ? ` · ${inr(m.plateNonVeg)} non-veg` : ""}`
                 : "Price on request"}
             </div>
-            <div className="text-xs text-stone-500">
-              {m.capacityMin}–{m.capacityMax} guests
-            </div>
+            <div className="text-xs text-stone-500">{capacityText(m)}</div>
           </div>
         ))}
       </div>
