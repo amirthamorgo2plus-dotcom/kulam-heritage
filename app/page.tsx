@@ -10,7 +10,7 @@ const cards = [
   {
     href: "/directory",
     title: "Kulam Directory",
-    desc: "Search 130+ Kammavar kulams by surname, gothram & kula deivam.",
+    desc: "Search 220+ Kammavar kulams by surname, gothram & kula deivam.",
     icon: "🔎",
   },
   {
