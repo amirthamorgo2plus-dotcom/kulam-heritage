@@ -16,7 +16,7 @@ const links = [
 
 export default function Nav() {
   return (
-    <header className="bg-kulam-dark text-kulam-cream shadow-md">
+    <header className="bg-gradient-to-r from-teal-600 to-emerald-500 text-white shadow-md">
       <nav className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2 px-4 py-3">
         <Link href="/" className="flex items-center gap-2 font-serif text-xl font-bold">
           <span className="text-kulam-gold">॥</span> Kulam Heritage

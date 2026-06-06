@@ -34,7 +34,19 @@ interface Guest {
 const KEY = "kh_guests_v1";
 const statuses: RSVP[] = ["To invite", "Invited", "Confirmed", "Declined"];
 
-const blankForm = { name: "", side: "" as Side, pax: 1, phone: "", relation: "", address: "" };
+const blankForm = { name: "", side: "" as Side, pax: 1, phone: "", relation: "", address: "", coords: "" };
+
+// Pull lat/lng out of a Google Maps link or a plain "lat, lng" string.
+function parseCoords(s: string): { lat: number; lng: number } | null {
+  if (!s) return null;
+  const at = s.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/);
+  if (at) return { lat: +at[1], lng: +at[2] };
+  const q = s.match(/[?&]q=(-?\d+\.\d+),(-?\d+\.\d+)/);
+  if (q) return { lat: +q[1], lng: +q[2] };
+  const any = s.match(/(-?\d{1,2}\.\d{3,})\s*,\s*(-?\d{1,3}\.\d{3,})/);
+  if (any) return { lat: +any[1], lng: +any[2] };
+  return null;
+}
 
 // Geocode an address via OpenStreetMap, trying a few variants for a better hit.
 async function geocode(q: string): Promise<{ lat: number; lng: number } | null> {
@@ -92,6 +104,8 @@ export default function GuestList() {
   const [showRoute, setShowRoute] = useState(false);
   const [busy, setBusy] = useState<string>("");
   const [editId, setEditId] = useState<string | null>(null);
+  const [importText, setImportText] = useState("");
+  const [showImport, setShowImport] = useState(false);
 
   useEffect(() => {
     try {
@@ -151,6 +165,7 @@ export default function GuestList() {
 
   const submit = () => {
     if (!form.name.trim()) return;
+    const pasted = parseCoords(form.coords);
     const fields = {
       name: form.name.trim(),
       side: form.side,
@@ -162,16 +177,53 @@ export default function GuestList() {
     if (editId) {
       const orig = guests.find((g) => g.id === editId);
       const addrChanged = orig && orig.address !== fields.address;
-      // If the address changed, clear old coords so it re-locates.
-      update(editId, { ...fields, ...(addrChanged ? { lat: undefined, lng: undefined } : {}) });
+      update(editId, {
+        ...fields,
+        // Pasted coords win; else clear coords if the address text changed.
+        ...(pasted ? pasted : addrChanged ? { lat: undefined, lng: undefined } : {}),
+      });
       setEditId(null);
     } else {
       const id =
         typeof crypto !== "undefined" && crypto.randomUUID ? crypto.randomUUID() : String(Date.now());
       const side: Side = fields.side || (sideTab === "All" ? "" : sideTab);
-      setGuests((p) => [...p, { id, ...fields, side, status: "To invite", invite: "Pending" }]);
+      setGuests((p) => [
+        ...p,
+        { id, ...fields, side, status: "To invite", invite: "Pending", ...(pasted || {}) },
+      ]);
     }
     setForm(blankForm);
+  };
+
+  // Bulk import: paste one guest per line as "Name, Address" (or "Name, Phone, Address").
+  const importList = () => {
+    const side: Side = sideTab === "All" ? "" : sideTab;
+    const newGuests: Guest[] = [];
+    importText.split("\n").forEach((line) => {
+      const parts = line.split(",").map((s) => s.trim()).filter(Boolean);
+      if (!parts.length) return;
+      const name = parts[0];
+      if (!name) return;
+      // If a part looks like a phone, treat it as phone; rest = address.
+      const phonePart = parts.slice(1).find((p) => /^[+\d][\d\s-]{6,}$/.test(p));
+      const address = parts.slice(1).filter((p) => p !== phonePart).join(", ");
+      newGuests.push({
+        id: (typeof crypto !== "undefined" && crypto.randomUUID ? crypto.randomUUID() : String(Date.now() + Math.random())),
+        name,
+        side,
+        pax: 1,
+        phone: phonePart || "",
+        relation: "",
+        address,
+        status: "To invite",
+        invite: "Pending",
+      });
+    });
+    if (newGuests.length) setGuests((p) => [...p, ...newGuests]);
+    setImportText("");
+    setShowImport(false);
+    if (newGuests.length)
+      alert(`Added ${newGuests.length} guests. Now tap "Locate all" to place them on the map.`);
   };
 
   const startEdit = (g: Guest) => {
@@ -183,6 +235,7 @@ export default function GuestList() {
       phone: g.phone,
       relation: g.relation,
       address: g.address,
+      coords: g.lat != null && g.lng != null ? `${g.lat}, ${g.lng}` : "",
     });
     if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -307,6 +360,7 @@ export default function GuestList() {
           <input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder="Phone" className="rounded border border-stone-300 px-2 py-1.5 text-sm sm:col-span-2" />
           <input value={form.relation} onChange={(e) => setForm({ ...form, relation: e.target.value })} placeholder="Relation (uncle, friend…)" className="rounded border border-stone-300 px-2 py-1.5 text-sm sm:col-span-3" />
           <input value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} onKeyDown={(e) => e.key === "Enter" && submit()} placeholder="Address / area / city (for the map)" className="rounded border border-stone-300 px-2 py-1.5 text-sm sm:col-span-3" />
+          <input value={form.coords} onChange={(e) => setForm({ ...form, coords: e.target.value })} placeholder="📌 Google Maps link or lat, lng (exact pin)" className="rounded border border-stone-300 px-2 py-1.5 text-sm sm:col-span-4" />
           <div className="flex gap-2">
             <button onClick={submit} className="rounded bg-kulam px-4 py-1.5 text-sm font-semibold text-white hover:bg-kulam-dark">
               {editId ? "Save" : "+ Add"}
@@ -319,8 +373,32 @@ export default function GuestList() {
           </div>
         </div>
         <p className="mt-2 text-xs text-stone-400">
-          * Name is required. Add the <strong>town/city</strong> in the address for the map to find it.
+          * Name is required. Add the <strong>town/city</strong> for the map, or paste a{" "}
+          <strong>Google Maps link / lat, lng</strong> for an exact pin.
         </p>
+        <div className="mt-2">
+          <button onClick={() => setShowImport((v) => !v)} className="text-sm font-semibold text-kulam underline">
+            {showImport ? "Close import" : "📋 Paste a whole list"}
+          </button>
+        </div>
+        {showImport && (
+          <div className="mt-2 rounded-lg border border-kulam/30 bg-kulam/5 p-3">
+            <p className="mb-1 text-xs text-stone-600">
+              One guest per line, as <strong>Name, Address</strong> (phone optional). Side ={" "}
+              {sideTab === "All" ? "(none — pick a side tab first to auto-tag)" : `${sideTab}'s`}.
+            </p>
+            <textarea
+              value={importText}
+              onChange={(e) => setImportText(e.target.value)}
+              rows={5}
+              placeholder={"Murugan Anna, RS Puram, Coimbatore\nLakshmi Athai, 98xxxxxxx, Gandhipuram, Coimbatore"}
+              className="w-full rounded border border-stone-300 px-2 py-1.5 text-sm"
+            />
+            <button onClick={importList} className="mt-2 rounded bg-kulam px-4 py-1.5 text-sm font-semibold text-white hover:bg-kulam-dark">
+              Add these guests
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Map + route */}
