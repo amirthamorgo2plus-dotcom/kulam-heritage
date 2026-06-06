@@ -64,7 +64,13 @@ Write a balanced, encouraging insight in 3–4 short sentences (about 70–110 w
         cache: "no-store",
         body: JSON.stringify({
           contents: [{ parts: [{ text: prompt }] }],
-          generationConfig: { temperature: 0.7, maxOutputTokens: 300 },
+          generationConfig: {
+            temperature: 0.7,
+            maxOutputTokens: 800,
+            // gemini-2.5-flash is a thinking model; disable thinking so the
+            // token budget goes to the actual answer (avoids truncation).
+            thinkingConfig: { thinkingBudget: 0 },
+          },
         }),
       }
     );

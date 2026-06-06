@@ -69,7 +69,12 @@ Be balanced and non-deterministic; do not promise outcomes. End with: "Please co
               ],
             },
           ],
-          generationConfig: { temperature: 0.6, maxOutputTokens: 1800 },
+          generationConfig: {
+            temperature: 0.6,
+            maxOutputTokens: 2600,
+            // Disable thinking so the full report fits in the token budget.
+            thinkingConfig: { thinkingBudget: 0 },
+          },
         }),
       }
     );
