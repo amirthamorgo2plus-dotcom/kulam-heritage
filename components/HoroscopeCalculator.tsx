@@ -10,6 +10,14 @@ import {
   type Porutham,
 } from "@/data/astro";
 
+// Gen-Z vibe verdict from the guna total.
+function genZVibe(total: number): { line: string; sub: string } {
+  if (total >= 32) return { line: "Written in the stars ✨", sub: "major green flags fr" };
+  if (total >= 26) return { line: "Strong cosmic vibes 💫", sub: "this one's giving promise" };
+  if (total >= 18) return { line: "Solid potential 🌙", sub: "worth exploring with intention" };
+  return { line: "Stars say slow down 🤔", sub: "a lot to think about, no rush" };
+}
+
 function PersonInputs({
   label,
   nak,
@@ -117,6 +125,82 @@ export default function HoroscopeCalculator() {
     }
   };
 
+  const shareCard = async () => {
+    if (!result) return;
+    const vibe = genZVibe(result.total);
+    const matches = poruthams ? poruthams.filter((p) => p.ok).length : 0;
+    const boyName = nakshatras.find((n) => n.id === boyNak)?.name;
+    const girlName = nakshatras.find((n) => n.id === girlNak)?.name;
+
+    const c = document.createElement("canvas");
+    c.width = 1080;
+    c.height = 1350;
+    const ctx = c.getContext("2d");
+    if (!ctx) return;
+    const g = ctx.createLinearGradient(0, 0, 1080, 1350);
+    g.addColorStop(0, "#7C5CBF");
+    g.addColorStop(1, "#4C3A77");
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, 1080, 1350);
+    ctx.textAlign = "center";
+
+    ctx.fillStyle = "rgba(255,255,255,0.85)";
+    ctx.font = "600 46px Georgia";
+    ctx.fillText("✨ Cosmic Compatibility ✨", 540, 180);
+
+    ctx.fillStyle = "#fff";
+    ctx.font = "900 320px Georgia";
+    ctx.fillText(`${pct}%`, 540, 560);
+
+    ctx.fillStyle = "#EC8B73";
+    ctx.font = "bold 60px Georgia";
+    ctx.fillText(vibe.line, 540, 700);
+
+    ctx.fillStyle = "rgba(255,255,255,0.9)";
+    ctx.font = "italic 40px Georgia";
+    ctx.fillText(vibe.sub, 540, 770);
+
+    ctx.fillStyle = "#fff";
+    ctx.font = "44px Georgia";
+    ctx.fillText(`${boyName}  ✦  ${girlName}`, 540, 920);
+
+    ctx.fillStyle = "rgba(255,255,255,0.85)";
+    ctx.font = "40px Georgia";
+    ctx.fillText(`${result.total}/36 guna  ·  ${matches}/10 porutham`, 540, 1010);
+
+    ctx.fillStyle = "rgba(255,255,255,0.55)";
+    ctx.font = "34px Georgia";
+    ctx.fillText("Kulam Heritage", 540, 1270);
+
+    await new Promise<void>((resolve) =>
+      c.toBlob(async (blob) => {
+        if (!blob) return resolve();
+        const file = new File([blob], "cosmic-compatibility.png", { type: "image/png" });
+        const navAny = navigator as Navigator & {
+          canShare?: (d: { files: File[] }) => boolean;
+          share?: (d: { files?: File[]; title?: string; text?: string }) => Promise<void>;
+        };
+        try {
+          if (navAny.canShare?.({ files: [file] }) && navAny.share) {
+            await navAny.share({ files: [file], title: "Our Cosmic Compatibility ✨" });
+          } else {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "cosmic-compatibility.png";
+            a.click();
+            URL.revokeObjectURL(url);
+          }
+        } catch {
+          /* user cancelled share */
+        }
+        resolve();
+      }, "image/png")
+    );
+  };
+
+  const vibe = result ? genZVibe(result.total) : null;
+
   return (
     <div className="space-y-6">
       <div className="grid gap-4 sm:grid-cols-2">
@@ -144,10 +228,25 @@ export default function HoroscopeCalculator() {
 
           <div className="mt-3 h-3 w-full overflow-hidden rounded-full bg-stone-200">
             <div
-              className={`h-full ${good ? "bg-green-600" : "bg-red-500"}`}
+              className={`h-full ${good ? "bg-kulam-emerald" : "bg-rose-400"}`}
               style={{ width: `${pct}%` }}
             />
           </div>
+
+          {vibe && (
+            <div className="mt-3 flex flex-wrap items-center justify-between gap-2 rounded-lg bg-kulam/5 px-3 py-2">
+              <div>
+                <span className="text-base font-bold text-kulam">{vibe.line}</span>
+                <span className="ml-2 text-sm text-stone-500">{vibe.sub}</span>
+              </div>
+              <button
+                onClick={shareCard}
+                className="rounded-lg bg-kulam-gold px-3 py-1.5 text-sm font-semibold text-white shadow transition hover:brightness-95"
+              >
+                📤 Share card
+              </button>
+            </div>
+          )}
 
           {(result.sameNadi || result.sameGana) && (
             <ul className="mt-3 space-y-1 text-sm">
