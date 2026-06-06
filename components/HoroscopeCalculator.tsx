@@ -53,9 +53,60 @@ export default function HoroscopeCalculator() {
   const [girlNak, setGirlNak] = useState(4);
   const [girlRasi, setGirlRasi] = useState(2);
   const [result, setResult] = useState<MatchResult | null>(null);
+  const [ai, setAi] = useState<{ loading: boolean; text: string | null; error: string | null }>({
+    loading: false,
+    text: null,
+    error: null,
+  });
 
   const pct = result ? Math.round((result.total / result.max) * 100) : 0;
   const good = result ? result.total >= 18 : false;
+
+  const runMatch = () => {
+    setResult(matchHoroscopes(boyNak, boyRasi, girlNak, girlRasi));
+    setAi({ loading: false, text: null, error: null });
+  };
+
+  const getInsight = async () => {
+    if (!result) return;
+    setAi({ loading: true, text: null, error: null });
+    try {
+      const payload = {
+        boy: {
+          nakshatra: nakshatras.find((n) => n.id === boyNak)?.name,
+          rasi: rasis.find((r) => r.id === boyRasi)?.name,
+        },
+        girl: {
+          nakshatra: nakshatras.find((n) => n.id === girlNak)?.name,
+          rasi: rasis.find((r) => r.id === girlRasi)?.name,
+        },
+        total: result.total,
+        max: result.max,
+        verdict: result.verdict,
+        sameNadi: result.sameNadi,
+        sameGana: result.sameGana,
+        kootas: result.kootas.map((k) => ({ name: k.name, score: k.score, max: k.max })),
+      };
+      const res = await fetch("/api/jathaga-insight", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (data.insight) setAi({ loading: false, text: data.insight, error: null });
+      else
+        setAi({
+          loading: false,
+          text: null,
+          error:
+            data.configured === false
+              ? "AI insights aren't set up yet — add a free Gemini API key."
+              : data.error || "Could not get an insight.",
+        });
+    } catch {
+      setAi({ loading: false, text: null, error: "Could not reach the AI service." });
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -65,7 +116,7 @@ export default function HoroscopeCalculator() {
       </div>
 
       <button
-        onClick={() => setResult(matchHoroscopes(boyNak, boyRasi, girlNak, girlRasi))}
+        onClick={runMatch}
         className="rounded-lg bg-kulam px-6 py-2.5 font-semibold text-white shadow transition hover:bg-kulam-dark"
       >
         Match Horoscopes
@@ -124,6 +175,33 @@ export default function HoroscopeCalculator() {
               ))}
             </tbody>
           </table>
+
+          {/* AI insight */}
+          <div className="mt-4 rounded-lg border border-kulam-emerald/50 bg-kulam-emerald/10 p-3">
+            {!ai.text && !ai.loading && (
+              <button
+                onClick={getInsight}
+                className="rounded-lg bg-kulam-emerald px-4 py-2 text-sm font-semibold text-white shadow transition hover:brightness-95"
+              >
+                ✨ Get AI insight
+              </button>
+            )}
+            {ai.loading && (
+              <p className="text-sm text-stone-500">✨ Generating insight…</p>
+            )}
+            {ai.text && (
+              <div>
+                <div className="mb-1 text-xs font-semibold uppercase tracking-wide text-kulam-emerald">
+                  ✨ AI insight
+                </div>
+                <p className="whitespace-pre-line text-sm text-stone-700">{ai.text}</p>
+                <p className="mt-1 text-[11px] italic text-stone-400">
+                  AI-generated guidance — not a substitute for a qualified astrologer.
+                </p>
+              </div>
+            )}
+            {ai.error && <p className="text-sm text-red-600">{ai.error}</p>}
+          </div>
 
           <p className="mt-4 text-xs italic text-stone-500">
             Indicative result only. The minimum recommended score is 18/36. Always
