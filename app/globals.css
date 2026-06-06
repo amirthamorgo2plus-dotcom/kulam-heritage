@@ -10,7 +10,7 @@
 
 body {
   background: theme("colors.kulam.cream");
-  color: #2b2118;
+  color: #0f172a; /* Deep Ink */
 }
 
 .leaflet-container {

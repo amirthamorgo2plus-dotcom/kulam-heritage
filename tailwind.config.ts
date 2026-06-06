@@ -8,15 +8,16 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Mild-rich, Gen-Z palette: grape/violet primary + coral + teal-mint.
+        // "Digital Matcha" palette — matcha green + electric cyan + acid lemon
+        // on a clean white canvas with deep-ink text.
         kulam: {
-          DEFAULT: "#7C5CBF", // grape / digital-lavender (primary)
-          dark: "#4C3A77", // deep indigo-violet (nav / hover)
-          // Warm coral accent. (Token still named "gold" so existing
-          // `kulam-gold` classes pick it up; it now renders coral.)
-          gold: "#EC8B73",
-          emerald: "#2DB39A", // teal-mint — positive / "match" accent
-          cream: "#F7F4FB", // soft lavender-tinted off-white
+          DEFAULT: "#22C55E", // Hyper Matcha (primary)
+          dark: "#0F172A", // Deep Ink (nav bg / headings / hover)
+          // Acid Lemon accent. (Token still named "gold" so existing
+          // `kulam-gold` classes pick it up; it now renders acid lemon.)
+          gold: "#EAB308",
+          emerald: "#06B6D4", // Electric Cyan — secondary / "match" accent
+          cream: "#FFFFFF", // Pure Minimal canvas
         },
       },
       fontFamily: {
