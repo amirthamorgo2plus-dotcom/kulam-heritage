@@ -1,7 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { nakshatras, rasis, matchHoroscopes, type MatchResult } from "@/data/astro";
+import {
+  nakshatras,
+  rasis,
+  matchHoroscopes,
+  tenPoruthams,
+  type MatchResult,
+  type Porutham,
+} from "@/data/astro";
 
 function PersonInputs({
   label,
@@ -53,6 +60,7 @@ export default function HoroscopeCalculator() {
   const [girlNak, setGirlNak] = useState(4);
   const [girlRasi, setGirlRasi] = useState(2);
   const [result, setResult] = useState<MatchResult | null>(null);
+  const [poruthams, setPoruthams] = useState<Porutham[] | null>(null);
   const [ai, setAi] = useState<{ loading: boolean; text: string | null; error: string | null }>({
     loading: false,
     text: null,
@@ -64,6 +72,7 @@ export default function HoroscopeCalculator() {
 
   const runMatch = () => {
     setResult(matchHoroscopes(boyNak, boyRasi, girlNak, girlRasi));
+    setPoruthams(tenPoruthams(boyNak, boyRasi, girlNak, girlRasi));
     setAi({ loading: false, text: null, error: null });
   };
 
@@ -175,6 +184,41 @@ export default function HoroscopeCalculator() {
               ))}
             </tbody>
           </table>
+
+          {/* 10 Porutham (Tamil) */}
+          {poruthams && (
+            <div className="mt-6">
+              <div className="mb-2 flex items-baseline justify-between">
+                <h3 className="font-bold text-kulam-dark">10 Porutham (Tamil)</h3>
+                <span className="text-sm font-semibold text-kulam">
+                  {poruthams.filter((p) => p.ok).length} / 10 match
+                </span>
+              </div>
+              <div className="space-y-1.5">
+                {poruthams.map((p) => (
+                  <div key={p.name} className="flex items-center gap-2">
+                    <span className="w-28 flex-none text-sm font-semibold">{p.name}</span>
+                    <div className="h-5 flex-1 overflow-hidden rounded-full bg-stone-100">
+                      <div
+                        className={`flex h-full items-center rounded-full px-2 text-[11px] font-semibold text-white ${
+                          p.ok ? "bg-kulam-emerald" : "bg-rose-400"
+                        }`}
+                        style={{ width: p.ok ? "100%" : "38%" }}
+                      >
+                        {p.ok ? "✓ match" : "✗"}
+                      </div>
+                    </div>
+                    <span className="hidden w-44 flex-none text-xs text-stone-500 sm:block">
+                      {p.note}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-2 text-xs italic text-stone-400">
+                Tamil Dasa Porutham — Rajju and Vedha are the most important. Indicative only.
+              </p>
+            </div>
+          )}
 
           {/* AI insight */}
           <div className="mt-4 rounded-lg border border-kulam-emerald/50 bg-kulam-emerald/10 p-3">

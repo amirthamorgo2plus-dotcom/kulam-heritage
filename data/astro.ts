@@ -259,6 +259,58 @@ export function rankNakshatras(nakId: number): NakRank[] {
     .sort((a, b) => b.score - a.score);
 }
 
+// ---- 10 Porutham (Tamil Dasa Porutham) ----
+
+// Rajju group per nakshatra id (same rajju between couple = dosha).
+const RAJJU: Record<number, string> = {};
+[1, 9, 10, 18, 19, 27].forEach((i) => (RAJJU[i] = "Paada (foot)"));
+[2, 8, 11, 17, 20, 26].forEach((i) => (RAJJU[i] = "Kati (hip)"));
+[3, 7, 12, 16, 21, 25].forEach((i) => (RAJJU[i] = "Udhara (stomach)"));
+[4, 6, 13, 15, 22, 24].forEach((i) => (RAJJU[i] = "Kanta (neck)"));
+[5, 14, 23].forEach((i) => (RAJJU[i] = "Sira (head)"));
+
+// Mutually afflicting (Vedha) nakshatra pairs.
+const VEDHA = new Set(
+  [
+    [1, 18], [2, 17], [3, 16], [4, 15], [5, 23], [6, 22], [7, 21],
+    [8, 20], [9, 19], [10, 27], [11, 26], [12, 25], [13, 24],
+  ].map((p) => p.sort((a, b) => a - b).join("-"))
+);
+
+export interface Porutham {
+  name: string;
+  ok: boolean;
+  note: string;
+}
+
+export function tenPoruthams(
+  boyNakId: number,
+  boyRasiId: number,
+  girlNakId: number,
+  girlRasiId: number
+): Porutham[] {
+  const boyN = nakshatras.find((n) => n.id === boyNakId)!;
+  const girlN = nakshatras.find((n) => n.id === girlNakId)!;
+  const boyR = rasis.find((r) => r.id === boyRasiId)!;
+  const girlR = rasis.find((r) => r.id === girlRasiId)!;
+
+  const countGB = ((boyN.id - girlN.id + 27) % 27) + 1; // girl's star → boy's star
+  const vedhaKey = [boyN.id, girlN.id].sort((a, b) => a - b).join("-");
+
+  return [
+    { name: "Dina", ok: [0, 2, 4, 6, 8].includes(countGB % 9), note: "Health & prosperity" },
+    { name: "Gana", ok: ganaKoota(boyN, girlN) >= 5, note: "Temperament harmony" },
+    { name: "Mahendra", ok: [4, 7, 10, 13, 16, 19, 22, 25].includes(countGB), note: "Progeny & wellbeing" },
+    { name: "Stree Deergha", ok: countGB > 9, note: "Longevity of the marriage" },
+    { name: "Yoni", ok: yoniKoota(boyN, girlN) >= 2, note: "Physical compatibility" },
+    { name: "Rasi", ok: bhakootKoota(boyR, girlR) > 0, note: "Family welfare" },
+    { name: "Rasi Athipathi", ok: grahaMaitriKoota(boyR, girlR) >= 3, note: "Mental affinity (rasi lords)" },
+    { name: "Vasya", ok: vashyaGroup[boyR.id] === vashyaGroup[girlR.id] || grahaMaitriKoota(boyR, girlR) >= 4, note: "Mutual attraction" },
+    { name: "Rajju", ok: RAJJU[boyN.id] !== RAJJU[girlN.id], note: "Longevity (most important — same rajju is a dosha)" },
+    { name: "Vedha", ok: !VEDHA.has(vedhaKey), note: "Absence of mutual affliction" },
+  ];
+}
+
 export function matchHoroscopes(
   boyNakId: number,
   boyRasiId: number,
