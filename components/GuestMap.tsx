@@ -38,9 +38,11 @@ const pin = (n: number, color: string) =>
 export default function GuestMap({
   stops,
   showRoute,
+  onMove,
 }: {
   stops: Stop[];
   showRoute: boolean;
+  onMove?: (id: string, lat: number, lng: number) => void;
 }) {
   const center: [number, number] = stops.length
     ? [
@@ -67,7 +69,18 @@ export default function GuestMap({
           <Marker
             key={s.id}
             position={[s.lat, s.lng]}
-            icon={pin(i + 1, s.invite === "Given" ? "#2DB39A" : "#EC8B73")}
+            icon={pin(i + 1, s.invite === "Given" ? "#06B6D4" : "#EAB308")}
+            draggable={!!onMove}
+            eventHandlers={
+              onMove
+                ? {
+                    dragend: (e) => {
+                      const ll = (e.target as L.Marker).getLatLng();
+                      onMove(s.id, ll.lat, ll.lng);
+                    },
+                  }
+                : undefined
+            }
           >
             <Popup>
               <div className="text-xs">
@@ -75,9 +88,10 @@ export default function GuestMap({
                   {i + 1}. {s.name}
                 </div>
                 {s.address && <div className="text-stone-600">{s.address}</div>}
-                <div className={s.invite === "Given" ? "text-emerald-700" : "text-orange-700"}>
+                <div className={s.invite === "Given" ? "text-cyan-700" : "text-yellow-700"}>
                   Invitation: {s.invite}
                 </div>
+                {onMove && <div className="mt-1 italic text-stone-400">Drag this pin to the exact spot</div>}
               </div>
             </Popup>
           </Marker>

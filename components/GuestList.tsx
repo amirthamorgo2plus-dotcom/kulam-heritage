@@ -197,7 +197,13 @@ export default function GuestList() {
     setBusy(g.id);
     const c = await geocode(g.address);
     if (c) update(g.id, { lat: c.lat, lng: c.lng });
-    else alert("Couldn't find that address on the map. Try adding the town/city.");
+    else {
+      // Drop a pin on Coimbatore so the user can drag it to the exact spot.
+      update(g.id, { lat: 11.0168, lng: 76.9558 });
+      alert(
+        "Couldn't find that address exactly — I placed a pin near Coimbatore. Drag it on the map to the right spot."
+      );
+    }
     setBusy("");
   };
 
@@ -338,10 +344,18 @@ export default function GuestList() {
             </a>
           )}
         </div>
-        <GuestMap stops={stops as Stop[]} showRoute={showRoute} />
-        {located.length === 0 && (
+        <GuestMap
+          stops={stops as Stop[]}
+          showRoute={showRoute}
+          onMove={(id, lat, lng) => update(id, { lat, lng })}
+        />
+        {located.length === 0 ? (
           <p className="text-xs text-stone-500">
             Add an address to a guest and tap <strong>Locate all</strong> (or 📍 on a row) to place them on the map.
+          </p>
+        ) : (
+          <p className="text-xs text-stone-500">
+            📌 The map snaps to the nearest known place — <strong>drag any pin to its exact spot</strong> so your route &amp; distances are accurate.
           </p>
         )}
       </div>
