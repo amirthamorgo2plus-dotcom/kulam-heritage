@@ -1,4 +1,6 @@
 import Link from "next/link";
+import Image from "next/image";
+import icon from "@/app/icon.png";
 
 const links = [
   { href: "/", label: "Home" },
@@ -19,7 +21,8 @@ export default function Nav() {
     <header className="bg-gradient-to-r from-teal-600 to-emerald-500 text-white shadow-md">
       <nav className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2 px-4 py-3">
         <Link href="/" className="flex items-center gap-2 font-serif text-xl font-bold">
-          <span className="text-kulam-gold">॥</span> Kulam Heritage
+          <Image src={icon} alt="Kamma Nest" width={32} height={32} className="rounded-lg" priority />
+          Kamma Nest
         </Link>
         <ul className="flex flex-wrap gap-1 text-sm">
           {links.map((l) => (

@@ -170,7 +170,7 @@ export default function HoroscopeCalculator() {
 
     ctx.fillStyle = "rgba(255,255,255,0.55)";
     ctx.font = "34px Georgia";
-    ctx.fillText("Kulam Heritage", 540, 1270);
+    ctx.fillText("Kamma Nest", 540, 1270);
 
     await new Promise<void>((resolve) =>
       c.toBlob(async (blob) => {

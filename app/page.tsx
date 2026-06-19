@@ -62,11 +62,15 @@ export default function Home() {
     <div className="space-y-12">
       <section className="rounded-2xl bg-gradient-to-br from-kulam to-kulam-dark px-6 py-14 text-center text-kulam-cream shadow-lg">
         <h1 className="font-serif text-4xl font-bold sm:text-5xl">
-          Kulam Heritage
+          Kamma Nest
         </h1>
+        <p className="mx-auto mt-3 max-w-2xl text-xl font-semibold text-kulam-gold">
+          Grandma&apos;s rituals, modern couple&apos;s app
+        </p>
         <p className="mx-auto mt-4 max-w-2xl text-lg text-kulam-cream/90">
-          The history, rituals, kula deivam temples and horoscope traditions of
-          the Tamil Nadu Kammavar Naidu community — gathered in one place.
+          Preserving Roots, Simplifying Traditions — the history, rituals, kula
+          deivam temples and horoscope traditions of the Tamil Nadu Kammavar
+          Naidu community, gathered in one place.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <Link

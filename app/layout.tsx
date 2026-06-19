@@ -3,9 +3,9 @@ import "./globals.css";
 import Nav from "@/components/Nav";
 
 export const metadata: Metadata = {
-  title: "Kulam Heritage — Kammavar Naidu History, Rituals & Kula Deivam",
+  title: "Kamma Nest — Grandma's rituals, modern couple's app",
   description:
-    "Heritage, rituals, kula deivam temples and horoscope matching for the Tamil Nadu Kammavar Naidu community, in one place.",
+    "Preserving Roots, Simplifying Traditions — heritage, rituals, kula deivam temples and horoscope matching for the Tamil Nadu Kammavar Naidu community, in one place.",
 };
 
 export default function RootLayout({
@@ -20,7 +20,7 @@ export default function RootLayout({
         <main className="mx-auto max-w-6xl px-4 py-8">{children}</main>
         <footer className="mt-16 border-t border-kulam-gold/30 bg-kulam-dark/5 py-6 text-center text-xs text-stone-500">
           <p>
-            Kulam Heritage · v1 (Tamil Nadu Kammavar Naidu) · Sample/illustrative
+            Kamma Nest · Preserving Roots, Simplifying Traditions · v1 (Tamil Nadu Kammavar Naidu) · Sample/illustrative
             content — verify with community elders &amp; a qualified astrologer
             before relying on it.
           </p>
