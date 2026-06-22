@@ -2,6 +2,12 @@ import Link from "next/link";
 
 const cards = [
   {
+    href: "/marketplace",
+    title: "Wedding Marketplace",
+    desc: "Browse & book verified kalyana mandapams — ratings, reviews, enquiries. Vendors, planners & more coming soon.",
+    icon: "💍",
+  },
+  {
     href: "/history",
     title: "History & Kulam",
     desc: "Migration, regions, kulams and culture of the Kammavar Naidu community.",
@@ -74,8 +80,14 @@ export default function Home() {
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <Link
-            href="/history"
+            href="/marketplace"
             className="rounded-lg bg-kulam-gold px-5 py-2.5 font-semibold text-kulam-dark shadow transition hover:brightness-110"
+          >
+            Browse Marketplace
+          </Link>
+          <Link
+            href="/history"
+            className="rounded-lg border border-kulam-cream/50 px-5 py-2.5 font-semibold transition hover:bg-white/10"
           >
             Explore History
           </Link>
@@ -106,9 +118,11 @@ export default function Home() {
 
       <section className="rounded-xl border border-kulam-gold/30 bg-kulam-cream p-5 text-sm text-stone-600">
         <p>
-          <strong>Roadmap:</strong> v1 covers Kamma heritage content. Future
-          phases add accounts, matrimony with map / job / salary / age filters,
-          and additional kulams — all built on the same data model.
+          <strong>Roadmap:</strong> Kamma Nest is growing into a complete,
+          community marketplace — sign in to save favourites and send enquiries
+          today. Next phases add more vendor categories (caterers, decorators,
+          photographers), wedding planners, honeymoon packages, counselling and
+          music classes, with secure payments and two-way ratings.
         </p>
       </section>
     </div>
