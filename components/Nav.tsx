@@ -56,14 +56,16 @@ export default function Nav() {
       <nav className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
         {/* logo */}
         <Link href="/" className="flex items-center gap-3">
-          <Image
-            src={icon}
-            alt="Kamma Nest"
-            width={48}
-            height={48}
-            className="rounded-xl shadow-md ring-1 ring-white/30"
-            priority
-          />
+          <span className="block h-12 w-12 overflow-hidden rounded-xl shadow-md ring-1 ring-white/30">
+            <Image
+              src={icon}
+              alt="Kamma Nest"
+              width={48}
+              height={48}
+              className="h-full w-full scale-[1.45] object-cover"
+              priority
+            />
+          </span>
           <span className="leading-tight">
             <span className="block font-serif text-2xl font-bold">
               Kamma Nest
