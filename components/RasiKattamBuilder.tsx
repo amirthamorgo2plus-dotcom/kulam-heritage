@@ -166,10 +166,10 @@ export default function RasiKattamBuilder() {
         <p className="mb-2 text-sm font-semibold text-stone-700">
           Place each graham (planet) in its rasi:
         </p>
-        <div className="grid gap-2 sm:grid-cols-2">
+        <div className="grid gap-3 sm:grid-cols-2">
           {PLANETS.map((pl) => (
-            <div key={pl.key} className="flex items-center gap-2">
-              <span className="w-28 flex-none text-sm font-semibold text-kulam-dark">
+            <div key={pl.key} className="flex min-w-0 flex-col gap-1">
+              <span className="truncate text-sm font-semibold text-kulam-dark">
                 {pl.tamil}
                 <span className="ml-1 font-normal text-stone-400">
                   {pl.tamilScript}
@@ -178,7 +178,7 @@ export default function RasiKattamBuilder() {
               <select
                 value={place[pl.key]}
                 onChange={(e) => set(pl.key, Number(e.target.value))}
-                className="flex-1 rounded border border-stone-300 px-2 py-1.5 text-sm outline-none focus:border-kulam"
+                className="w-full min-w-0 rounded border border-stone-300 px-2 py-1.5 text-sm outline-none focus:border-kulam"
               >
                 {rasis.map((r) => (
                   <option key={r.id} value={r.id}>
