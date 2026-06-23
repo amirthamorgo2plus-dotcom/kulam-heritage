@@ -21,6 +21,9 @@ export default function HoroscopePage() {
           <Link href="/compatibility" className="underline">
             → See which gothrams, rasis &amp; nakshatras match (Porutham Guide)
           </Link>
+          <Link href="/rasi-kattam" className="underline">
+            → Build your own rasi kattam (chart)
+          </Link>
           <Link href="/sample" className="underline">
             → View a sample jathagam match (with charts)
           </Link>

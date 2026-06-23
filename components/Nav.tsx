@@ -28,7 +28,8 @@ const groups: Group[] = [
   {
     label: "Matching",
     items: [
-      { href: "/horoscope", label: "Horoscope Match" },
+      { href: "/horoscope", label: "Thirumana Porutham" },
+      { href: "/rasi-kattam", label: "Rasi Kattam Builder" },
       { href: "/compatibility", label: "Porutham Guide" },
     ],
   },
