@@ -1,25 +1,20 @@
 import Link from "next/link";
 import RasiChart from "@/components/RasiChart";
 import { groomSample, brideSample } from "@/data/sampleJathagam";
-import { matchHoroscopes, tenPoruthams } from "@/data/astro";
+import { poruthamMatch } from "@/data/astro";
 
-export const metadata = { title: "Sample Jathagam Match — Kulam Heritage" };
+export const metadata = { title: "Sample Jathagam Match — Kamma Nest" };
 
 export default function SamplePage() {
-  const result = matchHoroscopes(
+  const result = poruthamMatch(
     groomSample.nakshatraId,
     groomSample.moonRasi,
     brideSample.nakshatraId,
     brideSample.moonRasi
   );
-  const poruthams = tenPoruthams(
-    groomSample.nakshatraId,
-    groomSample.moonRasi,
-    brideSample.nakshatraId,
-    brideSample.moonRasi
-  );
-  const matches = poruthams.filter((p) => p.ok).length;
-  const pct = Math.round((result.total / result.max) * 100);
+  const poruthams = result.poruthams;
+  const matches = result.matched;
+  const pct = Math.round((result.matched / result.total) * 100);
 
   return (
     <div className="space-y-10">
@@ -68,9 +63,11 @@ export default function SamplePage() {
       <section className="rounded-xl border border-kulam-emerald/50 bg-kulam-emerald/10 p-5">
         <div className="flex flex-wrap items-baseline justify-between gap-2">
           <div className="text-3xl font-bold text-kulam-dark">
-            {result.total} / 36 <span className="text-base font-normal text-stone-500">guna</span>
+            {matches} / 10 <span className="text-base font-normal text-stone-500">porutham</span>
           </div>
-          <div className="text-lg font-semibold text-kulam">{pct}% · {matches}/10 porutham</div>
+          <div className="text-lg font-semibold text-kulam">
+            {pct}% · Rajju {result.rajjuOk ? "OK" : "dosham"}
+          </div>
         </div>
         <p className="mt-1 text-sm text-stone-600">{result.verdict}</p>
       </section>

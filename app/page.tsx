@@ -20,8 +20,8 @@ const features = [
   {
     href: "/horoscope",
     icon: "✨",
-    title: "Jathagam Matching",
-    desc: "Free Ashtakoota 36-guna porutham calculator with South-Indian rasi charts — share results instantly.",
+    title: "Thirumana Porutham",
+    desc: "Free Tamil 10-Porutham match using natchathiram & rasi — Rajju, Vedhai and all ten, with a shareable card.",
   },
   {
     href: "/temples",
@@ -58,7 +58,7 @@ export default function Home() {
   const stats = [
     { value: `${venueCount}+`, label: "Verified mandapams" },
     { value: "220+", label: "Kammavar kulams" },
-    { value: "36", label: "Guna porutham check" },
+    { value: "10", label: "Porutham match" },
     { value: "6", label: "Life & wedding pillars" },
   ];
 

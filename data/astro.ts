@@ -17,64 +17,69 @@ export type Planet =
 
 export interface Rasi {
   id: number; // 1..12
-  name: string;
+  name: string; // Tamil name (romanised) — what Tamil Nadu families use
+  tamilScript: string; // Tamil script
+  sanskrit: string; // North-Indian / English reference
   lord: Planet;
   varna: Varna;
 }
 
+// Rasi names use the Tamil (Tamil Nadu) convention as primary.
 export const rasis: Rasi[] = [
-  { id: 1, name: "Mesha (Aries)", lord: "Mars", varna: "Kshatriya" },
-  { id: 2, name: "Vrishabha (Taurus)", lord: "Venus", varna: "Vaishya" },
-  { id: 3, name: "Mithuna (Gemini)", lord: "Mercury", varna: "Shudra" },
-  { id: 4, name: "Karka (Cancer)", lord: "Moon", varna: "Brahmin" },
-  { id: 5, name: "Simha (Leo)", lord: "Sun", varna: "Kshatriya" },
-  { id: 6, name: "Kanya (Virgo)", lord: "Mercury", varna: "Vaishya" },
-  { id: 7, name: "Tula (Libra)", lord: "Venus", varna: "Shudra" },
-  { id: 8, name: "Vrishchika (Scorpio)", lord: "Mars", varna: "Brahmin" },
-  { id: 9, name: "Dhanu (Sagittarius)", lord: "Jupiter", varna: "Kshatriya" },
-  { id: 10, name: "Makara (Capricorn)", lord: "Saturn", varna: "Vaishya" },
-  { id: 11, name: "Kumbha (Aquarius)", lord: "Saturn", varna: "Shudra" },
-  { id: 12, name: "Meena (Pisces)", lord: "Jupiter", varna: "Brahmin" },
+  { id: 1, name: "Mesham", tamilScript: "மேஷம்", sanskrit: "Mesha / Aries", lord: "Mars", varna: "Kshatriya" },
+  { id: 2, name: "Rishabam", tamilScript: "ரிஷபம்", sanskrit: "Vrishabha / Taurus", lord: "Venus", varna: "Vaishya" },
+  { id: 3, name: "Mithunam", tamilScript: "மிதுனம்", sanskrit: "Mithuna / Gemini", lord: "Mercury", varna: "Shudra" },
+  { id: 4, name: "Kadagam", tamilScript: "கடகம்", sanskrit: "Karka / Cancer", lord: "Moon", varna: "Brahmin" },
+  { id: 5, name: "Simmam", tamilScript: "சிம்மம்", sanskrit: "Simha / Leo", lord: "Sun", varna: "Kshatriya" },
+  { id: 6, name: "Kanni", tamilScript: "கன்னி", sanskrit: "Kanya / Virgo", lord: "Mercury", varna: "Vaishya" },
+  { id: 7, name: "Thulam", tamilScript: "துலாம்", sanskrit: "Tula / Libra", lord: "Venus", varna: "Shudra" },
+  { id: 8, name: "Viruchigam", tamilScript: "விருச்சிகம்", sanskrit: "Vrishchika / Scorpio", lord: "Mars", varna: "Brahmin" },
+  { id: 9, name: "Dhanusu", tamilScript: "தனுசு", sanskrit: "Dhanu / Sagittarius", lord: "Jupiter", varna: "Kshatriya" },
+  { id: 10, name: "Magaram", tamilScript: "மகரம்", sanskrit: "Makara / Capricorn", lord: "Saturn", varna: "Vaishya" },
+  { id: 11, name: "Kumbam", tamilScript: "கும்பம்", sanskrit: "Kumbha / Aquarius", lord: "Saturn", varna: "Shudra" },
+  { id: 12, name: "Meenam", tamilScript: "மீனம்", sanskrit: "Meena / Pisces", lord: "Jupiter", varna: "Brahmin" },
 ];
 
 export interface Nakshatra {
   id: number; // 1..27
-  name: string;
+  name: string; // Tamil natchathiram (romanised) — primary, Tamil Nadu usage
+  tamilScript: string; // Tamil script
+  sanskrit: string; // North-Indian / Sanskrit reference
   gana: Gana;
   nadi: Nadi;
   yoni: string; // animal
   yoniSex: "M" | "F";
 }
 
-// 27 nakshatras with gana, nadi and yoni (animal).
+// 27 natchathiram — Tamil names primary, with Sanskrit reference.
 export const nakshatras: Nakshatra[] = [
-  { id: 1, name: "Ashwini", gana: "Deva", nadi: "Aadi", yoni: "Horse", yoniSex: "M" },
-  { id: 2, name: "Bharani", gana: "Manushya", nadi: "Madhya", yoni: "Elephant", yoniSex: "M" },
-  { id: 3, name: "Krittika", gana: "Rakshasa", nadi: "Antya", yoni: "Sheep", yoniSex: "F" },
-  { id: 4, name: "Rohini", gana: "Manushya", nadi: "Antya", yoni: "Serpent", yoniSex: "M" },
-  { id: 5, name: "Mrigashira", gana: "Deva", nadi: "Madhya", yoni: "Serpent", yoniSex: "F" },
-  { id: 6, name: "Ardra", gana: "Manushya", nadi: "Aadi", yoni: "Dog", yoniSex: "F" },
-  { id: 7, name: "Punarvasu", gana: "Deva", nadi: "Aadi", yoni: "Cat", yoniSex: "F" },
-  { id: 8, name: "Pushya", gana: "Deva", nadi: "Madhya", yoni: "Sheep", yoniSex: "M" },
-  { id: 9, name: "Ashlesha", gana: "Rakshasa", nadi: "Antya", yoni: "Cat", yoniSex: "M" },
-  { id: 10, name: "Magha", gana: "Rakshasa", nadi: "Antya", yoni: "Rat", yoniSex: "M" },
-  { id: 11, name: "Purva Phalguni", gana: "Manushya", nadi: "Madhya", yoni: "Rat", yoniSex: "F" },
-  { id: 12, name: "Uttara Phalguni", gana: "Manushya", nadi: "Aadi", yoni: "Cow", yoniSex: "M" },
-  { id: 13, name: "Hasta", gana: "Deva", nadi: "Aadi", yoni: "Buffalo", yoniSex: "F" },
-  { id: 14, name: "Chitra", gana: "Rakshasa", nadi: "Madhya", yoni: "Tiger", yoniSex: "F" },
-  { id: 15, name: "Swati", gana: "Deva", nadi: "Antya", yoni: "Buffalo", yoniSex: "M" },
-  { id: 16, name: "Vishakha", gana: "Rakshasa", nadi: "Antya", yoni: "Tiger", yoniSex: "M" },
-  { id: 17, name: "Anuradha", gana: "Deva", nadi: "Madhya", yoni: "Deer", yoniSex: "F" },
-  { id: 18, name: "Jyeshtha", gana: "Rakshasa", nadi: "Aadi", yoni: "Deer", yoniSex: "M" },
-  { id: 19, name: "Mula", gana: "Rakshasa", nadi: "Aadi", yoni: "Dog", yoniSex: "M" },
-  { id: 20, name: "Purva Ashadha", gana: "Manushya", nadi: "Madhya", yoni: "Monkey", yoniSex: "M" },
-  { id: 21, name: "Uttara Ashadha", gana: "Manushya", nadi: "Antya", yoni: "Mongoose", yoniSex: "F" },
-  { id: 22, name: "Shravana", gana: "Deva", nadi: "Antya", yoni: "Monkey", yoniSex: "F" },
-  { id: 23, name: "Dhanishta", gana: "Rakshasa", nadi: "Madhya", yoni: "Lion", yoniSex: "F" },
-  { id: 24, name: "Shatabhisha", gana: "Rakshasa", nadi: "Aadi", yoni: "Horse", yoniSex: "F" },
-  { id: 25, name: "Purva Bhadrapada", gana: "Manushya", nadi: "Aadi", yoni: "Lion", yoniSex: "M" },
-  { id: 26, name: "Uttara Bhadrapada", gana: "Manushya", nadi: "Madhya", yoni: "Cow", yoniSex: "F" },
-  { id: 27, name: "Revati", gana: "Deva", nadi: "Antya", yoni: "Elephant", yoniSex: "F" },
+  { id: 1, name: "Aswini", tamilScript: "அசுவினி", sanskrit: "Ashwini", gana: "Deva", nadi: "Aadi", yoni: "Horse", yoniSex: "M" },
+  { id: 2, name: "Bharani", tamilScript: "பரணி", sanskrit: "Bharani", gana: "Manushya", nadi: "Madhya", yoni: "Elephant", yoniSex: "M" },
+  { id: 3, name: "Karthigai", tamilScript: "கார்த்திகை", sanskrit: "Krittika", gana: "Rakshasa", nadi: "Antya", yoni: "Sheep", yoniSex: "F" },
+  { id: 4, name: "Rohini", tamilScript: "ரோகிணி", sanskrit: "Rohini", gana: "Manushya", nadi: "Antya", yoni: "Serpent", yoniSex: "M" },
+  { id: 5, name: "Mirugasirisham", tamilScript: "மிருகசீரிஷம்", sanskrit: "Mrigashira", gana: "Deva", nadi: "Madhya", yoni: "Serpent", yoniSex: "F" },
+  { id: 6, name: "Thiruvathirai", tamilScript: "திருவாதிரை", sanskrit: "Ardra", gana: "Manushya", nadi: "Aadi", yoni: "Dog", yoniSex: "F" },
+  { id: 7, name: "Punarpoosam", tamilScript: "புனர்பூசம்", sanskrit: "Punarvasu", gana: "Deva", nadi: "Aadi", yoni: "Cat", yoniSex: "F" },
+  { id: 8, name: "Poosam", tamilScript: "பூசம்", sanskrit: "Pushya", gana: "Deva", nadi: "Madhya", yoni: "Sheep", yoniSex: "M" },
+  { id: 9, name: "Ayilyam", tamilScript: "ஆயில்யம்", sanskrit: "Ashlesha", gana: "Rakshasa", nadi: "Antya", yoni: "Cat", yoniSex: "M" },
+  { id: 10, name: "Magham", tamilScript: "மகம்", sanskrit: "Magha", gana: "Rakshasa", nadi: "Antya", yoni: "Rat", yoniSex: "M" },
+  { id: 11, name: "Pooram", tamilScript: "பூரம்", sanskrit: "Purva Phalguni", gana: "Manushya", nadi: "Madhya", yoni: "Rat", yoniSex: "F" },
+  { id: 12, name: "Uthiram", tamilScript: "உத்திரம்", sanskrit: "Uttara Phalguni", gana: "Manushya", nadi: "Aadi", yoni: "Cow", yoniSex: "M" },
+  { id: 13, name: "Astham", tamilScript: "அஸ்தம்", sanskrit: "Hasta", gana: "Deva", nadi: "Aadi", yoni: "Buffalo", yoniSex: "F" },
+  { id: 14, name: "Chithirai", tamilScript: "சித்திரை", sanskrit: "Chitra", gana: "Rakshasa", nadi: "Madhya", yoni: "Tiger", yoniSex: "F" },
+  { id: 15, name: "Swathi", tamilScript: "சுவாதி", sanskrit: "Swati", gana: "Deva", nadi: "Antya", yoni: "Buffalo", yoniSex: "M" },
+  { id: 16, name: "Visakam", tamilScript: "விசாகம்", sanskrit: "Vishakha", gana: "Rakshasa", nadi: "Antya", yoni: "Tiger", yoniSex: "M" },
+  { id: 17, name: "Anusham", tamilScript: "அனுஷம்", sanskrit: "Anuradha", gana: "Deva", nadi: "Madhya", yoni: "Deer", yoniSex: "F" },
+  { id: 18, name: "Kettai", tamilScript: "கேட்டை", sanskrit: "Jyeshtha", gana: "Rakshasa", nadi: "Aadi", yoni: "Deer", yoniSex: "M" },
+  { id: 19, name: "Moolam", tamilScript: "மூலம்", sanskrit: "Mula", gana: "Rakshasa", nadi: "Aadi", yoni: "Dog", yoniSex: "M" },
+  { id: 20, name: "Pooradam", tamilScript: "பூராடம்", sanskrit: "Purva Ashadha", gana: "Manushya", nadi: "Madhya", yoni: "Monkey", yoniSex: "M" },
+  { id: 21, name: "Uthiradam", tamilScript: "உத்திராடம்", sanskrit: "Uttara Ashadha", gana: "Manushya", nadi: "Antya", yoni: "Mongoose", yoniSex: "F" },
+  { id: 22, name: "Thiruvonam", tamilScript: "திருவோணம்", sanskrit: "Shravana", gana: "Deva", nadi: "Antya", yoni: "Monkey", yoniSex: "F" },
+  { id: 23, name: "Avittam", tamilScript: "அவிட்டம்", sanskrit: "Dhanishta", gana: "Rakshasa", nadi: "Madhya", yoni: "Lion", yoniSex: "F" },
+  { id: 24, name: "Sadhayam", tamilScript: "சதயம்", sanskrit: "Shatabhisha", gana: "Rakshasa", nadi: "Aadi", yoni: "Horse", yoniSex: "F" },
+  { id: 25, name: "Pooratathi", tamilScript: "பூரட்டாதி", sanskrit: "Purva Bhadrapada", gana: "Manushya", nadi: "Aadi", yoni: "Lion", yoniSex: "M" },
+  { id: 26, name: "Uthiratathi", tamilScript: "உத்திரட்டாதி", sanskrit: "Uttara Bhadrapada", gana: "Manushya", nadi: "Madhya", yoni: "Cow", yoniSex: "F" },
+  { id: 27, name: "Revathi", tamilScript: "ரேவதி", sanskrit: "Revati", gana: "Deva", nadi: "Antya", yoni: "Elephant", yoniSex: "F" },
 ];
 
 // ---- Koota scoring helpers ----
@@ -278,9 +283,21 @@ const VEDHA = new Set(
 );
 
 export interface Porutham {
-  name: string;
+  name: string; // Tamil porutham name
+  tamilScript: string;
   ok: boolean;
   note: string;
+  critical?: boolean; // Rajju & Vedha — must-pass poruthams
+}
+
+export interface PoruthamResult {
+  poruthams: Porutham[];
+  matched: number;
+  total: number;
+  rajjuOk: boolean;
+  vedhaOk: boolean;
+  verdict: string;
+  good: boolean;
 }
 
 export function tenPoruthams(
@@ -298,17 +315,51 @@ export function tenPoruthams(
   const vedhaKey = [boyN.id, girlN.id].sort((a, b) => a - b).join("-");
 
   return [
-    { name: "Dina", ok: [0, 2, 4, 6, 8].includes(countGB % 9), note: "Health & prosperity" },
-    { name: "Gana", ok: ganaKoota(boyN, girlN) >= 5, note: "Temperament harmony" },
-    { name: "Mahendra", ok: [4, 7, 10, 13, 16, 19, 22, 25].includes(countGB), note: "Progeny & wellbeing" },
-    { name: "Stree Deergha", ok: countGB > 9, note: "Longevity of the marriage" },
-    { name: "Yoni", ok: yoniKoota(boyN, girlN) >= 2, note: "Physical compatibility" },
-    { name: "Rasi", ok: bhakootKoota(boyR, girlR) > 0, note: "Family welfare" },
-    { name: "Rasi Athipathi", ok: grahaMaitriKoota(boyR, girlR) >= 3, note: "Mental affinity (rasi lords)" },
-    { name: "Vasya", ok: vashyaGroup[boyR.id] === vashyaGroup[girlR.id] || grahaMaitriKoota(boyR, girlR) >= 4, note: "Mutual attraction" },
-    { name: "Rajju", ok: RAJJU[boyN.id] !== RAJJU[girlN.id], note: "Longevity (most important — same rajju is a dosha)" },
-    { name: "Vedha", ok: !VEDHA.has(vedhaKey), note: "Absence of mutual affliction" },
+    { name: "Dina", tamilScript: "தினம்", ok: [0, 2, 4, 6, 8].includes(countGB % 9), note: "Health & prosperity" },
+    { name: "Gana", tamilScript: "கணம்", ok: ganaKoota(boyN, girlN) >= 5, note: "Temperament harmony" },
+    { name: "Mahendra", tamilScript: "மகேந்திரம்", ok: [4, 7, 10, 13, 16, 19, 22, 25].includes(countGB), note: "Progeny & wellbeing" },
+    { name: "Stree Deergha", tamilScript: "ஸ்திரீ தீர்க்கம்", ok: countGB > 9, note: "Longevity & welfare of the bride" },
+    { name: "Yoni", tamilScript: "யோனி", ok: yoniKoota(boyN, girlN) >= 2, note: "Physical compatibility" },
+    { name: "Rasi", tamilScript: "ராசி", ok: bhakootKoota(boyR, girlR) > 0, note: "Family welfare & progeny" },
+    { name: "Rasi Athipathi", tamilScript: "ராசி அதிபதி", ok: grahaMaitriKoota(boyR, girlR) >= 3, note: "Mental affinity (rasi lords)" },
+    { name: "Vasya", tamilScript: "வசியம்", ok: vashyaGroup[boyR.id] === vashyaGroup[girlR.id] || grahaMaitriKoota(boyR, girlR) >= 4, note: "Mutual attraction & bonding" },
+    { name: "Rajju", tamilScript: "ரஜ்ஜு", ok: RAJJU[boyN.id] !== RAJJU[girlN.id], note: "Longevity of the husband — most important; same rajju is a dosha", critical: true },
+    { name: "Vedhai", tamilScript: "வேதை", ok: !VEDHA.has(vedhaKey), note: "Absence of mutual affliction", critical: true },
   ];
+}
+
+// Headline result for the 10-Porutham (Tamil Dasa Porutham) system.
+export function poruthamMatch(
+  boyNakId: number,
+  boyRasiId: number,
+  girlNakId: number,
+  girlRasiId: number
+): PoruthamResult {
+  const poruthams = tenPoruthams(boyNakId, boyRasiId, girlNakId, girlRasiId);
+  const matched = poruthams.filter((p) => p.ok).length;
+  const rajjuOk = poruthams.find((p) => p.name === "Rajju")!.ok;
+  const vedhaOk = poruthams.find((p) => p.name === "Vedhai")!.ok;
+
+  let verdict: string;
+  let good: boolean;
+  if (!rajjuOk) {
+    verdict = "Rajju dosham — traditionally not recommended.";
+    good = false;
+  } else if (matched >= 8) {
+    verdict = "Excellent match (uthamam).";
+    good = true;
+  } else if (matched >= 6) {
+    verdict = "Good match (madhyamam).";
+    good = true;
+  } else if (matched >= 4) {
+    verdict = "Acceptable — review with an astrologer.";
+    good = true;
+  } else {
+    verdict = "Below the usual threshold. Consult an astrologer.";
+    good = false;
+  }
+
+  return { poruthams, matched, total: 10, rajjuOk, vedhaOk, verdict, good };
 }
 
 export function matchHoroscopes(

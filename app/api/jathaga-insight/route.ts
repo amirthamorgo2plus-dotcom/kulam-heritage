@@ -6,20 +6,20 @@ export const dynamic = "force-dynamic";
 
 const MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash";
 
-interface Koota {
+interface PoruthamItem {
   name: string;
-  score: number;
-  max: number;
+  ok: boolean;
 }
 interface Body {
   boy?: { nakshatra: string; rasi: string };
   girl?: { nakshatra: string; rasi: string };
+  system?: string;
+  matched?: number;
   total?: number;
-  max?: number;
   verdict?: string;
-  sameNadi?: boolean;
-  sameGana?: boolean;
-  kootas?: Koota[];
+  rajjuOk?: boolean;
+  vedhaOk?: boolean;
+  poruthams?: PoruthamItem[];
 }
 
 export async function POST(req: Request) {
@@ -38,22 +38,22 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Invalid request." }, { status: 400 });
   }
 
-  const kootaLines = (b.kootas || [])
-    .map((k) => `- ${k.name}: ${k.score}/${k.max}`)
+  const poruthamLines = (b.poruthams || [])
+    .map((p) => `- ${p.name}: ${p.ok ? "match" : "no match"}`)
     .join("\n");
 
-  const prompt = `You are a warm, respectful Vedic astrology assistant helping a Tamil Nadu Kammavar Naidu family understand a horoscope (jathaga porutham) match.
+  const prompt = `You are a warm, respectful Tamil astrology assistant helping a Tamil Nadu Kammavar Naidu family understand a Thirumana Porutham (10-Porutham) jathagam match.
 
-Match details (Ashtakoota / guna milan):
-- Groom: nakshatra ${b.boy?.nakshatra}, rasi ${b.boy?.rasi}
-- Bride: nakshatra ${b.girl?.nakshatra}, rasi ${b.girl?.rasi}
-- Total score: ${b.total}/${b.max ?? 36} (${b.verdict})
-- Nadi dosha present: ${b.sameNadi ? "yes" : "no"}
-- Same gana: ${b.sameGana ? "yes" : "no"}
-Koota breakdown:
-${kootaLines}
+Match details (Tamil Dasa Porutham):
+- Groom (maapillai): natchathiram ${b.boy?.nakshatra}, rasi ${b.boy?.rasi}
+- Bride (pen): natchathiram ${b.girl?.nakshatra}, rasi ${b.girl?.rasi}
+- Poruthams matched: ${b.matched}/${b.total ?? 10} (${b.verdict})
+- Rajju porutham: ${b.rajjuOk ? "ok" : "dosham (same rajju)"}
+- Vedhai porutham: ${b.vedhaOk ? "ok" : "afflicted"}
+Porutham breakdown:
+${poruthamLines}
 
-Write a balanced, encouraging insight in 3–4 short sentences (about 70–110 words). Mention 1–2 strengths and, if any, 1 area to be mindful of (e.g. Nadi or Bhakoot if low). Be gentle and non-deterministic — do not predict the future or give guarantees. End with one short line reminding them to confirm with a qualified astrologer. Plain text, no markdown headings.`;
+Write a balanced, encouraging insight in 3–4 short sentences (about 70–110 words). Mention 1–2 strengths and, if any, 1 area to be mindful of (especially Rajju or Vedhai if not matching, as these are the most important). Be gentle and non-deterministic — do not predict the future or give guarantees. End with one short line reminding them to confirm with a qualified astrologer (jothidar). Plain text, no markdown headings.`;
 
   try {
     const res = await fetch(

@@ -4,17 +4,16 @@ import { useState } from "react";
 import {
   nakshatras,
   rasis,
-  matchHoroscopes,
-  tenPoruthams,
-  type MatchResult,
-  type Porutham,
+  poruthamMatch,
+  type PoruthamResult,
 } from "@/data/astro";
 
-// Gen-Z vibe verdict from the guna total.
-function genZVibe(total: number): { line: string; sub: string } {
-  if (total >= 32) return { line: "Written in the stars ✨", sub: "major green flags fr" };
-  if (total >= 26) return { line: "Strong cosmic vibes 💫", sub: "this one's giving promise" };
-  if (total >= 18) return { line: "Solid potential 🌙", sub: "worth exploring with intention" };
+// Gen-Z vibe verdict from the porutham count.
+function genZVibe(matched: number, rajjuOk: boolean): { line: string; sub: string } {
+  if (!rajjuOk) return { line: "Stars say pause 🤔", sub: "rajju needs a closer look" };
+  if (matched >= 8) return { line: "Written in the stars ✨", sub: "major green flags fr" };
+  if (matched >= 6) return { line: "Strong cosmic vibes 💫", sub: "this one's giving promise" };
+  if (matched >= 4) return { line: "Solid potential 🌙", sub: "worth exploring with intention" };
   return { line: "Stars say slow down 🤔", sub: "a lot to think about, no rush" };
 }
 
@@ -34,7 +33,9 @@ function PersonInputs({
   return (
     <div className="rounded-lg border border-kulam/30 bg-white p-4">
       <h3 className="mb-3 font-bold text-kulam-dark">{label}</h3>
-      <label className="mb-1 block text-sm font-semibold">Nakshatra (birth star)</label>
+      <label className="mb-1 block text-sm font-semibold">
+        Natchathiram (birth star)
+      </label>
       <select
         value={nak}
         onChange={(e) => setNak(Number(e.target.value))}
@@ -42,7 +43,7 @@ function PersonInputs({
       >
         {nakshatras.map((n) => (
           <option key={n.id} value={n.id}>
-            {n.name}
+            {n.name} · {n.tamilScript}
           </option>
         ))}
       </select>
@@ -54,7 +55,7 @@ function PersonInputs({
       >
         {rasis.map((r) => (
           <option key={r.id} value={r.id}>
-            {r.name}
+            {r.name} · {r.tamilScript}
           </option>
         ))}
       </select>
@@ -67,20 +68,18 @@ export default function HoroscopeCalculator() {
   const [boyRasi, setBoyRasi] = useState(1);
   const [girlNak, setGirlNak] = useState(4);
   const [girlRasi, setGirlRasi] = useState(2);
-  const [result, setResult] = useState<MatchResult | null>(null);
-  const [poruthams, setPoruthams] = useState<Porutham[] | null>(null);
+  const [result, setResult] = useState<PoruthamResult | null>(null);
   const [ai, setAi] = useState<{ loading: boolean; text: string | null; error: string | null }>({
     loading: false,
     text: null,
     error: null,
   });
 
-  const pct = result ? Math.round((result.total / result.max) * 100) : 0;
-  const good = result ? result.total >= 18 : false;
+  const pct = result ? Math.round((result.matched / result.total) * 100) : 0;
+  const good = result ? result.good : false;
 
   const runMatch = () => {
-    setResult(matchHoroscopes(boyNak, boyRasi, girlNak, girlRasi));
-    setPoruthams(tenPoruthams(boyNak, boyRasi, girlNak, girlRasi));
+    setResult(poruthamMatch(boyNak, boyRasi, girlNak, girlRasi));
     setAi({ loading: false, text: null, error: null });
   };
 
@@ -97,12 +96,13 @@ export default function HoroscopeCalculator() {
           nakshatra: nakshatras.find((n) => n.id === girlNak)?.name,
           rasi: rasis.find((r) => r.id === girlRasi)?.name,
         },
+        system: "10 Porutham (Tamil Dasa Porutham)",
+        matched: result.matched,
         total: result.total,
-        max: result.max,
         verdict: result.verdict,
-        sameNadi: result.sameNadi,
-        sameGana: result.sameGana,
-        kootas: result.kootas.map((k) => ({ name: k.name, score: k.score, max: k.max })),
+        rajjuOk: result.rajjuOk,
+        vedhaOk: result.vedhaOk,
+        poruthams: result.poruthams.map((p) => ({ name: p.name, ok: p.ok })),
       };
       const res = await fetch("/api/jathaga-insight", {
         method: "POST",
@@ -127,8 +127,7 @@ export default function HoroscopeCalculator() {
 
   const shareCard = async () => {
     if (!result) return;
-    const vibe = genZVibe(result.total);
-    const matches = poruthams ? poruthams.filter((p) => p.ok).length : 0;
+    const vibe = genZVibe(result.matched, result.rajjuOk);
     const boyName = nakshatras.find((n) => n.id === boyNak)?.name;
     const girlName = nakshatras.find((n) => n.id === girlNak)?.name;
 
@@ -138,35 +137,39 @@ export default function HoroscopeCalculator() {
     const ctx = c.getContext("2d");
     if (!ctx) return;
     const g = ctx.createLinearGradient(0, 0, 1080, 1350);
-    g.addColorStop(0, "#7C5CBF");
-    g.addColorStop(1, "#4C3A77");
+    g.addColorStop(0, "#0f766e");
+    g.addColorStop(1, "#134e4a");
     ctx.fillStyle = g;
     ctx.fillRect(0, 0, 1080, 1350);
     ctx.textAlign = "center";
 
     ctx.fillStyle = "rgba(255,255,255,0.85)";
     ctx.font = "600 46px Georgia";
-    ctx.fillText("✨ Cosmic Compatibility ✨", 540, 180);
+    ctx.fillText("✨ Thirumana Porutham ✨", 540, 180);
 
     ctx.fillStyle = "#fff";
-    ctx.font = "900 320px Georgia";
-    ctx.fillText(`${pct}%`, 540, 560);
+    ctx.font = "900 300px Georgia";
+    ctx.fillText(`${result.matched}/10`, 540, 540);
 
-    ctx.fillStyle = "#EC8B73";
-    ctx.font = "bold 60px Georgia";
-    ctx.fillText(vibe.line, 540, 700);
+    ctx.fillStyle = "#EAB308";
+    ctx.font = "bold 56px Georgia";
+    ctx.fillText(vibe.line, 540, 680);
 
     ctx.fillStyle = "rgba(255,255,255,0.9)";
     ctx.font = "italic 40px Georgia";
-    ctx.fillText(vibe.sub, 540, 770);
+    ctx.fillText(vibe.sub, 540, 750);
 
     ctx.fillStyle = "#fff";
     ctx.font = "44px Georgia";
-    ctx.fillText(`${boyName}  ✦  ${girlName}`, 540, 920);
+    ctx.fillText(`${boyName}  ✦  ${girlName}`, 540, 910);
 
     ctx.fillStyle = "rgba(255,255,255,0.85)";
-    ctx.font = "40px Georgia";
-    ctx.fillText(`${result.total}/36 guna  ·  ${matches}/10 porutham`, 540, 1010);
+    ctx.font = "38px Georgia";
+    ctx.fillText(
+      `${result.matched}/10 porutham  ·  Rajju ${result.rajjuOk ? "OK" : "dosham"}`,
+      540,
+      1000
+    );
 
     ctx.fillStyle = "rgba(255,255,255,0.55)";
     ctx.font = "34px Georgia";
@@ -175,19 +178,19 @@ export default function HoroscopeCalculator() {
     await new Promise<void>((resolve) =>
       c.toBlob(async (blob) => {
         if (!blob) return resolve();
-        const file = new File([blob], "cosmic-compatibility.png", { type: "image/png" });
+        const file = new File([blob], "thirumana-porutham.png", { type: "image/png" });
         const navAny = navigator as Navigator & {
           canShare?: (d: { files: File[] }) => boolean;
           share?: (d: { files?: File[]; title?: string; text?: string }) => Promise<void>;
         };
         try {
           if (navAny.canShare?.({ files: [file] }) && navAny.share) {
-            await navAny.share({ files: [file], title: "Our Cosmic Compatibility ✨" });
+            await navAny.share({ files: [file], title: "Our Thirumana Porutham ✨" });
           } else {
             const url = URL.createObjectURL(blob);
             const a = document.createElement("a");
             a.href = url;
-            a.download = "cosmic-compatibility.png";
+            a.download = "thirumana-porutham.png";
             a.click();
             URL.revokeObjectURL(url);
           }
@@ -199,27 +202,30 @@ export default function HoroscopeCalculator() {
     );
   };
 
-  const vibe = result ? genZVibe(result.total) : null;
+  const vibe = result ? genZVibe(result.matched, result.rajjuOk) : null;
 
   return (
     <div className="space-y-6">
       <div className="grid gap-4 sm:grid-cols-2">
-        <PersonInputs label="Groom (Boy)" nak={boyNak} setNak={setBoyNak} rasi={boyRasi} setRasi={setBoyRasi} />
-        <PersonInputs label="Bride (Girl)" nak={girlNak} setNak={setGirlNak} rasi={girlRasi} setRasi={setGirlRasi} />
+        <PersonInputs label="Maapillai (Groom)" nak={boyNak} setNak={setBoyNak} rasi={boyRasi} setRasi={setBoyRasi} />
+        <PersonInputs label="Pen (Bride)" nak={girlNak} setNak={setGirlNak} rasi={girlRasi} setRasi={setGirlRasi} />
       </div>
 
       <button
         onClick={runMatch}
         className="rounded-lg bg-kulam px-6 py-2.5 font-semibold text-white shadow transition hover:bg-kulam-dark"
       >
-        Match Horoscopes
+        Check Porutham
       </button>
 
       {result && (
         <div className="rounded-lg border border-kulam-gold/40 bg-white p-5 shadow">
           <div className="flex flex-wrap items-baseline justify-between gap-2">
             <div className="text-3xl font-bold text-kulam-dark">
-              {result.total} / {result.max}
+              {result.matched} / {result.total}
+              <span className="ml-2 text-base font-semibold text-stone-500">
+                porutham
+              </span>
             </div>
             <div className={`text-lg font-semibold ${good ? "text-green-700" : "text-red-700"}`}>
               {result.verdict}
@@ -248,76 +254,63 @@ export default function HoroscopeCalculator() {
             </div>
           )}
 
-          {(result.sameNadi || result.sameGana) && (
+          {/* critical dosham flags */}
+          {(!result.rajjuOk || !result.vedhaOk) && (
             <ul className="mt-3 space-y-1 text-sm">
-              {result.sameNadi && (
+              {!result.rajjuOk && (
                 <li className="text-red-700">
-                  ⚠ Nadi dosha: both share the same Nadi (a significant traditional concern).
+                  ⚠ Rajju dosham: both share the same Rajju — the most important
+                  porutham; traditionally avoided.
                 </li>
               )}
-              {result.sameGana && (
+              {!result.vedhaOk && (
                 <li className="text-amber-700">
-                  ⓘ Both share the same Gana.
+                  ⓘ Vedhai: the stars mutually afflict (vedha) — review carefully.
                 </li>
               )}
             </ul>
           )}
 
-          <table className="mt-4 w-full text-sm">
-            <thead>
-              <tr className="border-b text-left text-stone-500">
-                <th className="py-1">Koota</th>
-                <th className="py-1">Score</th>
-                <th className="py-1">Meaning</th>
-              </tr>
-            </thead>
-            <tbody>
-              {result.kootas.map((k) => (
-                <tr key={k.name} className="border-b border-stone-100">
-                  <td className="py-1.5 font-semibold">{k.name}</td>
-                  <td className="py-1.5">
-                    {k.score} / {k.max}
-                  </td>
-                  <td className="py-1.5 text-stone-600">{k.note}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-
-          {/* 10 Porutham (Tamil) */}
-          {poruthams && (
-            <div className="mt-6">
-              <div className="mb-2 flex items-baseline justify-between">
-                <h3 className="font-bold text-kulam-dark">10 Porutham (Tamil)</h3>
-                <span className="text-sm font-semibold text-kulam">
-                  {poruthams.filter((p) => p.ok).length} / 10 match
-                </span>
-              </div>
-              <div className="space-y-1.5">
-                {poruthams.map((p) => (
-                  <div key={p.name} className="flex items-center gap-2">
-                    <span className="w-28 flex-none text-sm font-semibold">{p.name}</span>
-                    <div className="h-5 flex-1 overflow-hidden rounded-full bg-stone-100">
-                      <div
-                        className={`flex h-full items-center rounded-full px-2 text-[11px] font-semibold text-white ${
-                          p.ok ? "bg-kulam-emerald" : "bg-rose-400"
-                        }`}
-                        style={{ width: p.ok ? "100%" : "38%" }}
-                      >
-                        {p.ok ? "✓ match" : "✗"}
-                      </div>
-                    </div>
-                    <span className="hidden w-44 flex-none text-xs text-stone-500 sm:block">
-                      {p.note}
+          {/* 10 Porutham (Tamil Dasa Porutham) */}
+          <div className="mt-5">
+            <h3 className="mb-2 font-bold text-kulam-dark">
+              10 Porutham · Thirumana Porutham
+            </h3>
+            <div className="space-y-1.5">
+              {result.poruthams.map((p) => (
+                <div key={p.name} className="flex items-center gap-2">
+                  <span className="w-36 flex-none text-sm font-semibold">
+                    {p.name}
+                    <span className="ml-1 font-normal text-stone-400">
+                      {p.tamilScript}
                     </span>
+                    {p.critical && (
+                      <span className="ml-1 rounded bg-amber-100 px-1 text-[10px] font-semibold text-amber-700">
+                        key
+                      </span>
+                    )}
+                  </span>
+                  <div className="h-5 flex-1 overflow-hidden rounded-full bg-stone-100">
+                    <div
+                      className={`flex h-full items-center rounded-full px-2 text-[11px] font-semibold text-white ${
+                        p.ok ? "bg-kulam-emerald" : "bg-rose-400"
+                      }`}
+                      style={{ width: p.ok ? "100%" : "38%" }}
+                    >
+                      {p.ok ? "✓ porutham" : "✗"}
+                    </div>
                   </div>
-                ))}
-              </div>
-              <p className="mt-2 text-xs italic text-stone-400">
-                Tamil Dasa Porutham — Rajju and Vedha are the most important. Indicative only.
-              </p>
+                  <span className="hidden w-44 flex-none text-xs text-stone-500 sm:block">
+                    {p.note}
+                  </span>
+                </div>
+              ))}
             </div>
-          )}
+            <p className="mt-2 text-xs italic text-stone-400">
+              Tamil Dasa Porutham — Rajju &amp; Vedhai are the most important.
+              Indicative only.
+            </p>
+          </div>
 
           {/* AI insight */}
           <div className="mt-4 rounded-lg border border-kulam-emerald/50 bg-kulam-emerald/10 p-3">
@@ -347,9 +340,9 @@ export default function HoroscopeCalculator() {
           </div>
 
           <p className="mt-4 text-xs italic text-stone-500">
-            Indicative result only. The minimum recommended score is 18/36. Always
-            confirm with a qualified astrologer, who also checks dosha, dasha and
-            chart placement beyond guna matching.
+            Indicative result only, based on the Tamil 10-Porutham system. Always
+            confirm with a qualified astrologer, who also checks dosham, dasa and
+            chart placement beyond porutham matching.
           </p>
         </div>
       )}
