@@ -218,8 +218,9 @@ export default function RasiKattamBuilder() {
           lagnaRasi={place.Lagna}
         />
         <p className="mt-4 text-center text-xs text-stone-400">
-          La = Lagnam · Su Suriyan · Mo Chandiran · Ma Sevvai · Me Budhan · Ju
-          Guru · Ve Sukran · Sa Sani · Ra Ragu · Ke Kethu
+          ல La Lagnam · சூ Su Suriyan · சந் Mo Chandiran · செ Ma Sevvai · பு Me
+          Budhan · கு Ju Guru · சு Ve Sukran · சனி Sa Sani · ரா Ra Ragu · கே Ke
+          Kethu
         </p>
       </div>
     </div>

@@ -20,6 +20,12 @@ const ABBR: Record<string, string> = {
   Jupiter: "Ju", Venus: "Ve", Saturn: "Sa", Rahu: "Ra", Ketu: "Ke",
 };
 
+// Tamil starting letters (conventional jathagam abbreviations).
+const TAMIL_ABBR: Record<string, string> = {
+  Lagna: "ல", Sun: "சூ", Moon: "சந்", Mars: "செ", Mercury: "பு",
+  Jupiter: "கு", Venus: "சு", Saturn: "சனி", Rahu: "ரா", Ketu: "கே",
+};
+
 export default function RasiChart({
   title,
   subtitle,
@@ -31,9 +37,10 @@ export default function RasiChart({
   planets: Record<string, number>;
   lagnaRasi: number;
 }) {
+  // Store planet keys per rasi so we can render Tamil + English together.
   const byRasi: Record<number, string[]> = {};
   for (const [planet, rasi] of Object.entries(planets)) {
-    (byRasi[rasi] ||= []).push(ABBR[planet] || planet.slice(0, 2));
+    (byRasi[rasi] ||= []).push(planet);
   }
 
   return (
@@ -57,17 +64,25 @@ export default function RasiChart({
               <div className="text-[8px] leading-none text-stone-400">
                 {RASI_NAMES[rasi]}
               </div>
-              <div className="mt-0.5 flex flex-wrap gap-0.5">
-                {(byRasi[rasi] || []).map((p, i) => (
-                  <span
-                    key={i}
-                    className={`text-[11px] font-bold ${
-                      p === "La" ? "text-kulam-gold" : "text-kulam-dark"
-                    }`}
-                  >
-                    {p}
-                  </span>
-                ))}
+              <div className="mt-0.5 flex flex-wrap gap-x-1.5 gap-y-0.5">
+                {(byRasi[rasi] || []).map((planet, i) => {
+                  const isLa = planet === "Lagna";
+                  return (
+                    <span
+                      key={i}
+                      className={`flex flex-col items-center leading-none ${
+                        isLa ? "text-kulam-gold" : "text-kulam-dark"
+                      }`}
+                    >
+                      <span className="text-[13px] font-bold">
+                        {TAMIL_ABBR[planet] || planet.slice(0, 2)}
+                      </span>
+                      <span className="text-[7px] font-semibold text-stone-400">
+                        {ABBR[planet] || planet.slice(0, 2)}
+                      </span>
+                    </span>
+                  );
+                })}
               </div>
             </div>
           );
