@@ -17,9 +17,9 @@
     "gothram": "Palulla, Cherukunulla, Selukoori",
     "kuladeivam": "Devara kovil",
     "place": "Chinnametupaalayam",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.953959999999999,
+    "lng": 77.61282
   },
   {
     "id": 3,
@@ -50,9 +50,9 @@
     "gothram": "",
     "kuladeivam": "Aevara kovil",
     "place": "Ayyampati, Aravakurichi",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "approx",
+    "lat": 10.7561,
+    "lng": 78.0386
   },
   {
     "id": 6,
@@ -72,9 +72,9 @@
     "gothram": "Eesalla",
     "kuladeivam": "Konammal kovil",
     "place": "Madoorampatti",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.918859999999999,
+    "lng": 77.57772
   },
   {
     "id": 8,
@@ -83,9 +83,9 @@
     "gothram": "Marutla, Pamidipalla",
     "kuladeivam": "Naagammal kovil",
     "place": "Thaarapuram, Uppar Arugil",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "approx",
+    "lat": 10.7297,
+    "lng": 77.532
   },
   {
     "id": 9,
@@ -105,9 +105,9 @@
     "gothram": "Pogunulla, Pasupu neela",
     "kuladeivam": "Konammal kovil",
     "place": "Idikarei",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.9698,
+    "lng": 77.62866
   },
   {
     "id": 11,
@@ -116,9 +116,9 @@
     "gothram": "Vipparla, Punugoti Valoottal",
     "kuladeivam": "Ruthrammal Kovil",
     "place": "Viyampaalayam",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.926779999999999,
+    "lng": 77.58564
   },
   {
     "id": 12,
@@ -127,9 +127,9 @@
     "gothram": "",
     "kuladeivam": "Naagammal kovil",
     "place": "Thaarapuram, Uppar Arugil",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "approx",
+    "lat": 10.7297,
+    "lng": 77.532
   },
   {
     "id": 13,
@@ -138,9 +138,9 @@
     "gothram": "",
     "kuladeivam": "Ellammal kovil",
     "place": "Kongappatti, Attanchathiram",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 11.02074,
+    "lng": 77.4996
   },
   {
     "id": 14,
@@ -149,9 +149,9 @@
     "gothram": "",
     "kuladeivam": "Devara kovil",
     "place": "Kothappaalayam (Aravei)",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "approx",
+    "lat": 10.7561,
+    "lng": 78.0386
   },
   {
     "id": 15,
@@ -160,9 +160,9 @@
     "gothram": "",
     "kuladeivam": "Devara kovil",
     "place": "Poolakkampatti",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.9347,
+    "lng": 77.59356
   },
   {
     "id": 16,
@@ -204,9 +204,9 @@
     "gothram": "Janakanulla",
     "kuladeivam": "Sri Renuka Ellammal kovil",
     "place": "Dalamarathupati, Karor vattam",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "approx",
+    "lat": 10.96,
+    "lng": 78.08
   },
   {
     "id": 20,
@@ -237,9 +237,9 @@
     "gothram": "Inakandi",
     "kuladeivam": "Endammal kovil",
     "place": "Komangalam",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.993559999999999,
+    "lng": 77.47242,
+    "geo": "region"
   },
   {
     "id": 23,
@@ -248,9 +248,9 @@
     "gothram": "",
     "kuladeivam": "Poodhaatiyaar kovil",
     "place": "Komangalam",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.993559999999999,
+    "lng": 77.47242,
+    "geo": "region"
   },
   {
     "id": 24,
@@ -259,9 +259,9 @@
     "gothram": "Thalluri",
     "kuladeivam": "Endammal China Endammal Kasthurinayurdu kovil",
     "place": "Pongaloor",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.90752,
+    "lng": 77.56638
   },
   {
     "id": 25,
@@ -281,9 +281,9 @@
     "gothram": "Musunulla",
     "kuladeivam": "Kondammal kovil",
     "place": "Karumatthampatti",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 11.001479999999999,
+    "lng": 77.48034
   },
   {
     "id": 27,
@@ -292,9 +292,9 @@
     "gothram": "Maratla",
     "kuladeivam": "Devara kovil",
     "place": "Chithanayakkanpalayam",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.958459999999999,
+    "lng": 77.61731999999999
   },
   {
     "id": 28,
@@ -303,9 +303,9 @@
     "gothram": "Sendhutla",
     "kuladeivam": "Perammal kovil; Aror + Devara kovil",
     "place": "A.Naagoor; karadikootam",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.915439999999998,
+    "lng": 77.5743
   },
   {
     "id": 29,
@@ -314,9 +314,9 @@
     "gothram": "Aavulapuli",
     "kuladeivam": "Balarangamma",
     "place": "Iacchalapatti",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.87242,
+    "lng": 77.53128
   },
   {
     "id": 30,
@@ -325,9 +325,9 @@
     "gothram": "Gindipaal, Cherukunulla",
     "kuladeivam": "",
     "place": "Perinayakkanvaladhu (Moolanoor)",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "approx",
+    "lat": 10.83,
+    "lng": 78.07
   },
   {
     "id": 31,
@@ -336,9 +336,9 @@
     "gothram": "Mannava, Marutla, Semandhala",
     "kuladeivam": "lingammal kovil",
     "place": "Jangamanaayakkan paalayam",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.96638,
+    "lng": 77.62523999999999
   },
   {
     "id": 32,
@@ -347,9 +347,9 @@
     "gothram": "Inakandi",
     "kuladeivam": "Naarammal, Endammal kovil",
     "place": "Ramipalayam, Sevur",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "approx",
+    "lat": 10.8,
+    "lng": 78
   },
   {
     "id": 33,
@@ -358,9 +358,9 @@
     "gothram": "Dhanabal",
     "kuladeivam": "Devara kovil",
     "place": "Manjuvalli, Vedachandur",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "approx",
+    "lat": 10.53,
+    "lng": 77.95
   },
   {
     "id": 34,
@@ -369,9 +369,9 @@
     "gothram": "Pyindibal",
     "kuladeivam": "Kondammal kovil",
     "place": "Petthinaayakkanoor",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 11.01732,
+    "lng": 77.49618
   },
   {
     "id": 35,
@@ -380,9 +380,9 @@
     "gothram": "Padusoori",
     "kuladeivam": "Peddhammal kovil",
     "place": "Pacchar palayam",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.9743,
+    "lng": 77.63316
   },
   {
     "id": 36,
@@ -391,9 +391,9 @@
     "gothram": "Ravipalla, Pamidipalla",
     "kuladeivam": "Devara kovil",
     "place": "Ilakkarandhei, Arupukottei",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "approx",
+    "lat": 9.51,
+    "lng": 78.1
   },
   {
     "id": 37,
@@ -402,9 +402,9 @@
     "gothram": "Pamidipalla, Thallri",
     "kuladeivam": "Akkammal kovil",
     "place": "Sengaali Paalayam",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.888259999999999,
+    "lng": 77.54711999999999
   },
   {
     "id": 38,
@@ -413,9 +413,9 @@
     "gothram": "Miledi",
     "kuladeivam": "Devara kovil",
     "place": "Veeriyampaalayam",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 11.02524,
+    "lng": 77.5041
   },
   {
     "id": 39,
@@ -424,9 +424,9 @@
     "gothram": "",
     "kuladeivam": "Devara kovil",
     "place": "Oornayakkan Valasu",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.98222,
+    "lng": 77.46108
   },
   {
     "id": 40,
@@ -435,9 +435,9 @@
     "gothram": "Myleti",
     "kuladeivam": "Chithammal kovil",
     "place": "GKD nagar, Paapanaayakkanpaalayam",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.9392,
+    "lng": 77.59806
   },
   {
     "id": 41,
@@ -457,9 +457,9 @@
     "gothram": "Miledi, Myleti, Mamilla",
     "kuladeivam": "Sri Renukadevi Ellammal kovil",
     "place": "Peelamedu",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 11.033159999999999,
+    "lng": 77.51201999999999
   },
   {
     "id": 43,
@@ -468,9 +468,9 @@
     "gothram": "",
     "kuladeivam": "Perammal kovil",
     "place": "Periyanaayakkan Palayam",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.990139999999998,
+    "lng": 77.469
   },
   {
     "id": 44,
@@ -501,9 +501,9 @@
     "gothram": "Vallutla, Pulipalla, Senoori",
     "kuladeivam": "Devara kovil",
     "place": "Idikarei",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.9698,
+    "lng": 77.62866
   },
   {
     "id": 47,
@@ -512,9 +512,9 @@
     "gothram": "Pamidipala, Eendharu maakkalla",
     "kuladeivam": "Devara kovil",
     "place": "Chithanayakkanpalayam",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.958459999999999,
+    "lng": 77.61731999999999
   },
   {
     "id": 48,
@@ -523,9 +523,9 @@
     "gothram": "Pamidipalla, Sri Bala",
     "kuladeivam": "Endammal Venugopaal Lakshmi Ammal",
     "place": "Kovei",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "approx",
+    "lat": 11,
+    "lng": 76.97
   },
   {
     "id": 49,
@@ -567,9 +567,9 @@
     "gothram": "Vallutla, Kornipalla, Endhilla",
     "kuladeivam": "Devara kovil; Kallazhagar kovil",
     "place": "Idikarei; Madurai",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "approx",
+    "lat": 9.9252,
+    "lng": 78.1198
   },
   {
     "id": 53,
@@ -578,9 +578,9 @@
     "gothram": "",
     "kuladeivam": "Ellammal Akkammal kovil",
     "place": "Govindapuram",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.919939999999999,
+    "lng": 77.5788,
+    "geo": "region"
   },
   {
     "id": 54,
@@ -600,9 +600,9 @@
     "gothram": "Musunulla, Ipparali",
     "kuladeivam": "Ruthrammal kovil",
     "place": "Ruthrayampaalayam",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 11.0139,
+    "lng": 77.49276
   },
   {
     "id": 56,
@@ -644,9 +644,9 @@
     "gothram": "Eendamukula",
     "kuladeivam": "Lakshmi Ammal lingammal kovil",
     "place": "Kondaar paalayam",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 11.02182,
+    "lng": 77.50068
   },
   {
     "id": 60,
@@ -655,9 +655,9 @@
     "gothram": "Ullatla",
     "kuladeivam": "Elammal kovil",
     "place": "Virukalapatti",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.9788,
+    "lng": 77.63766
   },
   {
     "id": 61,
@@ -666,9 +666,9 @@
     "gothram": "Maaratla",
     "kuladeivam": "Devara kovil",
     "place": "Pennivaadi",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.93578,
+    "lng": 77.59464
   },
   {
     "id": 62,
@@ -677,9 +677,9 @@
     "gothram": "Pamidipalla, Vipparla",
     "kuladeivam": "Engalammal",
     "place": "Chinnakaliyamuthoor, Pazhani",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "approx",
+    "lat": 10.45,
+    "lng": 77.52
   },
   {
     "id": 63,
@@ -699,9 +699,9 @@
     "gothram": "Cherukuru, Dhasatla",
     "kuladeivam": "Ellammal kovil",
     "place": "Ondipudhur, Kovei",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "precise",
+    "lat": 10.995,
+    "lng": 77.03
   },
   {
     "id": 65,
@@ -721,9 +721,9 @@
     "gothram": "",
     "kuladeivam": "Paadhaal Akkammal kovil",
     "place": "Andhiyoor",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.90068,
+    "lng": 77.55954
   },
   {
     "id": 67,
@@ -743,9 +743,9 @@
     "gothram": "Cherukunulla, Kasarakoori",
     "kuladeivam": "Maadhammal kovil",
     "place": "Akkanaayakkan palayam",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.994639999999999,
+    "lng": 77.4735
   },
   {
     "id": 69,
@@ -754,9 +754,9 @@
     "gothram": "Vallutla, Pogunulla, Kanooli",
     "kuladeivam": "Endammal kovil",
     "place": "Thimma Naayakkanpalayam",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.95162,
+    "lng": 77.61048
   },
   {
     "id": 70,
@@ -765,9 +765,9 @@
     "gothram": "Gogunulla",
     "kuladeivam": "",
     "place": "Sikkal noothu",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.9086,
+    "lng": 77.56746
   },
   {
     "id": 71,
@@ -787,9 +787,9 @@
     "gothram": "Erpulla",
     "kuladeivam": "Venugopalasaami Nayurdu Rangammal kovil",
     "place": "Allappalayam",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 11.002559999999999,
+    "lng": 77.48142
   },
   {
     "id": 73,
@@ -798,9 +798,9 @@
     "gothram": "Poorandal",
     "kuladeivam": "",
     "place": "Ilavandhi Vadugapalayam",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.959539999999999,
+    "lng": 77.6184
   },
   {
     "id": 74,
@@ -809,9 +809,9 @@
     "gothram": "Pavilla, Pogunulla",
     "kuladeivam": "Ellammal kovilo",
     "place": "Narikalpatti",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.916519999999998,
+    "lng": 77.57538
   },
   {
     "id": 75,
@@ -820,9 +820,9 @@
     "gothram": "",
     "kuladeivam": "Devarakovil",
     "place": "Neikaarapatti",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.8735,
+    "lng": 77.53236
   },
   {
     "id": 76,
@@ -864,9 +864,9 @@
     "gothram": "Dosanulla",
     "kuladeivam": "Errammal kovil",
     "place": "Appanayakkanpatti, Pudur",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "approx",
+    "lat": 11,
+    "lng": 76.97
   },
   {
     "id": 80,
@@ -875,9 +875,9 @@
     "gothram": "Dhanyala, Maratla",
     "kuladeivam": "Perumal Sennammal kovil",
     "place": "Ketthanur",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 11.0184,
+    "lng": 77.49726
   },
   {
     "id": 81,
@@ -886,9 +886,9 @@
     "gothram": "",
     "kuladeivam": "Kondama thonamma kovil",
     "place": "Sappatipill",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.97538,
+    "lng": 77.63423999999999
   },
   {
     "id": 82,
@@ -908,9 +908,9 @@
     "gothram": "",
     "kuladeivam": "Lingammal kovil",
     "place": "No.24 Veerapandi",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "approx",
+    "lat": 11.16,
+    "lng": 77.36
   },
   {
     "id": 84,
@@ -919,9 +919,9 @@
     "gothram": "",
     "kuladeivam": "Lingammal kovil",
     "place": "Konapalayam",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 11.02632,
+    "lng": 77.50518
   },
   {
     "id": 85,
@@ -930,9 +930,9 @@
     "gothram": "",
     "kuladeivam": "Devara kovil",
     "place": "Ikkar palayam",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.9833,
+    "lng": 77.46216
   },
   {
     "id": 86,
@@ -952,9 +952,9 @@
     "gothram": "Kancherla, Athikoori",
     "kuladeivam": "Lingammal kovil",
     "place": "Peelamedu",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 11.033159999999999,
+    "lng": 77.51201999999999
   },
   {
     "id": 88,
@@ -963,9 +963,9 @@
     "gothram": "",
     "kuladeivam": "ILngammal kovil",
     "place": "Vazhiyampalayam",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 11.034239999999999,
+    "lng": 77.5131
   },
   {
     "id": 89,
@@ -974,9 +974,9 @@
     "gothram": "Marutla, Vipparla, Pulikorla",
     "kuladeivam": "Perammal kovil",
     "place": "Peelamedu, S.N.R Kaloori saalei",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.991219999999998,
+    "lng": 77.47008
   },
   {
     "id": 90,
@@ -985,9 +985,9 @@
     "gothram": "Komaravolu, Valootla",
     "kuladeivam": "Akkammal kovil",
     "place": "Sennavanayakkanpalayam",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.9482,
+    "lng": 77.60706
   },
   {
     "id": 91,
@@ -996,9 +996,9 @@
     "gothram": "Gogunulla, Ayodhya, Karapatla",
     "kuladeivam": "Lakshmi ammal koil",
     "place": "A.Nagoor",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.90518,
+    "lng": 77.56403999999999
   },
   {
     "id": 92,
@@ -1007,9 +1007,9 @@
     "gothram": "Tatipala, Sri bala",
     "kuladeivam": "Endammal kovil",
     "place": "Ramiyapalayam",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.86216,
+    "lng": 77.52102
   },
   {
     "id": 93,
@@ -1018,9 +1018,9 @@
     "gothram": "Enulla, Noongalla",
     "kuladeivam": "Govindhammal kovil",
     "place": "Pongaloor",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.90752,
+    "lng": 77.56638
   },
   {
     "id": 94,
@@ -1029,9 +1029,9 @@
     "gothram": "Chedimatla, Rayakalli",
     "kuladeivam": "Devara kovil",
     "place": "Nalla kavundanpaalayam, Kodumudi",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "approx",
+    "lat": 11.078,
+    "lng": 77.883
   },
   {
     "id": 95,
@@ -1040,9 +1040,9 @@
     "gothram": "Tammaluri, Ayodhya",
     "kuladeivam": "Alamelu mangammal kovil",
     "place": "Sennava Nayakkanpalayam",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.9131,
+    "lng": 77.57196
   },
   {
     "id": 96,
@@ -1051,9 +1051,9 @@
     "gothram": "Pongu noola",
     "kuladeivam": "Devara kovil",
     "place": "Nagarkalandei",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.87008,
+    "lng": 77.52893999999999
   },
   {
     "id": 97,
@@ -1084,9 +1084,9 @@
     "gothram": "Inakandi",
     "kuladeivam": "Devara kovil",
     "place": "Chithanayakkanpalayam",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.958459999999999,
+    "lng": 77.61731999999999
   },
   {
     "id": 100,
@@ -1095,9 +1095,9 @@
     "gothram": "Vallutla",
     "kuladeivam": "Nagammal kovil",
     "place": "Karungalpati, Aandipatti kottei",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "approx",
+    "lat": 10,
+    "lng": 77.6
   },
   {
     "id": 101,
@@ -1150,9 +1150,9 @@
     "gothram": "Desatla, Chandrolla, Sennamudi",
     "kuladeivam": "Chithammal kovil",
     "place": "R.Veloor",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 11.0229,
+    "lng": 77.50175999999999
   },
   {
     "id": 106,
@@ -1172,9 +1172,9 @@
     "gothram": "Inaganti",
     "kuladeivam": "Devara kovil",
     "place": "Elavanoor (Aravei); Nimmalaar, Akkanaayakkan palayam",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "approx",
+    "lat": 10.7561,
+    "lng": 78.0386
   },
   {
     "id": 108,
@@ -1183,9 +1183,9 @@
     "gothram": "Garalakanta, Garikanolla",
     "kuladeivam": "Maadhammal Gengammal kovil",
     "place": "Sanuppapatti",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.893839999999999,
+    "lng": 77.5527
   },
   {
     "id": 109,
@@ -1194,9 +1194,9 @@
     "gothram": "Aduri, Mogilirekula",
     "kuladeivam": "Rayar Kaatupillar kovil",
     "place": "Periyanaayakkanpalayam",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 11.030819999999999,
+    "lng": 77.50968
   },
   {
     "id": 110,
@@ -1227,9 +1227,9 @@
     "gothram": "Edutla",
     "kuladeivam": "Rangammal kovil",
     "place": "Peelamedu",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 11.033159999999999,
+    "lng": 77.51201999999999
   },
   {
     "id": 113,
@@ -1238,9 +1238,9 @@
     "gothram": "Beenari",
     "kuladeivam": "Rangammal kovil",
     "place": "Paapanaayakkanpalaya",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 11.038739999999999,
+    "lng": 77.5176
   },
   {
     "id": 114,
@@ -1249,9 +1249,9 @@
     "gothram": "Beemaari",
     "kuladeivam": "Rangammaal kovil",
     "place": "Madukattipalayam",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.995719999999999,
+    "lng": 77.47458
   },
   {
     "id": 115,
@@ -1260,9 +1260,9 @@
     "gothram": "",
     "kuladeivam": "Rangammal kovil",
     "place": "Puloiyampatti",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.9527,
+    "lng": 77.61156
   },
   {
     "id": 116,
@@ -1271,9 +1271,9 @@
     "gothram": "Pogunulla, Vipparla",
     "kuladeivam": "Sri Renukadevi Gangammal kovil",
     "place": "Seethampatti engira venkita puram, Dindigul maavattam",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "approx",
+    "lat": 10.3624,
+    "lng": 77.9695
   },
   {
     "id": 117,
@@ -1282,9 +1282,9 @@
     "gothram": "Pogunulla",
     "kuladeivam": "Mangammal kovil",
     "place": "pulimarathuppalayam",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.86666,
+    "lng": 77.52552
   },
   {
     "id": 118,
@@ -1293,9 +1293,9 @@
     "gothram": "",
     "kuladeivam": "Devara kovil",
     "place": "Andhiyoor",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.90068,
+    "lng": 77.55954
   },
   {
     "id": 119,
@@ -1315,9 +1315,9 @@
     "gothram": "",
     "kuladeivam": "Devara kovil",
     "place": "Chinnavanaayakkanoor (Aravei)",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "approx",
+    "lat": 10.7561,
+    "lng": 78.0386
   },
   {
     "id": 121,
@@ -1348,9 +1348,9 @@
     "gothram": "Pogunulla, Etipaal",
     "kuladeivam": "Endammal kovil",
     "place": "Peelamedu",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 11.033159999999999,
+    "lng": 77.51201999999999
   },
   {
     "id": 124,
@@ -1359,9 +1359,9 @@
     "gothram": "Pulikorla",
     "kuladeivam": "Endammal kovil",
     "place": "S.N.R college, Kovei",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "approx",
+    "lat": 11,
+    "lng": 76.97
   },
   {
     "id": 125,
@@ -1381,9 +1381,9 @@
     "gothram": "Valluri",
     "kuladeivam": "mangammal kovil",
     "place": "naayakkanoor",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 11.01948,
+    "lng": 77.49834
   },
   {
     "id": 127,
@@ -1392,9 +1392,9 @@
     "gothram": "Vallur",
     "kuladeivam": "Akkammal kovil",
     "place": "Vasavanayakkanpatti (Pasaveipill)",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.97646,
+    "lng": 77.63532
   },
   {
     "id": 128,
@@ -1403,9 +1403,9 @@
     "gothram": "Vallur",
     "kuladeivam": "Gengammal kovil",
     "place": "Velapatti chanthriram",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.93344,
+    "lng": 77.5923
   },
   {
     "id": 129,
@@ -1414,9 +1414,9 @@
     "gothram": "Amaraavathi",
     "kuladeivam": "",
     "place": "Veerlappatti",
-    "geo": "none",
-    "lat": null,
-    "lng": null
+    "geo": "region",
+    "lat": 10.890419999999999,
+    "lng": 77.54928
   },
   {
     "id": 130,
@@ -1458,9 +1458,9 @@
     "gothram": "Pamidipalla, Tatipalla, Paaledi",
     "kuladeivam": "Akkammal kovil",
     "place": "Matthi nayakkan palayam",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.89834,
+    "lng": 77.5572,
+    "geo": "region"
   },
   {
     "id": 134,
@@ -1469,9 +1469,9 @@
     "gothram": "Kundhatla",
     "kuladeivam": "Akkammal kovil",
     "place": "Pottiyampalayam",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 11.035319999999999,
+    "lng": 77.51418,
+    "geo": "region"
   },
   {
     "id": 135,
@@ -1480,9 +1480,9 @@
     "gothram": "Kundhatla",
     "kuladeivam": "Rangammal kovil",
     "place": "Guruvappa naayakkanoor",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.992299999999998,
+    "lng": 77.47116,
+    "geo": "region"
   },
   {
     "id": 136,
@@ -1491,9 +1491,9 @@
     "gothram": "Kundhatla",
     "kuladeivam": "Thirupathi nayudu endammal kovil",
     "place": "Rajapalayam, chinnakalaiyamuthoor",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.45,
+    "lng": 77.5,
+    "geo": "approx"
   },
   {
     "id": 137,
@@ -1502,9 +1502,9 @@
     "gothram": "Kandhumadi",
     "kuladeivam": "Mangalagiri ammal kovil",
     "place": "Anuppapatti",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.90626,
+    "lng": 77.56512,
+    "geo": "region"
   },
   {
     "id": 138,
@@ -1524,9 +1524,9 @@
     "gothram": "Pamidipalla, Simakurthi, Sri bala",
     "kuladeivam": "Mangammal, Venugopalsaamy nayudu kondammal kovil",
     "place": "Vellamadei",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 11.000219999999999,
+    "lng": 77.47908,
+    "geo": "region"
   },
   {
     "id": 140,
@@ -1546,9 +1546,9 @@
     "gothram": "Vallutla, Vipparla, Sirumulla",
     "kuladeivam": "Gangammal kovil",
     "place": "Vandara chinnappatti, Gandipatti kottei",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.5,
+    "lng": 77.9,
+    "geo": "approx"
   },
   {
     "id": 142,
@@ -1557,9 +1557,9 @@
     "gothram": "Vipparla, Vemunulla, Namagiri",
     "kuladeivam": "Endammal kovil",
     "place": "Pongaloor",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.90752,
+    "lng": 77.56638,
+    "geo": "region"
   },
   {
     "id": 143,
@@ -1568,9 +1568,9 @@
     "gothram": "Vemunulla, Vippattula, Korapati",
     "kuladeivam": "Chithammal kovil",
     "place": "Dhasarapatti",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 11.00814,
+    "lng": 77.487,
+    "geo": "region"
   },
   {
     "id": 144,
@@ -1579,9 +1579,9 @@
     "gothram": "Tanguturu",
     "kuladeivam": "Devara kovil",
     "place": "Vallappampatti",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.965119999999999,
+    "lng": 77.62398,
+    "geo": "region"
   },
   {
     "id": 145,
@@ -1601,9 +1601,9 @@
     "gothram": "Paleti, Paaledi",
     "kuladeivam": "Devara kovil",
     "place": "Eppodhum venraan",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.87908,
+    "lng": 77.53793999999999,
+    "geo": "region"
   },
   {
     "id": 147,
@@ -1612,9 +1612,9 @@
     "gothram": "Inakandi",
     "kuladeivam": "Ragammal kovil",
     "place": "Poolanginar",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 11.01606,
+    "lng": 77.49492,
+    "geo": "region"
   },
   {
     "id": 148,
@@ -1623,9 +1623,9 @@
     "gothram": "Daasaraar",
     "kuladeivam": "Endammal kovil",
     "place": "Ramiyampalayam",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.97304,
+    "lng": 77.6319,
+    "geo": "region"
   },
   {
     "id": 149,
@@ -1634,9 +1634,9 @@
     "gothram": "",
     "kuladeivam": "Devara kovil",
     "place": "Pethoindipilla",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.930019999999999,
+    "lng": 77.58888,
+    "geo": "region"
   },
   {
     "id": 150,
@@ -1645,9 +1645,9 @@
     "gothram": "Korrapala, Inakandi",
     "kuladeivam": "Chithammal kovil",
     "place": "Ramiyampalayam",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.97304,
+    "lng": 77.6319,
+    "geo": "region"
   },
   {
     "id": 151,
@@ -1656,9 +1656,9 @@
     "gothram": "",
     "kuladeivam": "Devara kovil",
     "place": "Chinnamettu palayam",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 11.02398,
+    "lng": 77.50283999999999,
+    "geo": "region"
   },
   {
     "id": 152,
@@ -1678,9 +1678,9 @@
     "gothram": "Jutlunulla, Sootoor",
     "kuladeivam": "Devara kovil",
     "place": "China mettu palayam",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.93794,
+    "lng": 77.5968,
+    "geo": "region"
   },
   {
     "id": 154,
@@ -1689,9 +1689,9 @@
     "gothram": "",
     "kuladeivam": "Devara kovil",
     "place": "Appanayakkanpatti",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.894919999999999,
+    "lng": 77.55378,
+    "geo": "region"
   },
   {
     "id": 155,
@@ -1711,9 +1711,9 @@
     "gothram": "Veiloola",
     "kuladeivam": "Bommakka kovil",
     "place": "Kanuvakkarei",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.98888,
+    "lng": 77.46773999999999,
+    "geo": "region"
   },
   {
     "id": 157,
@@ -1722,9 +1722,9 @@
     "gothram": "Ullatla",
     "kuladeivam": "Venkitusaami nayudu, endammal kovil",
     "place": "Sikkal noothu",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.9086,
+    "lng": 77.56746,
+    "geo": "region"
   },
   {
     "id": 158,
@@ -1744,9 +1744,9 @@
     "gothram": "Talluru, Pallanti, Thaatipal",
     "kuladeivam": "Annammal annava nayudu akkammal kovil",
     "place": "Lakshminayakkanpalayam",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 11.039819999999999,
+    "lng": 77.51868,
+    "geo": "region"
   },
   {
     "id": 160,
@@ -1755,9 +1755,9 @@
     "gothram": "",
     "kuladeivam": "Endammal kovil",
     "place": "Poolanginar",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 11.01606,
+    "lng": 77.49492,
+    "geo": "region"
   },
   {
     "id": 161,
@@ -1766,9 +1766,9 @@
     "gothram": "Talluri",
     "kuladeivam": "Mangammal kovil",
     "place": "Poruloor, Pazhani",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.45,
+    "lng": 77.52,
+    "geo": "approx"
   },
   {
     "id": 162,
@@ -1810,9 +1810,9 @@
     "gothram": "Vedanulla, Sri bala",
     "kuladeivam": "Lakshmi kovil",
     "place": "Viyampalayam",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.961699999999999,
+    "lng": 77.62056,
+    "geo": "region"
   },
   {
     "id": 166,
@@ -1821,9 +1821,9 @@
     "gothram": "Sri bala",
     "kuladeivam": "Ellammal kovil",
     "place": "Ellappa nayakkanoor",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.91868,
+    "lng": 77.57754,
+    "geo": "region"
   },
   {
     "id": 167,
@@ -1832,9 +1832,9 @@
     "gothram": "Sandrolla, Eetha mokkala",
     "kuladeivam": "Dhavathi amman kovil",
     "place": "Pazhani akkarapatti",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.45,
+    "lng": 77.52,
+    "geo": "approx"
   },
   {
     "id": 168,
@@ -1843,9 +1843,9 @@
     "gothram": "Sannapuri, Maaratla",
     "kuladeivam": "Devara kovil",
     "place": "Purra nayakkanoor (Koomboor, Vedachandoor)",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.53,
+    "lng": 77.95,
+    "geo": "approx"
   },
   {
     "id": 169,
@@ -1865,9 +1865,9 @@
     "gothram": "Inakanti, Dharanipala, Inakandi",
     "kuladeivam": "Nagammal kovil",
     "place": "Nettipatti",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.926599999999999,
+    "lng": 77.58546,
+    "geo": "region"
   },
   {
     "id": 171,
@@ -1887,9 +1887,9 @@
     "gothram": "Muppalla, Vallutla",
     "kuladeivam": "Errammal kovil",
     "place": "Karappaadi",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 11.02056,
+    "lng": 77.49942,
+    "geo": "region"
   },
   {
     "id": 173,
@@ -1898,9 +1898,9 @@
     "gothram": "",
     "kuladeivam": "Devara kovil",
     "place": "Kalaiya muthoor",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.97754,
+    "lng": 77.6364,
+    "geo": "region"
   },
   {
     "id": 174,
@@ -1909,9 +1909,9 @@
     "gothram": "Kunugu noola",
     "kuladeivam": "Errammal kovil",
     "place": "R.veloor",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.93452,
+    "lng": 77.59338,
+    "geo": "region"
   },
   {
     "id": 175,
@@ -1920,9 +1920,9 @@
     "gothram": "Pepalla",
     "kuladeivam": "Mathammal Govindhammal kovil",
     "place": "Panniimadei",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.891499999999999,
+    "lng": 77.55036,
+    "geo": "region"
   },
   {
     "id": 176,
@@ -1942,9 +1942,9 @@
     "gothram": "Pepalla",
     "kuladeivam": "Mathammal Govindhammal kovil",
     "place": "Pannimadei",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.98546,
+    "lng": 77.46432,
+    "geo": "region"
   },
   {
     "id": 178,
@@ -1953,9 +1953,9 @@
     "gothram": "Kandanulla, Pasupu noola",
     "kuladeivam": "Akkammal kovil",
     "place": "Veeriyampaalayam",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 11.02524,
+    "lng": 77.5041,
+    "geo": "region"
   },
   {
     "id": 179,
@@ -1964,9 +1964,9 @@
     "gothram": "Srilakshmi, Erpell",
     "kuladeivam": "Naanammal kovil",
     "place": "Nagamanaayakkan palayam, Pattanam",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 11,
+    "lng": 77,
+    "geo": "approx"
   },
   {
     "id": 180,
@@ -1986,9 +1986,9 @@
     "gothram": "Vipparla, Ipparali",
     "kuladeivam": "Endammal kovil",
     "place": "Varakuttapalayam",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.99338,
+    "lng": 77.47224,
+    "geo": "region"
   },
   {
     "id": 182,
@@ -2008,9 +2008,9 @@
     "gothram": "Recherla, Aranoori",
     "kuladeivam": "Gengammal kovil",
     "place": "Murungappatti",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.90734,
+    "lng": 77.5662,
+    "geo": "region"
   },
   {
     "id": 184,
@@ -2019,9 +2019,9 @@
     "gothram": "Parishpalla",
     "kuladeivam": "Devara kovil",
     "place": "Guruvappa Naayakkanoor, Naarapatti",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.8,
+    "lng": 78,
+    "geo": "approx"
   },
   {
     "id": 185,
@@ -2052,9 +2052,9 @@
     "gothram": "Paidipala, Paindibal",
     "kuladeivam": "Ayilammal kovil",
     "place": "China Vaazhapaadi",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.91526,
+    "lng": 77.57412,
+    "geo": "region"
   },
   {
     "id": 188,
@@ -2063,9 +2063,9 @@
     "gothram": "Puligorla, Payindibal",
     "kuladeivam": "Thaathan kovil",
     "place": "Kavundanpaalayam",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.87224,
+    "lng": 77.5311,
+    "geo": "region"
   },
   {
     "id": 189,
@@ -2085,9 +2085,9 @@
     "gothram": "Pongu noola",
     "kuladeivam": "Akkammal kovil",
     "place": "Valiyapalayam",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.966199999999999,
+    "lng": 77.62505999999999,
+    "geo": "region"
   },
   {
     "id": 191,
@@ -2096,9 +2096,9 @@
     "gothram": "",
     "kuladeivam": "Akkammal kovil",
     "place": "Poolvaadi, Rangasamuthiram",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.7,
+    "lng": 77.55,
+    "geo": "approx"
   },
   {
     "id": 192,
@@ -2107,9 +2107,9 @@
     "gothram": "Adhuku noola",
     "kuladeivam": "Akkammal kovil",
     "place": "Veloor",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.88016,
+    "lng": 77.53902,
+    "geo": "region"
   },
   {
     "id": 193,
@@ -2118,9 +2118,9 @@
     "gothram": "Sirumulla",
     "kuladeivam": "Guruvammal / Devara kovil",
     "place": "Pongaloor; Manjekavundan Pudhoor",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 11.01714,
+    "lng": 77.496,
+    "geo": "region"
   },
   {
     "id": 194,
@@ -2129,9 +2129,9 @@
     "gothram": "Pasupunulla",
     "kuladeivam": "Thathan koil, Konammal kovil",
     "place": "Kavundanpaalayam, Modakkupati",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.7,
+    "lng": 77.9,
+    "geo": "approx"
   },
   {
     "id": 195,
@@ -2140,9 +2140,9 @@
     "gothram": "",
     "kuladeivam": "Rayar kaatupillar kovil",
     "place": "Periyanayakkanpalayam",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.931099999999999,
+    "lng": 77.58995999999999,
+    "geo": "region"
   },
   {
     "id": 196,
@@ -2151,9 +2151,9 @@
     "gothram": "Marutla, Ullatla, Maaramala",
     "kuladeivam": "Devara kovil",
     "place": "Kundavalasu; Narasingaapuram, Aravakkurichi",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.7561,
+    "lng": 78.0386,
+    "geo": "approx"
   },
   {
     "id": 197,
@@ -2162,9 +2162,9 @@
     "gothram": "Kanoor",
     "kuladeivam": "Rangammal kovil",
     "place": "Moolakkurumba paalayam",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 11.02506,
+    "lng": 77.50392,
+    "geo": "region"
   },
   {
     "id": 198,
@@ -2173,9 +2173,9 @@
     "gothram": "Kanumanulla, Karumpoori",
     "kuladeivam": "Sooramal kovil",
     "place": "Sallaarapalayam",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.98204,
+    "lng": 77.4609,
+    "geo": "region"
   },
   {
     "id": 199,
@@ -2184,9 +2184,9 @@
     "gothram": "",
     "kuladeivam": "Akkammal kovil",
     "place": "Adivalli",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.93902,
+    "lng": 77.59788,
+    "geo": "region"
   },
   {
     "id": 200,
@@ -2195,9 +2195,9 @@
     "gothram": "",
     "kuladeivam": "Kondammal kovil",
     "place": "Ravanavapuram",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.895999999999999,
+    "lng": 77.55485999999999,
+    "geo": "region"
   },
   {
     "id": 201,
@@ -2206,9 +2206,9 @@
     "gothram": "Ullatla",
     "kuladeivam": "Rangammal kovil",
     "place": "Manjuvalli",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 11.032979999999998,
+    "lng": 77.51183999999999,
+    "geo": "region"
   },
   {
     "id": 202,
@@ -2217,9 +2217,9 @@
     "gothram": "Marutla, Vipparla",
     "kuladeivam": "Unnal kovil",
     "place": "Thalijallipatti",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.98996,
+    "lng": 77.46882,
+    "geo": "region"
   },
   {
     "id": 203,
@@ -2239,9 +2239,9 @@
     "gothram": "",
     "kuladeivam": "Poodhaatiyaar kovil",
     "place": "Komangalam",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.993559999999999,
+    "lng": 77.47242,
+    "geo": "region"
   },
   {
     "id": 205,
@@ -2250,9 +2250,9 @@
     "gothram": "Cherukunulla, Serukkoori",
     "kuladeivam": "Rangammal lakshmiyammal kovil",
     "place": "Sikkalnoothu",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.860899999999999,
+    "lng": 77.51975999999999,
+    "geo": "region"
   },
   {
     "id": 206,
@@ -2261,9 +2261,9 @@
     "gothram": "Srikanta, Eendham kola",
     "kuladeivam": "Rangammal lakshmiyammal kovil",
     "place": "Sikkalnoothu",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.860899999999999,
+    "lng": 77.51975999999999,
+    "geo": "region"
   },
   {
     "id": 207,
@@ -2283,9 +2283,9 @@
     "gothram": "Cherukupalla, Pulikorlu",
     "kuladeivam": "",
     "place": "Kethanoor",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.91184,
+    "lng": 77.5707,
+    "geo": "region"
   },
   {
     "id": 209,
@@ -2294,9 +2294,9 @@
     "gothram": "",
     "kuladeivam": "Mangammal kovil",
     "place": "Pulimarathuppalayam",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.86882,
+    "lng": 77.52768,
+    "geo": "region"
   },
   {
     "id": 210,
@@ -2305,9 +2305,9 @@
     "gothram": "Vallutla, Peddhabal",
     "kuladeivam": "Kariyamman kovil",
     "place": "Peelamedu",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 11.033159999999999,
+    "lng": 77.51201999999999,
+    "geo": "region"
   },
   {
     "id": 211,
@@ -2327,9 +2327,9 @@
     "gothram": "Ponoori",
     "kuladeivam": "Angaala Parameshwari kovil",
     "place": "Sooloor",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.91976,
+    "lng": 77.57862,
+    "geo": "region"
   },
   {
     "id": 213,
@@ -2349,9 +2349,9 @@
     "gothram": "Ayotthi",
     "kuladeivam": "Mangammal kovil",
     "place": "Lakshmi nayakkan palayam",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 11.01372,
+    "lng": 77.49258,
+    "geo": "region"
   },
   {
     "id": 215,
@@ -2360,9 +2360,9 @@
     "gothram": "",
     "kuladeivam": "Maadhammal Gengammal kovil",
     "place": "Sanuppapatti",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 10.893839999999999,
+    "lng": 77.5527,
+    "geo": "region"
   },
   {
     "id": 216,
@@ -2393,9 +2393,9 @@
     "gothram": "Pepallar",
     "kuladeivam": "Ragammal kovil",
     "place": "Sulthan pettai",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 11.02164,
+    "lng": 77.5005,
+    "geo": "region"
   },
   {
     "id": 219,
@@ -2404,9 +2404,9 @@
     "gothram": "Dharmalla, Ullamala",
     "kuladeivam": "Endammal kovil",
     "place": "Mangarasu, Valaiyapalayam",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 11.04069,
+    "lng": 77.81344,
+    "geo": "approx"
   },
   {
     "id": 220,
@@ -2415,9 +2415,9 @@
     "gothram": "Pamidipalla",
     "kuladeivam": "Ellammal kovil",
     "place": "Vijayapuri, Kovilpatti",
-    "lat": null,
-    "lng": null,
-    "geo": "none"
+    "lat": 9.17,
+    "lng": 77.87,
+    "geo": "approx"
   },
   {
     "id": 221,
