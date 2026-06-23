@@ -55,42 +55,65 @@ ${poruthamLines}
 
 Write a balanced, encouraging insight in 3–4 short sentences (about 70–110 words). Mention 1–2 strengths and, if any, 1 area to be mindful of (especially Rajju or Vedhai if not matching, as these are the most important). Be gentle and non-deterministic — do not predict the future or give guarantees. End with one short line reminding them to confirm with a qualified astrologer (jothidar). Plain text, no markdown headings.`;
 
-  try {
-    const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${key}`,
-      {
+  const body = JSON.stringify({
+    contents: [{ parts: [{ text: prompt }] }],
+    generationConfig: {
+      temperature: 0.7,
+      maxOutputTokens: 800,
+      // gemini-2.5-flash is a thinking model; disable thinking so the
+      // token budget goes to the actual answer (avoids truncation).
+      thinkingConfig: { thinkingBudget: 0 },
+    },
+  });
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${key}`;
+  const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+  // Gemini returns 503 (overloaded) / 429 (rate-limited) transiently — retry
+  // a few times with exponential backoff before giving up.
+  const MAX_ATTEMPTS = 4;
+  let lastStatus = 0;
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    try {
+      const res = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         cache: "no-store",
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
-          generationConfig: {
-            temperature: 0.7,
-            maxOutputTokens: 800,
-            // gemini-2.5-flash is a thinking model; disable thinking so the
-            // token budget goes to the actual answer (avoids truncation).
-            thinkingConfig: { thinkingBudget: 0 },
-          },
-        }),
+        body,
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        const insight =
+          data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || "";
+        if (insight) return NextResponse.json({ configured: true, insight });
+        // empty response — retry
+        lastStatus = 200;
+      } else {
+        lastStatus = res.status;
+        // only retry on transient overload / rate-limit / server errors
+        if (![429, 500, 502, 503, 504].includes(res.status)) {
+          const detail = await res.text();
+          return NextResponse.json(
+            { error: `Gemini error (${res.status}).`, detail: detail.slice(0, 300) },
+            { status: 502 }
+          );
+        }
       }
-    );
-
-    if (!res.ok) {
-      const detail = await res.text();
-      return NextResponse.json(
-        { error: `Gemini error (${res.status}).`, detail: detail.slice(0, 300) },
-        { status: 502 }
-      );
+    } catch {
+      lastStatus = 0; // network error — retry
     }
 
-    const data = await res.json();
-    const insight =
-      data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || "";
-    if (!insight) {
-      return NextResponse.json({ error: "No insight returned." }, { status: 502 });
-    }
-    return NextResponse.json({ configured: true, insight });
-  } catch {
-    return NextResponse.json({ error: "Could not reach the AI service." }, { status: 502 });
+    if (attempt < MAX_ATTEMPTS) await sleep(600 * 2 ** (attempt - 1)); // 0.6s, 1.2s, 2.4s
   }
+
+  const busy = lastStatus === 503 || lastStatus === 429 || lastStatus === 0;
+  return NextResponse.json(
+    {
+      error: busy
+        ? "The AI service is busy right now — please try again in a moment."
+        : `Could not get an insight (status ${lastStatus}).`,
+      retryable: busy,
+    },
+    { status: 503 }
+  );
 }

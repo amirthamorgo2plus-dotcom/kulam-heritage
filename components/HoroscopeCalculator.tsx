@@ -336,7 +336,17 @@ export default function HoroscopeCalculator() {
                 </p>
               </div>
             )}
-            {ai.error && <p className="text-sm text-red-600">{ai.error}</p>}
+            {ai.error && (
+              <div className="flex flex-wrap items-center gap-2">
+                <p className="text-sm text-red-600">{ai.error}</p>
+                <button
+                  onClick={getInsight}
+                  className="rounded-lg bg-kulam-emerald px-3 py-1 text-xs font-semibold text-white shadow transition hover:brightness-95"
+                >
+                  ↻ Try again
+                </button>
+              </div>
+            )}
           </div>
 
           <p className="mt-4 text-xs italic text-stone-500">
