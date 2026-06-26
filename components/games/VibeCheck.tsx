@@ -182,7 +182,9 @@ export default function VibeCheck({ mode = "family", onComplete, onShare }: {
   const [phase, setPhase] = useState<Phase>("intro");
   const [active, setActive] = useState<1 | 2>(1);
   const [qi, setQi] = useState(0);
-  const [dob, setDob] = useState("");
+  const [bd, setBd] = useState(""); // day
+  const [bm, setBm] = useState(""); // month (1-12)
+  const [by, setBy] = useState(""); // year
   const [p1, setP1] = useState<PD>(empty());
   const [p2, setP2] = useState<PD>(empty());
   const [result, setResult] = useState<VibeResult | null>(null);
@@ -201,21 +203,21 @@ export default function VibeCheck({ mode = "family", onComplete, onShare }: {
     else { setActive(1); setPhase("birth"); }
   };
 
-  // Live preview of computed signs from the date being entered
+  // Live preview of computed signs from the day/month/year dropdowns
   const preview = useMemo(() => {
-    if (!dob) return null;
-    const [y, m, d] = dob.split("-").map(Number);
+    const y = Number(by), m = Number(bm), d = Number(bd);
     if (!y || !m || !d) return null;
     return { sun: sunSignIndex(m, d), moon: moonSignIndex(y, m, d), animal: animalFromYear(y), year: y };
-  }, [dob]);
+  }, [by, bm, bd]);
 
   const confirmDob = () => {
     if (!preview) return;
-    setP((d) => ({ ...d, born: dob, sun: preview.sun, moon: preview.moon, animal: preview.animal }));
-    setDob("");
+    const born = `${by}-${bm}-${bd}`;
+    setP((d) => ({ ...d, born, sun: preview.sun, moon: preview.moon, animal: preview.animal }));
+    setBd(""); setBm(""); setBy("");
     if (active === 1) setActive(2);
     else {
-      const p2f = { ...p2, born: dob, sun: preview.sun, moon: preview.moon, animal: preview.animal };
+      const p2f = { ...p2, born, sun: preview.sun, moon: preview.moon, animal: preview.animal };
       setP2(p2f); finish(p2f);
     }
   };
@@ -238,7 +240,7 @@ export default function VibeCheck({ mode = "family", onComplete, onShare }: {
     setResult(r); setPhase("result"); onComplete?.(r);
   };
 
-  const reset = () => { setP1(empty()); setP2(empty()); setActive(1); setQi(0); setDob(""); setResult(null); setPhase("intro"); };
+  const reset = () => { setP1(empty()); setP2(empty()); setActive(1); setQi(0); setBd(""); setBm(""); setBy(""); setResult(null); setPhase("intro"); };
 
   // ---- Shareable image card (canvas) ----
   const shareCard = async () => {
@@ -336,8 +338,20 @@ export default function VibeCheck({ mode = "family", onComplete, onShare }: {
           <div className="mb-2 w-full rounded-2xl border bg-white/95 p-4 shadow-xl backdrop-blur" style={{ borderColor: cur.color }}>
             <p className="text-center text-sm font-bold text-kulam-dark">{active === 1 ? labels.p1 : labels.p2} — your birthday 🎂</p>
             <p className="mb-3 text-center text-[11px] text-stone-400">We&apos;ll find your signs automatically</p>
-            <input type="date" value={dob} max="2025-12-31" onChange={(e) => setDob(e.target.value)}
-              className="w-full rounded-lg border border-stone-300 px-3 py-2.5 text-center text-sm outline-none focus:border-violet-400" />
+            <div className="flex gap-2">
+              <select value={bd} onChange={(e) => setBd(e.target.value)} className="flex-1 rounded-lg border border-stone-300 px-2 py-2.5 text-sm outline-none focus:border-violet-400">
+                <option value="">Day</option>
+                {Array.from({ length: 31 }, (_, i) => i + 1).map((d) => <option key={d} value={d}>{d}</option>)}
+              </select>
+              <select value={bm} onChange={(e) => setBm(e.target.value)} className="flex-[1.3] rounded-lg border border-stone-300 px-2 py-2.5 text-sm outline-none focus:border-violet-400">
+                <option value="">Month</option>
+                {["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map((mn, i) => <option key={mn} value={i + 1}>{mn}</option>)}
+              </select>
+              <select value={by} onChange={(e) => setBy(e.target.value)} className="flex-1 rounded-lg border border-stone-300 px-2 py-2.5 text-sm outline-none focus:border-violet-400">
+                <option value="">Year</option>
+                {Array.from({ length: 86 }, (_, i) => 2025 - i).map((y) => <option key={y} value={y}>{y}</option>)}
+              </select>
+            </div>
             {preview && (
               <div className="mt-3 rounded-xl bg-stone-50 p-3 text-center text-sm">
                 <span className="text-2xl">{ANIMALS[preview.animal].e}</span>{" "}
