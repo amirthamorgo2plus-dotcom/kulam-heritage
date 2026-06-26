@@ -185,6 +185,7 @@ export default function VibeCheck({ mode = "family", onComplete, onShare }: {
   const [bd, setBd] = useState(""); // day
   const [bm, setBm] = useState(""); // month (1-12)
   const [by, setBy] = useState(""); // year
+  const [moonSel, setMoonSel] = useState<number | null>(null); // user override of moon sign
   const [p1, setP1] = useState<PD>(empty());
   const [p2, setP2] = useState<PD>(empty());
   const [result, setResult] = useState<VibeResult | null>(null);
@@ -213,11 +214,12 @@ export default function VibeCheck({ mode = "family", onComplete, onShare }: {
   const confirmDob = () => {
     if (!preview) return;
     const born = `${by}-${bm}-${bd}`;
-    setP((d) => ({ ...d, born, sun: preview.sun, moon: preview.moon, animal: preview.animal }));
-    setBd(""); setBm(""); setBy("");
+    const moon = moonSel ?? preview.moon; // user override or computed estimate
+    setP((d) => ({ ...d, born, sun: preview.sun, moon, animal: preview.animal }));
+    setBd(""); setBm(""); setBy(""); setMoonSel(null);
     if (active === 1) setActive(2);
     else {
-      const p2f = { ...p2, born, sun: preview.sun, moon: preview.moon, animal: preview.animal };
+      const p2f = { ...p2, born, sun: preview.sun, moon, animal: preview.animal };
       setP2(p2f); finish(p2f);
     }
   };
@@ -240,7 +242,7 @@ export default function VibeCheck({ mode = "family", onComplete, onShare }: {
     setResult(r); setPhase("result"); onComplete?.(r);
   };
 
-  const reset = () => { setP1(empty()); setP2(empty()); setActive(1); setQi(0); setBd(""); setBm(""); setBy(""); setResult(null); setPhase("intro"); };
+  const reset = () => { setP1(empty()); setP2(empty()); setActive(1); setQi(0); setBd(""); setBm(""); setBy(""); setMoonSel(null); setResult(null); setPhase("intro"); };
 
   // ---- Shareable image card (canvas) ----
   const shareCard = async () => {
@@ -358,9 +360,16 @@ export default function VibeCheck({ mode = "family", onComplete, onShare }: {
                 <span className="font-bold text-kulam-dark">{ANIMALS[preview.animal].n}</span>
                 <span className="text-stone-400"> ({preview.year})</span>
                 <div className="mt-1 text-xs text-stone-600">
-                  {SIGNS[preview.sun].sym} Sun {SIGNS[preview.sun].name} · {SIGNS[preview.moon].sym} Moon ~{SIGNS[preview.moon].name}
+                  {SIGNS[preview.sun].sym} Sun {SIGNS[preview.sun].name}
                 </div>
-                <div className="mt-1 text-[10px] text-stone-400">also a {ANIMALS[preview.animal].n} year: {animalYears(preview.animal).join(", ")}</div>
+                <div className="mt-2 flex items-center justify-center gap-1.5">
+                  <span className="text-xs font-semibold text-stone-600">🌙 Moon sign:</span>
+                  <select value={String(moonSel ?? preview.moon)} onChange={(e) => setMoonSel(Number(e.target.value))}
+                    className="rounded-md border border-stone-300 px-2 py-1 text-xs outline-none focus:border-violet-400">
+                    {SIGNS.map((s, i) => <option key={i} value={i}>{s.sym} {s.name}</option>)}
+                  </select>
+                </div>
+                <div className="mt-0.5 text-[10px] text-stone-400">auto-estimated — change it if you know yours</div>
               </div>
             )}
             <button onClick={confirmDob} disabled={!preview}
@@ -377,14 +386,14 @@ export default function VibeCheck({ mode = "family", onComplete, onShare }: {
             <div className="mt-3 space-y-2">
               <Bar icon="⚡" label="Vibes" value={result.vibesPct} sub="answers matched" />
               <Bar icon="☀️" label="Sun signs" value={result.sunScore} sub={`${result.sun[0]} + ${result.sun[1]}`} />
-              <Bar icon="🌙" label="Moon ~approx" value={result.moonScore} sub={`${result.moon[0]} + ${result.moon[1]}`} />
+              <Bar icon="🌙" label="Moon signs" value={result.moonScore} sub={`${result.moon[0]} + ${result.moon[1]}`} />
               <Bar icon="🐉" label="Chinese" value={result.zodiacScore} sub={`${result.zodiac[0]} + ${result.zodiac[1]}`} />
             </div>
             <div className="mt-4 flex justify-center gap-3">
               <button onClick={shareCard} className="rounded-full bg-gradient-to-r from-violet-500 to-cyan-500 px-5 py-2 text-sm font-bold text-white shadow active:scale-95">Share card 📤</button>
               <button onClick={reset} className="rounded-full border-2 border-stone-300 bg-white px-5 py-2 text-sm font-bold text-stone-600 shadow active:scale-95">Play again 🔁</button>
             </div>
-            <p className="mt-2 text-[10px] text-stone-400">Moon sign is approximate (exact needs birth time). Just for fun 💚</p>
+            <p className="mt-2 text-[10px] text-stone-400">Sun &amp; Chinese signs from your date; Moon you could set yourself. Just for fun 💚</p>
           </div>
         )}
       </div>
