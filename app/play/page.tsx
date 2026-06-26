@@ -26,14 +26,10 @@ export default function PlayPage() {
   };
 
   const handleShare = (r: VibeResult) => {
-    const text =
-      `✨ Vibe Check ✨\n` +
-      `${r.mode === "family" ? "Mother-in-law 👵 & Daughter-in-law 👰" : "Me 😎 & my BFF 🫶"}\n` +
-      `Score: ${r.score}/100 — ${r.verdict}\n` +
-      `⚡ Vibes ${r.vibesPct}% · ☀️ ${r.sun[0]}+${r.sun[1]} · 🌙 ${r.moon[0]}+${r.moon[1]} · 🐉 ${r.zodiac[0]}+${r.zodiac[1]}\n` +
-      `Try yours on Kamma Nest 💚`;
-    const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
-    if (typeof window !== "undefined") window.open(url, "_blank");
+    // The game builds + shares an image card itself; this is the lead-funnel
+    // hook point (fire `game_shared`, etc.).
+    // eslint-disable-next-line no-console
+    console.log("vibe_check_shared", r.score);
   };
 
   return (
