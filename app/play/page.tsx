@@ -28,9 +28,9 @@ export default function PlayPage() {
   const handleShare = (r: VibeResult) => {
     const text =
       `✨ Vibe Check ✨\n` +
-      `${r.mode === "family" ? "Amma-in-law 👵 & Marumagal 👰" : "Me 😎 & my BFF 🫶"}\n` +
-      `Score: ${r.score}/100 — ${r.verdict.split(" / ")[1]}\n` +
-      `☀️🌙 ${r.sunMoon[0]} + ${r.sunMoon[1]} · 🐉 ${r.zodiac[0]} + ${r.zodiac[1]}\n` +
+      `${r.mode === "family" ? "Mother-in-law 👵 & Daughter-in-law 👰" : "Me 😎 & my BFF 🫶"}\n` +
+      `Score: ${r.score}/100 — ${r.verdict}\n` +
+      `⚡ Vibes ${r.vibesPct}% · ☀️ ${r.sun[0]}+${r.sun[1]} · 🌙 ${r.moon[0]}+${r.moon[1]} · 🐉 ${r.zodiac[0]}+${r.zodiac[1]}\n` +
       `Try yours on Kamma Nest 💚`;
     const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
     if (typeof window !== "undefined") window.open(url, "_blank");
@@ -41,7 +41,7 @@ export default function PlayPage() {
       <header className="text-center">
         <h1 className="font-serif text-3xl font-bold text-kulam-dark">Vibe Check ✨</h1>
         <p className="mt-2 text-stone-600">
-          A fun compatibility game — This-or-That ⚡ + Sunshine/Moonshine ☀️🌙 +
+          A fun compatibility game — This-or-That ⚡ + Sun &amp; Moon signs ☀️🌙 +
           Chinese zodiac 🐉. Play, laugh, share. (Just for fun!)
         </p>
       </header>

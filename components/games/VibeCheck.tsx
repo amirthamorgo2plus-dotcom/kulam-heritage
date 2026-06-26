@@ -1,12 +1,11 @@
 "use client";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// Vibe Check ✨ — fun Gen-Z compatibility mini-game (Family / Friends mode).
-// Blends This-or-That + Sunshine/Moonshine + Chinese zodiac into one score.
+// Vibe Check ✨ — fun Gen-Z compatibility mini-game (Family / Friends).
+// Layers: This-or-That + Sun/Moon sign compatibility + Chinese zodiac.
 // Self-contained: @react-three/fiber + drei only, no external 3D assets.
-// (Originally drafted via Z.ai; flow + imports fixed for production.)
 
-import React, { useState, useRef, useMemo } from "react";
+import { useState, useRef, useMemo } from "react";
 import * as THREE from "three";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
@@ -14,371 +13,370 @@ import { Html } from "@react-three/drei";
 export interface VibeResult {
   mode: "family" | "friends";
   score: number;
-  vibe: number;
-  sunMoon: [string, string];
+  vibesPct: number;
+  sunScore: number;
+  moonScore: number;
+  zodiacScore: number;
+  sun: [string, string];
+  moon: [string, string];
   zodiac: [string, string];
   verdict: string;
-  zodiacNote: string;
 }
 
-// --- Bilingual UI text (Tamil first) ---
-const T = {
-  intro: {
-    title: "வைப் செக் ✨",
-    sub: "Vibe Check",
-    desc: "உங்கள் பொருத்தத்தை கண்டுபிடிப்போம்! / Let's find your compatibility!",
-    start: "தொடங்கு / Start",
-  },
-  thisOrThat: {
-    title: "இது அல்லது அது ⚡",
-    sub: "This or That",
-    qs: [
-      { ta: "பில்டர் காபி ☕", en: "Filter coffee ☕", alt: { ta: "கோல்ட் காபி 🧊", en: "Cold coffee 🧊" } },
-      { ta: "சனிக்கிழமை: கோவில் 🛕", en: "Saturday: Kovil 🛕", alt: { ta: "சனிக்கிழமை: ஓய்வு 😎", en: "Saturday: Chill 😎" } },
-      { ta: "WhatsApp: ❤️", en: "WhatsApp forwards: Love ❤️", alt: { ta: "WhatsApp: மியூட் 🔕", en: "WhatsApp forwards: Mute 🔕" } },
-      { ta: "சமையல்: பாரம்பரியம் 🍲", en: "Cooking: Traditional 🍲", alt: { ta: "சமையல்: புதுமை 🧪", en: "Cooking: Experiment 🧪" } },
-      { ta: "திட்டங்கள்: தற்காலிகம் 🎲", en: "Plans: Spontaneous 🎲", alt: { ta: "திட்டங்கள்: திட்டமிட்ட 🗓️", en: "Plans: Scheduled 🗓️" } },
-    ],
-  },
-  sunMoon: {
-    title: "சூரியன் ☀️ / சந்திரன் 🌙",
-    sub: "Sunshine / Moonshine",
-    qs: [
-      { ta: "காலை பறவை 🌅", en: "Morning bird 🌅", alt: { ta: "இரவு ஆந்தை 🌙", en: "Night owl 🌙" } },
-      { ta: "சத்தமான கூட்டம் 🎉", en: "Loud crowd 🎉", alt: { ta: "அமைதியான மூலை 🛋️", en: "Cosy corner 🛋️" } },
-      { ta: "தலைமை எடுக்க 🚀", en: "Take the lead 🚀", alt: { ta: "ஓட்டத்தில் போக 🌊", en: "Go with the flow 🌊" } },
-    ],
-  },
-  zodiac: {
-    title: "ராசி பொருத்தம் 🐉",
-    sub: "Zodiac Match",
-    prompt: "உங்கள் விலங்கை தேர்வு செய்யவும் / Pick your animal",
-  },
-  result: {
-    share: "பகிர் 📤",
-    again: "மீண்டும் விளையாடு 🔁",
-    verdicts: [
-      { min: 85, ta: "ஆன்ம சொரூபம்! 💚", en: "Soulmates-ah! 💚 instant goals" },
-      { min: 60, ta: "அழகான குழப்பம் — சாயுடன் நல்லது ☕", en: "Cute chaos — works with chai ☕" },
-      { min: 0, ta: "எதிரெதிர் புதுமை… குடும்பத்துக்கு வேடிக்கை 😂", en: "Opposites… entertaining for the family group 😂" },
-    ],
-  },
-  turn: "முறை / Turn",
+// ---- Player labels & colors ----
+const P1 = { color: "#8B5CF6", glow: "#A78BFA" }; // violet
+const P2 = { color: "#06B6D4", glow: "#67E8F9" }; // cyan
+
+// ---- This-or-That question banks (English, mode-specific) ----
+const QUESTIONS: Record<"family" | "friends", { a: string; b: string }[]> = {
+  family: [
+    { a: "Sunday lunch — traditional feast 🍛", b: "Order in 🛵" },
+    { a: "WhatsApp forwards — send daily 💌", b: "Mute them 🔕" },
+    { a: "Festival prep — weeks ahead 📅", b: "Last minute 🎲" },
+    { a: "Cooking — by the recipe 📖", b: "By hand & feel 🤲" },
+    { a: "Free evening — TV serial 📺", b: "Reels & web series 🎬" },
+  ],
+  friends: [
+    { a: "Night out — big party 🎉", b: "Chill cafe ☕" },
+    { a: "Trip — planned itinerary 🗓️", b: "Spontaneous road trip 🚗" },
+    { a: "Texting — instant reply ⚡", b: "Reply after 3 days 🐢" },
+    { a: "Bills — split to the rupee 🧮", b: "\"I got it\" 💸" },
+    { a: "Weekend — adventure 🏔️", b: "Netflix 🛋️" },
+  ],
 };
 
-const ZODIAC_ANIMALS = [
-  { emoji: "🐀", name: "Rat" }, { emoji: "🐂", name: "Ox" }, { emoji: "🐅", name: "Tiger" },
-  { emoji: "🐇", name: "Rabbit" }, { emoji: "🐉", name: "Dragon" }, { emoji: "🐍", name: "Snake" },
-  { emoji: "🐎", name: "Horse" }, { emoji: "🐐", name: "Goat" }, { emoji: "🐒", name: "Monkey" },
-  { emoji: "🐓", name: "Rooster" }, { emoji: "🐕", name: "Dog" }, { emoji: "🐖", name: "Pig" },
+// ---- Western zodiac (sun & moon) ----
+type Element = "fire" | "earth" | "air" | "water";
+const SIGNS: { sym: string; name: string; el: Element }[] = [
+  { sym: "♈", name: "Aries", el: "fire" }, { sym: "♉", name: "Taurus", el: "earth" },
+  { sym: "♊", name: "Gemini", el: "air" }, { sym: "♋", name: "Cancer", el: "water" },
+  { sym: "♌", name: "Leo", el: "fire" }, { sym: "♍", name: "Virgo", el: "earth" },
+  { sym: "♎", name: "Libra", el: "air" }, { sym: "♏", name: "Scorpio", el: "water" },
+  { sym: "♐", name: "Sagittarius", el: "fire" }, { sym: "♑", name: "Capricorn", el: "earth" },
+  { sym: "♒", name: "Aquarius", el: "air" }, { sym: "♓", name: "Pisces", el: "water" },
+];
+function elementScore(a: number, b: number): number {
+  if (a < 0 || b < 0) return 70;
+  const e1 = SIGNS[a].el, e2 = SIGNS[b].el;
+  const key = [e1, e2].sort().join("-");
+  const table: Record<string, number> = {
+    "air-fire": 95, "earth-water": 95,
+    "air-air": 82, "earth-earth": 82, "fire-fire": 82, "water-water": 82,
+    "earth-fire": 62, "air-water": 62,
+    "earth-air": 45, "fire-water": 42,
+  };
+  return table[key] ?? 70;
+}
+
+// ---- Chinese zodiac ----
+const ANIMALS = [
+  { e: "🐀", n: "Rat" }, { e: "🐂", n: "Ox" }, { e: "🐅", n: "Tiger" }, { e: "🐇", n: "Rabbit" },
+  { e: "🐉", n: "Dragon" }, { e: "🐍", n: "Snake" }, { e: "🐎", n: "Horse" }, { e: "🐐", n: "Goat" },
+  { e: "🐒", n: "Monkey" }, { e: "🐓", n: "Rooster" }, { e: "🐕", n: "Dog" }, { e: "🐖", n: "Pig" },
+];
+function zodiacScore(a: number, b: number): number {
+  if (a < 0 || b < 0) return 70;
+  const trines = [[0, 4, 8], [1, 5, 9], [2, 6, 10], [3, 7, 11]];
+  const friends = [[0, 1], [2, 11], [3, 10], [4, 9], [5, 8], [6, 7]];
+  const clashes = [[0, 6], [1, 7], [2, 8], [3, 9], [4, 10], [5, 11]];
+  for (const g of trines) if (g.includes(a) && g.includes(b)) return 100;
+  for (const p of friends) if ((p[0] === a && p[1] === b) || (p[1] === a && p[0] === b)) return 95;
+  for (const p of clashes) if ((p[0] === a && p[1] === b) || (p[1] === a && p[0] === b)) return 45;
+  return 72;
+}
+
+const VERDICTS = [
+  { min: 85, t: "Soulmates! 💚 instant goals" },
+  { min: 70, t: "Strong vibes 💫 this one's a keeper" },
+  { min: 55, t: "Cute chaos — works with chai ☕" },
+  { min: 0, t: "Opposites… entertaining for the group 😂" },
 ];
 
-function getZodiacScore(a: number, b: number) {
-  if (a < 0 || b < 0) return { score: 70, note: "" };
-  const trines = [[0, 4, 8], [1, 5, 9], [2, 6, 10], [3, 7, 11]];
-  const secretFriends = [[0, 1], [2, 11], [3, 10], [4, 9], [5, 8], [6, 7]];
-  const clashes = [[0, 6], [1, 7], [2, 8], [3, 9], [4, 10], [5, 11]];
-  for (const g of trines)
-    if (g.includes(a) && g.includes(b))
-      return { score: 100, note: `${ZODIAC_ANIMALS[a].emoji} + ${ZODIAC_ANIMALS[b].emoji} = power duo!` };
-  for (const p of secretFriends)
-    if ((p[0] === a && p[1] === b) || (p[1] === a && p[0] === b))
-      return { score: 95, note: `${ZODIAC_ANIMALS[a].emoji} + ${ZODIAC_ANIMALS[b].emoji} = secret friends!` };
-  for (const p of clashes)
-    if ((p[0] === a && p[1] === b) || (p[1] === a && p[0] === b))
-      return { score: 45, note: `${ZODIAC_ANIMALS[a].emoji} + ${ZODIAC_ANIMALS[b].emoji} = spicy opposites!` };
-  return { score: 70, note: `${ZODIAC_ANIMALS[a].emoji} + ${ZODIAC_ANIMALS[b].emoji} = cute combo!` };
-}
+interface PD { answers: number[]; sun: number | null; moon: number | null; animal: number | null; }
+const empty = (): PD => ({ answers: [], sun: null, moon: null, animal: null });
 
-interface PlayerData {
-  thisOrThat: number[];
-  sunMoon: number[];
-  zodiac: number | null;
-}
-const emptyPlayer = (): PlayerData => ({ thisOrThat: [], sunMoon: [], zodiac: null });
-
-function Avatar({
-  position, color, face, sunMoon, zodiac, isActive,
-}: {
-  position: [number, number, number];
-  color: string;
-  face: string;
-  sunMoon: "sun" | "moon" | null;
-  zodiac: number | null;
-  isActive: boolean;
+// ---- 3D avatar ----
+function Avatar({ position, color, glow, face, isActive, animal }: {
+  position: [number, number, number]; color: string; glow: string;
+  face: string; isActive: boolean; animal: number | null;
 }) {
-  const meshRef = useRef<any>(null);
-  const orbitRef = useRef<any>(null);
-
-  useFrame((state) => {
-    if (meshRef.current) {
-      meshRef.current.position.y = position[1] + Math.sin(state.clock.elapsedTime * 2) * 0.05;
-      const t = isActive ? 1.1 : 0.85;
-      meshRef.current.scale.lerp(new THREE.Vector3(t, t, t), 0.1);
+  const ref = useRef<any>(null);
+  const ringRef = useRef<any>(null);
+  useFrame((s) => {
+    if (ref.current) {
+      ref.current.position.y = position[1] + Math.sin(s.clock.elapsedTime * 2) * 0.05;
+      const t = isActive ? 1.12 : 0.88;
+      ref.current.scale.lerp(new THREE.Vector3(t, t, t), 0.1);
     }
-    if (orbitRef.current) orbitRef.current.rotation.y = state.clock.elapsedTime * 1.5;
+    if (ringRef.current) ringRef.current.rotation.z = s.clock.elapsedTime * 2;
   });
-
   return (
-    <group position={position} ref={meshRef}>
+    <group position={position} ref={ref}>
       <mesh position={[0, -0.5, 0]}>
-        <cylinderGeometry args={[0.5, 0.6, 1, 16]} />
+        <cylinderGeometry args={[0.5, 0.6, 1, 20]} />
         <meshStandardMaterial color={color} flatShading />
       </mesh>
       <mesh position={[0, 0.3, 0]}>
-        <sphereGeometry args={[0.5, 16, 16]} />
+        <sphereGeometry args={[0.5, 24, 24]} />
         <meshStandardMaterial color={color} flatShading />
       </mesh>
-      <mesh position={[0, 0.8, 0]}>
-        <cylinderGeometry args={[0.1, 0.2, 0.2, 8]} />
+      <mesh position={[0, 0.82, 0]}>
+        <coneGeometry args={[0.22, 0.3, 16]} />
         <meshStandardMaterial color="#EAB308" flatShading />
       </mesh>
       <Html position={[0, 0.3, 0.51]} center distanceFactor={2} occlude>
-        <div style={{ fontSize: "32px", userSelect: "none" }}>{face}</div>
+        <div style={{ fontSize: "30px", userSelect: "none" }}>{face}</div>
       </Html>
-      {sunMoon && (
-        <group ref={orbitRef}>
-          <mesh position={[0.7, 0.3, 0]}>
-            <sphereGeometry args={[0.15, 8, 8]} />
-            <meshStandardMaterial
-              color={sunMoon === "sun" ? "#EAB308" : "#F3F4F6"}
-              emissive={sunMoon === "sun" ? "#EAB308" : "#F3F4F6"}
-              emissiveIntensity={0.8}
-              flatShading
-            />
-          </mesh>
-        </group>
+      {isActive && (
+        <mesh ref={ringRef} position={[0, -1.05, 0]} rotation={[Math.PI / 2, 0, 0]}>
+          <torusGeometry args={[0.85, 0.06, 10, 40]} />
+          <meshStandardMaterial color={glow} emissive={glow} emissiveIntensity={1.1} />
+        </mesh>
       )}
-      {zodiac !== null && (
-        <Html position={[0, 1.4, 0]} center distanceFactor={3}>
-          <div style={{ fontSize: "36px", userSelect: "none" }}>{ZODIAC_ANIMALS[zodiac].emoji}</div>
+      {animal !== null && (
+        <Html position={[0, 1.45, 0]} center distanceFactor={3}>
+          <div style={{ fontSize: "34px", userSelect: "none" }}>{ANIMALS[animal].e}</div>
         </Html>
       )}
     </group>
   );
 }
-
-function HeartBurst() {
-  const hearts = useMemo(
-    () =>
-      Array.from({ length: 10 }).map((_, i) => ({
-        id: i,
-        x: (Math.random() - 0.5) * 2,
-        y: (Math.random() - 0.5) * 2,
-        z: (Math.random() - 0.5) * 2,
-        scale: 0.1 + Math.random() * 0.2,
-      })),
-    []
-  );
+function Hearts() {
+  const hs = useMemo(() => Array.from({ length: 12 }).map((_, i) => ({
+    id: i, x: (Math.random() - 0.5) * 2.4, y: (Math.random() - 0.5) * 2.4, z: (Math.random() - 0.5) * 1.5,
+    s: 0.08 + Math.random() * 0.16,
+  })), []);
   return (
     <group>
-      {hearts.map((h) => (
-        <mesh key={h.id} position={[h.x * 0.5, h.y * 0.5, h.z * 0.5]}>
-          <sphereGeometry args={[h.scale, 8, 8]} />
-          <meshStandardMaterial color="#22C55E" emissive="#22C55E" emissiveIntensity={0.5} transparent opacity={0.8} />
+      {hs.map((h) => (
+        <mesh key={h.id} position={[h.x, h.y, h.z]}>
+          <sphereGeometry args={[h.s, 8, 8]} />
+          <meshStandardMaterial color="#22C55E" emissive="#22C55E" emissiveIntensity={0.6} transparent opacity={0.8} />
         </mesh>
       ))}
-      <Html center distanceFactor={4}>
-        <div style={{ fontSize: "48px", userSelect: "none" }}>💖</div>
-      </Html>
     </group>
   );
 }
 
-type Phase = "intro" | "this" | "sun" | "zodiac" | "result";
+// ---- result charts (pure SVG/CSS) ----
+function bandColor(v: number) { return v >= 85 ? "#22C55E" : v >= 70 ? "#06B6D4" : v >= 55 ? "#EAB308" : "#FB7185"; }
+function Donut({ value }: { value: number }) {
+  const r = 52, c = 2 * Math.PI * r, off = c * (1 - value / 100), col = bandColor(value);
+  return (
+    <svg width="130" height="130" viewBox="0 0 130 130" className="mx-auto">
+      <circle cx="65" cy="65" r={r} fill="none" stroke="#E5E7EB" strokeWidth="12" />
+      <circle cx="65" cy="65" r={r} fill="none" stroke={col} strokeWidth="12" strokeLinecap="round"
+        strokeDasharray={c} strokeDashoffset={off} transform="rotate(-90 65 65)" />
+      <text x="65" y="60" textAnchor="middle" fontSize="30" fontWeight="800" fill={col}>{value}</text>
+      <text x="65" y="82" textAnchor="middle" fontSize="12" fill="#6B7280">/ 100</text>
+    </svg>
+  );
+}
+function Bar({ icon, label, value, sub }: { icon: string; label: string; value: number; sub: string }) {
+  return (
+    <div className="text-left">
+      <div className="flex items-center justify-between text-xs font-semibold text-stone-600">
+        <span>{icon} {label} <span className="font-normal text-stone-400">· {sub}</span></span>
+        <span>{value}%</span>
+      </div>
+      <div className="mt-1 h-2.5 w-full overflow-hidden rounded-full bg-stone-200">
+        <div className="h-full rounded-full" style={{ width: `${value}%`, background: bandColor(value) }} />
+      </div>
+    </div>
+  );
+}
 
-export default function VibeCheck({
-  mode = "family",
-  onComplete,
-  onShare,
-}: {
-  mode?: "family" | "friends";
-  onComplete?: (r: VibeResult) => void;
-  onShare?: (r: VibeResult) => void;
+type Phase = "intro" | "this" | "signs" | "zodiac" | "result";
+
+export default function VibeCheck({ mode = "family", onComplete, onShare }: {
+  mode?: "family" | "friends"; onComplete?: (r: VibeResult) => void; onShare?: (r: VibeResult) => void;
 }) {
   const [phase, setPhase] = useState<Phase>("intro");
-  const [activePlayer, setActivePlayer] = useState<1 | 2>(1);
-  const [qIndex, setQIndex] = useState(0);
-  const [p1, setP1] = useState<PlayerData>(emptyPlayer());
-  const [p2, setP2] = useState<PlayerData>(emptyPlayer());
+  const [active, setActive] = useState<1 | 2>(1);
+  const [qi, setQi] = useState(0);
+  const [signStep, setSignStep] = useState<0 | 1>(0); // 0=sun, 1=moon
+  const [p1, setP1] = useState<PD>(empty());
+  const [p2, setP2] = useState<PD>(empty());
   const [result, setResult] = useState<VibeResult | null>(null);
 
-  const labels = useMemo(
-    () => (mode === "friends" ? { p1: "You 😎", p2: "Your BFF 🫶" } : { p1: "Amma-in-law 👵", p2: "Marumagal 👰" }),
-    [mode]
-  );
+  const labels = mode === "friends"
+    ? { p1: "You", p2: "Your BFF", f1: "😎", f2: "🫶" }
+    : { p1: "Mother-in-law", p2: "Daughter-in-law", f1: "👵", f2: "👰" };
+  const setP = active === 1 ? setP1 : setP2;
+  const cur = active === 1 ? P1 : P2;
 
-  const sunTypeOf = (d: PlayerData): "sun" | "moon" =>
-    d.sunMoon.filter((x) => x === 0).length >= 2 ? "sun" : "moon";
-
-  // Clean 2-player × 3-round state machine.
-  const handleChoice = (choice: number) => {
-    const round: "thisOrThat" | "sunMoon" = phase === "this" ? "thisOrThat" : "sunMoon";
-    const total = round === "thisOrThat" ? 5 : 3;
-    const update = (d: PlayerData): PlayerData => ({ ...d, [round]: [...d[round], choice] });
-    if (activePlayer === 1) setP1(update); else setP2(update);
-
-    if (qIndex < total - 1) {
-      setQIndex(qIndex + 1);
-      return;
-    }
-    setQIndex(0);
-    if (activePlayer === 1) {
-      setActivePlayer(2); // same round, player 2
-    } else {
-      setActivePlayer(1);
-      setPhase(phase === "this" ? "sun" : "zodiac"); // next round
-    }
+  const choose = (c: number) => {
+    setP((d) => ({ ...d, answers: [...d.answers, c] }));
+    if (qi < QUESTIONS[mode].length - 1) { setQi(qi + 1); return; }
+    setQi(0);
+    if (active === 1) setActive(2);
+    else { setActive(1); setPhase("signs"); setSignStep(0); }
   };
 
-  const handleZodiac = (animal: number) => {
-    if (activePlayer === 1) {
-      setP1((d) => ({ ...d, zodiac: animal }));
-      setActivePlayer(2);
-    } else {
-      const p2Final = { ...p2, zodiac: animal };
-      setP2(p2Final);
-      finish(p2Final);
+  const pickSign = (i: number) => {
+    if (signStep === 0) {
+      setP((d) => ({ ...d, sun: i })); setSignStep(1); return;
     }
+    setP((d) => ({ ...d, moon: i }));
+    setSignStep(0);
+    if (active === 1) setActive(2);
+    else { setActive(1); setPhase("zodiac"); }
   };
 
-  const finish = (p2Final: PlayerData) => {
-    let matches = 0;
-    for (let i = 0; i < 5; i++) if (p1.thisOrThat[i] === p2Final.thisOrThat[i]) matches++;
-    const totScore = (matches / 5) * 100;
+  const pickAnimal = (i: number) => {
+    if (active === 1) { setP1((d) => ({ ...d, animal: i })); setActive(2); }
+    else { const f = { ...p2, animal: i }; setP2(f); finish(f); }
+  };
 
-    const t1 = sunTypeOf(p1);
-    const t2 = sunTypeOf(p2Final);
-    const smScore = t1 !== t2 ? 90 : t1 === "sun" ? 75 : 85;
-
-    const z = getZodiacScore(p1.zodiac ?? -1, p2Final.zodiac ?? -1);
-    const finalScore = Math.round(totScore * 0.4 + smScore * 0.3 + z.score * 0.3);
-
-    const v = finalScore >= 85 ? T.result.verdicts[0] : finalScore >= 60 ? T.result.verdicts[1] : T.result.verdicts[2];
-    const res: VibeResult = {
-      mode,
-      score: finalScore,
-      vibe: finalScore,
-      sunMoon: [t1, t2],
-      zodiac: [ZODIAC_ANIMALS[p1.zodiac ?? 0].name, ZODIAC_ANIMALS[p2Final.zodiac ?? 0].name],
-      verdict: `${v.ta} / ${v.en}`,
-      zodiacNote: z.note,
+  const finish = (p2f: PD) => {
+    let m = 0; for (let i = 0; i < 5; i++) if (p1.answers[i] === p2f.answers[i]) m++;
+    const vibes = Math.round((m / 5) * 100);
+    const sun = elementScore(p1.sun ?? -1, p2f.sun ?? -1);
+    const moon = elementScore(p1.moon ?? -1, p2f.moon ?? -1);
+    const zo = zodiacScore(p1.animal ?? -1, p2f.animal ?? -1);
+    const score = Math.round(vibes * 0.3 + sun * 0.25 + moon * 0.2 + zo * 0.25);
+    const verdict = (VERDICTS.find((v) => score >= v.min) ?? VERDICTS[3]).t;
+    const r: VibeResult = {
+      mode, score, vibesPct: vibes, sunScore: sun, moonScore: moon, zodiacScore: zo,
+      sun: [SIGNS[p1.sun ?? 0].name, SIGNS[p2f.sun ?? 0].name],
+      moon: [SIGNS[p1.moon ?? 0].name, SIGNS[p2f.moon ?? 0].name],
+      zodiac: [ANIMALS[p1.animal ?? 0].n, ANIMALS[p2f.animal ?? 0].n],
+      verdict,
     };
-    setResult(res);
-    setPhase("result");
-    onComplete?.(res);
+    setResult(r); setPhase("result"); onComplete?.(r);
   };
 
-  const reset = () => {
-    setP1(emptyPlayer());
-    setP2(emptyPlayer());
-    setActivePlayer(1);
-    setQIndex(0);
-    setResult(null);
-    setPhase("intro");
-  };
+  const reset = () => { setP1(empty()); setP2(empty()); setActive(1); setQi(0); setSignStep(0); setResult(null); setPhase("intro"); };
 
-  const playing = phase === "this" || phase === "sun" || phase === "zodiac";
-  const p1Face = labels.p1.split(" ")[1] || "👵";
-  const p2Face = labels.p2.split(" ")[1] || "👰";
+  const playing = phase === "this" || phase === "signs" || phase === "zodiac";
 
-  const renderUI = () => {
-    if (phase === "intro")
-      return (
-        <div className="flex flex-col items-center p-4 text-center">
-          <h1 className="text-3xl font-bold text-[var(--deep-teal)]">{T.intro.title}</h1>
-          <p className="mb-2 text-lg text-[var(--gold)]">{T.intro.sub}</p>
-          <p className="mb-6 text-sm text-[var(--deep-teal)]">{T.intro.desc}</p>
-          <button onClick={() => setPhase("this")} className="rounded-full bg-[var(--matcha)] px-6 py-3 font-bold text-white shadow-lg transition-transform active:scale-95">
-            {T.intro.start}
-          </button>
-        </div>
-      );
-
-    if (phase === "result" && result)
-      return (
-        <div className="flex w-full max-w-sm flex-col items-center p-4 text-center">
-          <div className="mb-4 w-full rounded-2xl border-2 border-[var(--gold)] bg-white/80 p-4 shadow-xl backdrop-blur-sm">
-            <div className="text-3xl font-extrabold text-[var(--matcha)]">{result.score}/100</div>
-            <h2 className="mt-1 text-lg font-bold text-[var(--deep-teal)]">{result.verdict.split(" / ")[0]}</h2>
-            <p className="mb-3 text-sm text-[var(--deep-teal)]">{result.verdict.split(" / ")[1]}</p>
-            <div className="grid grid-cols-2 gap-2 text-left text-xs">
-              <div className="rounded-lg bg-[var(--matcha)]/20 p-2"><span className="font-bold">⚡ Vibes</span><br />{Math.round(result.vibe * 0.4)}% match</div>
-              <div className="rounded-lg bg-[var(--gold)]/20 p-2"><span className="font-bold">☀️🌙 Combo</span><br />{result.sunMoon[0]} + {result.sunMoon[1]}</div>
-              <div className="col-span-2 rounded-lg bg-[var(--deep-teal)]/10 p-2"><span className="font-bold">🐉 Zodiac</span><br />{result.zodiacNote}</div>
-            </div>
-          </div>
-          <div className="flex gap-4">
-            <button onClick={() => onShare?.(result)} className="rounded-full bg-[var(--deep-teal)] px-5 py-2 text-sm font-bold text-white shadow-md transition-transform active:scale-95">{T.result.share}</button>
-            <button onClick={reset} className="rounded-full border-2 border-[var(--deep-teal)] bg-white px-5 py-2 text-sm font-bold text-[var(--deep-teal)] shadow-md transition-transform active:scale-95">{T.result.again}</button>
-          </div>
-        </div>
-      );
-
-    if (phase === "this" || phase === "sun") {
-      const isThis = phase === "this";
-      const qs = isThis ? T.thisOrThat.qs : T.sunMoon.qs;
-      const q = qs[qIndex];
-      const activeLabel = activePlayer === 1 ? labels.p1 : labels.p2;
-      return (
-        <div className="flex w-full max-w-sm flex-col items-center p-4">
-          <div className="mb-2 rounded-full bg-white/70 px-4 py-1 text-center shadow-sm">
-            <span className="text-xs font-bold text-[var(--deep-teal)]">{T.turn}: </span>
-            <span className="text-sm font-bold text-[var(--matcha)]">{activeLabel}</span>
-          </div>
-          <div className="mb-4 w-full rounded-2xl border border-[var(--gold)] bg-white/90 p-4 shadow-xl backdrop-blur-md">
-            <h3 className="text-center text-lg font-bold text-[var(--deep-teal)]">{isThis ? T.thisOrThat.title : T.sunMoon.title}</h3>
-            <p className="mb-4 text-center text-xs text-gray-500">{(isThis ? T.thisOrThat.sub : T.sunMoon.sub)} ({qIndex + 1}/{qs.length})</p>
-            <div className="flex flex-col gap-3">
-              <button onClick={() => handleChoice(0)} className="flex min-h-[48px] w-full items-center justify-center rounded-xl bg-[var(--matcha)] px-4 py-3 font-semibold text-white shadow-md transition-transform active:scale-95">{q.ta} <span className="mx-2 text-white/50">|</span> {q.en}</button>
-              <div className="text-center text-xs font-bold text-[var(--gold)]">அல்லது / OR</div>
-              <button onClick={() => handleChoice(1)} className="flex min-h-[48px] w-full items-center justify-center rounded-xl bg-[var(--deep-teal)] px-4 py-3 font-semibold text-white shadow-md transition-transform active:scale-95">{q.alt.ta} <span className="mx-2 text-white/50">|</span> {q.alt.en}</button>
-            </div>
-          </div>
-        </div>
-      );
-    }
-    return null;
+  // Turn card near each player
+  const PlayerCard = ({ side }: { side: 1 | 2 }) => {
+    const isAct = playing && active === side;
+    const col = side === 1 ? P1 : P2;
+    return (
+      <div className={`flex flex-1 flex-col items-center rounded-xl border-2 px-2 py-1.5 transition ${isAct ? "scale-105 shadow-md" : "opacity-60"}`}
+        style={{ borderColor: col.color, background: isAct ? `${col.color}1a` : "#fff" }}>
+        <span className="text-xl">{side === 1 ? labels.f1 : labels.f2}</span>
+        <span className="text-[11px] font-bold" style={{ color: col.color }}>{side === 1 ? labels.p1 : labels.p2}</span>
+        {isAct && <span className="text-[10px] font-semibold text-stone-500">your turn 👇</span>}
+      </div>
+    );
   };
 
   return (
-    <div
-      className="relative mx-auto flex h-[640px] w-full max-w-md flex-col items-center justify-end overflow-hidden rounded-2xl pb-4"
-      style={{
-        ["--matcha" as any]: "#22C55E",
-        ["--deep-teal" as any]: "#134E4A",
-        ["--gold" as any]: "#EAB308",
-        background: "linear-gradient(180deg, #E6FFFA 0%, #F0FDF4 100%)",
-      }}
-    >
-      <div className="absolute inset-0 z-0">
-        <Canvas camera={{ position: [0, 0, 5], fov: 45 }} dpr={[1, 2]}>
-          <ambientLight intensity={0.8} />
-          <directionalLight position={[2, 2, 2]} intensity={0.8} />
-          <Avatar position={[-1.2, phase === "result" ? -0.2 : 0, 0]} color="#134E4A" face={p1Face}
-            sunMoon={p1.sunMoon.length === 3 ? sunTypeOf(p1) : null} zodiac={p1.zodiac} isActive={playing && activePlayer === 1} />
-          <Avatar position={[1.2, phase === "result" ? -0.2 : 0, 0]} color="#22C55E" face={p2Face}
-            sunMoon={p2.sunMoon.length === 3 ? sunTypeOf(p2) : null} zodiac={p2.zodiac} isActive={playing && activePlayer === 2} />
-          {phase === "result" && <HeartBurst />}
-        </Canvas>
-      </div>
+    <div className="relative mx-auto flex h-[660px] w-full max-w-md flex-col overflow-hidden rounded-2xl"
+      style={{ background: "linear-gradient(180deg,#EEF2FF 0%,#ECFEFF 100%)" }}>
 
-      {phase === "zodiac" && (
-        <div className="absolute left-0 right-0 top-1/4 z-10 flex justify-center">
-          <div className="w-[90%] max-w-sm rounded-2xl border border-[var(--gold)] bg-white/90 p-3 shadow-xl backdrop-blur-md">
-            <h3 className="text-center text-lg font-bold text-[var(--deep-teal)]">{T.zodiac.title}</h3>
-            <p className="mb-1 text-center text-xs font-semibold text-[var(--matcha)]">{T.turn}: {activePlayer === 1 ? labels.p1 : labels.p2}</p>
-            <p className="mb-3 text-center text-xs text-gray-500">{T.zodiac.prompt}</p>
-            <div className="grid grid-cols-4 gap-2">
-              {ZODIAC_ANIMALS.map((a, i) => (
-                <button key={i} onClick={() => handleZodiac(i)} className="flex items-center justify-center rounded-lg bg-[var(--matcha)]/10 p-2 text-3xl transition-transform hover:bg-[var(--matcha)]/30 active:scale-90">{a.emoji}</button>
-              ))}
-            </div>
-          </div>
+      {/* turn cards */}
+      {phase !== "intro" && phase !== "result" && (
+        <div className="z-20 flex gap-2 px-3 pt-3">
+          <PlayerCard side={1} /><PlayerCard side={2} />
         </div>
       )}
 
-      <div className="relative z-20 mb-4 flex w-full justify-center">{renderUI()}</div>
+      {/* 3D scene */}
+      <div className="absolute inset-0 z-0">
+        <Canvas camera={{ position: [0, 0, 5], fov: 45 }} dpr={[1, 2]}>
+          <ambientLight intensity={0.9} />
+          <directionalLight position={[2, 3, 2]} intensity={0.7} />
+          <Avatar position={[-1.2, phase === "result" ? -0.2 : 0, 0]} color={P1.color} glow={P1.glow}
+            face={labels.f1} isActive={playing && active === 1} animal={p1.animal} />
+          <Avatar position={[1.2, phase === "result" ? -0.2 : 0, 0]} color={P2.color} glow={P2.glow}
+            face={labels.f2} isActive={playing && active === 2} animal={p2.animal} />
+          {phase === "result" && <Hearts />}
+        </Canvas>
+      </div>
+
+      {/* overlays */}
+      <div className="relative z-20 mt-auto flex w-full flex-col items-center px-3 pb-4">
+        {phase === "intro" && (
+          <div className="mb-3 flex flex-col items-center rounded-2xl bg-white/85 p-5 text-center shadow-lg backdrop-blur">
+            <h1 className="font-serif text-3xl font-bold text-kulam-dark">Vibe Check ✨</h1>
+            <p className="mt-2 max-w-xs text-sm text-stone-600">This-or-That ⚡ + Sun & Moon signs ☀️🌙 + Chinese zodiac 🐉. Play, laugh, share!</p>
+            <button onClick={() => setPhase("this")} className="mt-4 rounded-full bg-gradient-to-r from-violet-500 to-cyan-500 px-7 py-3 font-bold text-white shadow-lg active:scale-95">Start</button>
+          </div>
+        )}
+
+        {phase === "this" && (
+          <div className="mb-2 w-full rounded-2xl border bg-white/90 p-4 shadow-xl backdrop-blur" style={{ borderColor: cur.color }}>
+            <p className="mb-3 text-center text-xs font-semibold text-stone-500">This or That ⚡ ({qi + 1}/5)</p>
+            <div className="flex flex-col gap-3">
+              <button onClick={() => choose(0)} className="min-h-[52px] rounded-xl px-4 py-3 text-sm font-semibold text-white shadow active:scale-95" style={{ background: cur.color }}>{QUESTIONS[mode][qi].a}</button>
+              <div className="text-center text-xs font-bold text-stone-400">— OR —</div>
+              <button onClick={() => choose(1)} className="min-h-[52px] rounded-xl px-4 py-3 text-sm font-semibold text-white shadow active:scale-95" style={{ background: cur.glow }}>{QUESTIONS[mode][qi].b}</button>
+            </div>
+          </div>
+        )}
+
+        {phase === "signs" && (
+          <div className="mb-2 w-full rounded-2xl border bg-white/95 p-4 shadow-xl backdrop-blur" style={{ borderColor: cur.color }}>
+            <p className="text-center text-sm font-bold text-kulam-dark">
+              {signStep === 0 ? "Pick your Sun ☀️ sign" : "Pick your Moon 🌙 sign"}
+            </p>
+            <p className="mb-3 text-center text-[11px] text-stone-400">{active === 1 ? labels.p1 : labels.p2}</p>
+            <div className="grid grid-cols-4 gap-2">
+              {SIGNS.map((s, i) => (
+                <button key={i} onClick={() => pickSign(i)}
+                  className="flex flex-col items-center rounded-xl border border-stone-200 bg-gradient-to-b from-white to-stone-50 py-2 active:scale-90 hover:border-violet-300">
+                  <span className="text-xl">{s.sym}</span>
+                  <span className="text-[9px] text-stone-500">{s.name}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {phase === "zodiac" && (
+          <div className="mb-2 w-full rounded-2xl border bg-white/95 p-3 shadow-xl backdrop-blur" style={{ borderColor: cur.color }}>
+            <p className="text-center text-sm font-bold text-kulam-dark">Chinese Zodiac 🐉</p>
+            <p className="mb-2 text-center text-[11px] text-stone-400">{active === 1 ? labels.p1 : labels.p2} · pick your sign</p>
+            <ZodiacWheel onPick={pickAnimal} color={cur.color} />
+          </div>
+        )}
+
+        {phase === "result" && result && (
+          <div className="mb-2 w-full rounded-2xl border-2 border-violet-300 bg-white/95 p-4 text-center shadow-xl backdrop-blur">
+            <Donut value={result.score} />
+            <p className="mt-1 text-base font-bold text-kulam-dark">{result.verdict}</p>
+            <div className="mt-3 space-y-2">
+              <Bar icon="⚡" label="Vibes" value={result.vibesPct} sub="answers matched" />
+              <Bar icon="☀️" label="Sun signs" value={result.sunScore} sub={`${result.sun[0]} + ${result.sun[1]}`} />
+              <Bar icon="🌙" label="Moon signs" value={result.moonScore} sub={`${result.moon[0]} + ${result.moon[1]}`} />
+              <Bar icon="🐉" label="Chinese" value={result.zodiacScore} sub={`${result.zodiac[0]} + ${result.zodiac[1]}`} />
+            </div>
+            <div className="mt-4 flex justify-center gap-3">
+              <button onClick={() => onShare?.(result)} className="rounded-full bg-gradient-to-r from-violet-500 to-cyan-500 px-5 py-2 text-sm font-bold text-white shadow active:scale-95">Share 📤</button>
+              <button onClick={reset} className="rounded-full border-2 border-stone-300 bg-white px-5 py-2 text-sm font-bold text-stone-600 shadow active:scale-95">Play again 🔁</button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// Circular Chinese-zodiac wheel
+function ZodiacWheel({ onPick, color }: { onPick: (i: number) => void; color: string }) {
+  const size = 260, R = 100, center = size / 2;
+  return (
+    <div className="relative mx-auto" style={{ width: size, height: size }}>
+      <div className="absolute rounded-full" style={{ inset: 18, border: `2px dashed ${color}55` }} />
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-[10px] font-semibold text-stone-400">
+        tap your<br />animal 🐉
+      </div>
+      {ANIMALS.map((a, i) => {
+        const ang = (i / 12) * 2 * Math.PI - Math.PI / 2;
+        const x = center + Math.cos(ang) * R, y = center + Math.sin(ang) * R;
+        return (
+          <button key={i} onClick={() => onPick(i)}
+            className="absolute flex h-12 w-12 flex-col items-center justify-center rounded-full border border-stone-200 bg-white shadow-sm active:scale-90"
+            style={{ left: x, top: y, transform: "translate(-50%,-50%)" }}>
+            <span className="text-xl leading-none">{a.e}</span>
+            <span className="text-[7px] text-stone-400">{a.n}</span>
+          </button>
+        );
+      })}
     </div>
   );
 }
