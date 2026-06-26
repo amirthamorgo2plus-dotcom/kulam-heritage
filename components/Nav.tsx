@@ -13,6 +13,7 @@ type Group = { label: string; items: Item[] };
 const primary: Item[] = [
   { href: "/", label: "Home" },
   { href: "/marketplace", label: "Marketplace" },
+  { href: "/play", label: "Vibe Check ✨" },
 ];
 
 const groups: Group[] = [
