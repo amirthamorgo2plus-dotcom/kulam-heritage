@@ -24,7 +24,7 @@ export interface Kulam {
 export const kammas: Kulam = {
   id: "kammavar-naidu",
   name: "Kammavar Naidu",
-  aka: ["Kamma Naidu", "Naidu", "Nayakkar (in some regions)"],
+  aka: ["Kamma Naidu", "Naidu"],
   region: [
     "Coimbatore",
     "Erode",
@@ -43,7 +43,7 @@ export const kammas: Kulam = {
       heading: "Migration & origins",
       body: [
         "Community tradition holds that the Kammavar Naidus migrated from the Andhra (Kammanadu) region to Tamil Nadu, with significant movement during the Vijayanagara period.",
-        "Many served as warriors and administrators under the Nayak chieftains, which is why the community came to carry the titles 'Naidu' and 'Nayakkar'.",
+        "Many served as warriors and administrators under the Nayak chieftains, which is why the community came to carry the title 'Naidu'.",
         "(Illustrative summary — historical accounts vary; confirm with scholarly and community sources.)",
       ],
     },

@@ -2,6 +2,13 @@ import { kammas } from "@/data/kamma";
 
 export const metadata = { title: "Kamma History & Kulam — Kulam Heritage" };
 
+const distribution = [
+  { value: "65L", label: "Tamil Nadu" },
+  { value: "40L", label: "Karnataka" },
+  { value: "36.5L", label: "Andhra Pradesh" },
+  { value: "22L", label: "Telangana" },
+];
+
 export default function HistoryPage() {
   return (
     <article className="space-y-8">
@@ -17,6 +24,27 @@ export default function HistoryPage() {
         </p>
         <p className="mt-4 max-w-3xl text-lg">{kammas.summary}</p>
       </header>
+
+      <section className="rounded-2xl bg-kulam/5 px-6 py-8">
+        <h2 className="text-center text-xl font-bold text-kulam-dark">
+          Geographic Distribution
+        </h2>
+        <div className="mt-6 grid grid-cols-2 gap-6 sm:grid-cols-4">
+          {distribution.map((d) => (
+            <div key={d.label} className="text-center">
+              <div className="text-4xl font-extrabold text-kulam sm:text-5xl">
+                {d.value}
+              </div>
+              <div className="mt-1 text-xs uppercase tracking-wide text-stone-500">
+                {d.label}
+              </div>
+            </div>
+          ))}
+        </div>
+        <p className="mt-6 text-center text-xs italic text-stone-500">
+          Approximate Kammavar Naidu population by state.
+        </p>
+      </section>
 
       {kammas.sections.map((s) => (
         <section key={s.heading}>
