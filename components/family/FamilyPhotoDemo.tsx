@@ -24,6 +24,10 @@ export default function FamilyPhotoDemo() {
 
       <div className="mx-auto mt-6 max-w-3xl">
         <InteractivePhoto src={sampleFamilyPhoto} tags={sampleFamilyTags} />
+        <p className="mt-2 text-center text-xs italic text-stone-400">
+          🖼️ Sample photo is AI-generated for illustration — the names and
+          relationships are examples.
+        </p>
       </div>
 
       <div className="mt-6 text-center">

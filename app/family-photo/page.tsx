@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import InteractivePhoto from "@/components/family/InteractivePhoto";
 import {
   sampleFamilyPhoto,
@@ -25,6 +25,10 @@ export default function FamilyPhotoPage() {
   const [fKin, setFKin] = useState(""); // index into kinshipTerms
   const [fCustom, setFCustom] = useState("");
   const [fIntro, setFIntro] = useState("");
+  const [fAudio, setFAudio] = useState(""); // voice note as a data URL
+  const [recording, setRecording] = useState(false);
+  const recorderRef = useRef<MediaRecorder | null>(null);
+  const chunksRef = useRef<Blob[]>([]);
 
   // Load any saved photo + tags on mount (per-browser, like the rest of the app).
   useEffect(() => {
@@ -69,6 +73,44 @@ export default function FamilyPhotoPage() {
     setFKin("");
     setFCustom("");
     setFIntro("");
+    setFAudio("");
+    setRecording(false);
+  }
+
+  async function startRecording() {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mr = new MediaRecorder(stream);
+      chunksRef.current = [];
+      mr.ondataavailable = (e) => e.data.size && chunksRef.current.push(e.data);
+      mr.onstop = () => {
+        const blob = new Blob(chunksRef.current, {
+          type: mr.mimeType || "audio/webm",
+        });
+        const reader = new FileReader();
+        reader.onload = () => setFAudio(reader.result as string);
+        reader.readAsDataURL(blob);
+        stream.getTracks().forEach((t) => t.stop());
+      };
+      mr.start();
+      recorderRef.current = mr;
+      setRecording(true);
+    } catch {
+      alert("Couldn't access the microphone. Check browser permissions.");
+    }
+  }
+
+  function stopRecording() {
+    recorderRef.current?.stop();
+    setRecording(false);
+  }
+
+  function uploadAudio(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => setFAudio(reader.result as string);
+    reader.readAsDataURL(file);
   }
 
   function saveTag() {
@@ -78,7 +120,14 @@ export default function FamilyPhotoPage() {
       (fKin !== "" ? kinshipLabel(kinshipTerms[Number(fKin)]) : "");
     setTags((t) => [
       ...t,
-      { x: pending.x, y: pending.y, name: fName.trim(), rel, intro: fIntro.trim() },
+      {
+        x: pending.x,
+        y: pending.y,
+        name: fName.trim(),
+        rel,
+        intro: fIntro.trim(),
+        audio: fAudio || undefined,
+      },
     ]);
     resetForm();
   }
@@ -162,6 +211,13 @@ export default function FamilyPhotoPage() {
         </p>
       )}
 
+      {src === sampleFamilyPhoto && (
+        <p className="-mt-2 text-xs italic text-stone-400">
+          🖼️ This sample photo is AI-generated for illustration. Upload your own
+          family photo above to make it real.
+        </p>
+      )}
+
       <InteractivePhoto
         src={src}
         tags={tags}
@@ -172,6 +228,8 @@ export default function FamilyPhotoPage() {
           setFKin("");
           setFCustom("");
           setFIntro("");
+          setFAudio("");
+          setRecording(false);
         }}
       />
 
@@ -232,6 +290,53 @@ export default function FamilyPhotoPage() {
                 className="w-full rounded-lg border border-stone-300 px-3 py-2"
               />
             </label>
+
+            <div className="text-sm sm:col-span-2">
+              <span className="mb-1 block font-medium text-stone-600">
+                Voice note (optional) — record a real voice or a blessing
+              </span>
+              <div className="flex flex-wrap items-center gap-2">
+                {!recording ? (
+                  <button
+                    type="button"
+                    onClick={startRecording}
+                    className="rounded-lg bg-red-50 px-3 py-1.5 font-semibold text-red-600 transition hover:bg-red-100"
+                  >
+                    🎙️ Record
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={stopRecording}
+                    className="animate-pulse rounded-lg bg-red-600 px-3 py-1.5 font-semibold text-white"
+                  >
+                    ⏹️ Stop recording
+                  </button>
+                )}
+                <label className="cursor-pointer rounded-lg border border-stone-300 bg-white px-3 py-1.5 font-semibold text-kulam-dark transition hover:bg-stone-50">
+                  ⬆️ Upload audio
+                  <input
+                    type="file"
+                    accept="audio/*"
+                    onChange={uploadAudio}
+                    className="hidden"
+                  />
+                </label>
+                {fAudio && (
+                  <>
+                    {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+                    <audio controls src={fAudio} className="h-9" />
+                    <button
+                      type="button"
+                      onClick={() => setFAudio("")}
+                      className="text-xs font-semibold text-stone-500 underline"
+                    >
+                      Remove
+                    </button>
+                  </>
+                )}
+              </div>
+            </div>
           </div>
           <div className="mt-4 flex gap-2">
             <button

@@ -8,6 +8,7 @@ export interface PhotoTag {
   name: string;
   rel: string; // relationship label, e.g. "Mama (மாமா) · mother's brother"
   intro: string; // 1–2 line intro
+  audio?: string; // optional recorded/uploaded voice note (data URL or path)
 }
 
 // Seeded demo used on the homepage so first-time visitors feel the magic.
@@ -15,38 +16,31 @@ export const sampleFamilyPhoto = "/sample-family.jpeg";
 
 export const sampleFamilyTags: PhotoTag[] = [
   {
-    x: 15,
-    y: 40,
-    name: "Raman Naidu",
-    rel: "Thatha (தாத்தா) · great-grandfather",
-    intro: "Started the family coconut farm in 1955. Everyone's beloved elder.",
+    x: 30,
+    y: 16,
+    name: "Venkitaswamy",
+    rel: "Thatha (தாத்தா) · grandfather",
+    intro: "The family elder — quiet, wise, and endlessly patient.",
   },
   {
-    x: 33,
-    y: 41,
-    name: "Lakshmi",
-    rel: "Paati (பாட்டி) · great-grandmother",
-    intro: "Famous for her Pongal feasts and endless stories.",
+    x: 44,
+    y: 19,
+    name: "Ranga Nayaki",
+    rel: "Paati (பாட்டி) · grandmother",
+    intro: "Keeper of the family's recipes, rituals and stories.",
   },
   {
-    x: 52,
-    y: 38,
-    name: "Suresh",
-    rel: "Mama (மாமா) · mother's brother",
-    intro: "Runs the textile shop in town. Always cracking jokes.",
+    x: 60,
+    y: 19,
+    name: "Savithri",
+    rel: "Amma (அம்மா) · mother",
+    intro: "Holds the home together; the heart of every festival.",
   },
   {
-    x: 70,
-    y: 40,
-    name: "Kamala",
-    rel: "Atthai (அத்தை) · father's sister",
-    intro: "A teacher, settled in Chennai. The family's wise voice.",
-  },
-  {
-    x: 84,
-    y: 44,
-    name: "Arjun",
-    rel: "Anna (அண்ணா) · elder cousin",
-    intro: "The cricket champion of the family. Studying engineering.",
+    x: 71,
+    y: 42,
+    name: "Shreya",
+    rel: "Pethi (பேத்தி) · granddaughter",
+    intro: "The youngest — loves drawing kolams and learning Paati's songs.",
   },
 ];
