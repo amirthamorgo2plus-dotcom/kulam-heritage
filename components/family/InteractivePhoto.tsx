@@ -19,6 +19,33 @@ export default function InteractivePhoto({
 }) {
   const [active, setActive] = useState<PhotoTag | null>(null);
 
+  // Tap-to-speak: read the name + relationship + intro aloud. Uses a Tamil
+  // voice for the kinship word when the device has one, then English for the rest.
+  function speak(tag: PhotoTag) {
+    const synth = typeof window !== "undefined" ? window.speechSynthesis : null;
+    if (!synth) return;
+    synth.cancel();
+    const voices = synth.getVoices();
+    const tamilWord = (tag.rel.match(/\(([^)]+)\)/) || [])[1];
+    const tamilVoice = voices.find((v) => v.lang?.toLowerCase().startsWith("ta"));
+    if (tamilWord && tamilVoice) {
+      const u = new SpeechSynthesisUtterance(tamilWord);
+      u.voice = tamilVoice;
+      u.lang = tamilVoice.lang;
+      synth.speak(u);
+    }
+    const relEnglish = tag.rel
+      .replace(/\s*\([^)]*\)\s*/, " ")
+      .replace("·", ",")
+      .trim();
+    const u2 = new SpeechSynthesisUtterance(
+      `${tag.name}. ${relEnglish}.${tag.intro ? " " + tag.intro : ""}`,
+    );
+    const enVoice = voices.find((v) => v.lang?.toLowerCase().startsWith("en"));
+    if (enVoice) u2.voice = enVoice;
+    synth.speak(u2);
+  }
+
   function handlePhotoClick(e: React.MouseEvent<HTMLImageElement>) {
     if (!editable || !onAddSpot) return;
     const r = e.currentTarget.getBoundingClientRect();
@@ -89,6 +116,30 @@ export default function InteractivePhoto({
                 {active.intro}
               </p>
             )}
+
+            <div className="mt-4 flex flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={() => speak(active)}
+                className="rounded-lg bg-emerald-50 px-3 py-1.5 text-sm font-semibold text-kulam transition hover:bg-emerald-100"
+              >
+                🔊 Say it
+              </button>
+              {active.audio && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (typeof window !== "undefined") {
+                      window.speechSynthesis?.cancel();
+                    }
+                    new Audio(active.audio).play().catch(() => {});
+                  }}
+                  className="rounded-lg bg-kulam-gold/20 px-3 py-1.5 text-sm font-semibold text-kulam-dark transition hover:bg-kulam-gold/30"
+                >
+                  ▶️ Play voice
+                </button>
+              )}
+            </div>
           </div>
         </div>
       )}

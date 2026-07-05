@@ -19,6 +19,7 @@ create table if not exists public.family_photo_tags (
   name          text not null,
   relationship  text,                       -- "Mama (மாமா) · mother's brother"
   intro         text,
+  audio_path    text,                        -- optional voice note in the "family-photos" bucket
   kulam_id      bigint references public.kulams (id),  -- optional link to directory
   created_at    timestamptz default now()
 );
