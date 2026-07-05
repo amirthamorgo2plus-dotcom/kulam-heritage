@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { marketMandapams } from "@/data/mandapamMarket";
+import FamilyPhotoDemo from "@/components/family/FamilyPhotoDemo";
 
 // Signature features — the things that make Kamma Nest special.
 const features = [
@@ -112,6 +113,9 @@ export default function Home() {
           </div>
         ))}
       </section>
+
+      {/* INTERACTIVE FAMILY PHOTO — the "wow" hook */}
+      <FamilyPhotoDemo />
 
       {/* SPECIAL FEATURES */}
       <section>

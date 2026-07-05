@@ -24,6 +24,7 @@ const groups: Group[] = [
       { href: "/directory", label: "Kulam Directory" },
       { href: "/rituals", label: "Rituals Library" },
       { href: "/temples", label: "Kula Deivam Map" },
+      { href: "/family-photo", label: "Interactive Family Photo" },
     ],
   },
   {
