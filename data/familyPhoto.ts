@@ -33,8 +33,8 @@ export const sampleFamilyTags: PhotoTag[] = [
     x: 60,
     y: 19,
     name: "Savithri",
-    rel: "Amma (அம்மா) · mother",
-    intro: "Holds the home together; the heart of every festival.",
+    rel: "Atthai (அத்தை) · father's sister",
+    intro: "The beloved Atthai — the one who spoils you and always takes your side.",
   },
   {
     x: 71,
