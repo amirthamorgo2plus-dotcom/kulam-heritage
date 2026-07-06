@@ -97,6 +97,10 @@ export default function Home() {
             Explore Rituals
           </Link>
         </div>
+        <p className="mx-auto mt-5 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-sm font-medium text-kulam-cream/90 ring-1 ring-white/25">
+          <span className="flex h-2 w-2 animate-pulse rounded-full bg-kulam-gold" />
+          This is a live demo — explore everything freely, no login needed.
+        </p>
       </section>
 
       {/* STATS */}
