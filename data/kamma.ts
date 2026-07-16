@@ -40,6 +40,14 @@ export const kammas: Kulam = {
     "The Kammavar Naidus are a Telugu-origin community settled across Tamil Nadu, who migrated south several centuries ago and became prominent in agriculture, trade and public life — especially in the Kongu (Coimbatore–Erode–Salem) belt and the southern districts.",
   sections: [
     {
+      heading: "How we got our name — Kammavar (கம்மவார்)",
+      body: [
+        "Community tradition traces the name to Sage Kamadhika (காமாதிகா முனிவர்), who worshipped the kammal (கம்மல் — the earring) of Mahalakshmi with great devotion. From that kammal were born kshatriya kings marked by truth, dharma and unwavering justice — and those who descended from it came to be called Kammavar (கம்மவார்).",
+        "As kshatriyas, the community later fell under the wrath of Parasurama, who had vowed to destroy twenty-one generations of the royal line that killed his father, Jamadagni. It was Parasurama's own mother, Renuka Devi (ரேணுகா தேவி), who shielded the Kamma kulam from him.",
+        "To keep them safe, she had them set aside the sacred thread (poonool), the crown and their royal office, tie the urumaal (உருமால்) on their heads, and take up the plough. From that day the Kamma kulam made agriculture their primary livelihood — and by her grace the kulam flourished. This is why Renuka Devi is revered as the community's protector and kula deivam to this day.",
+      ],
+    },
+    {
       heading: "Migration & origins",
       body: [
         "Community tradition holds that the Kammavar Naidus migrated from the Andhra (Kammanadu) region to Tamil Nadu, with significant movement during the Vijayanagara period.",

@@ -74,6 +74,29 @@ export default function HistoryPage() {
           traditions vary by family lineage.
         </p>
       </section>
+
+      <section className="rounded-2xl border border-kulam-gold/30 bg-kulam/5 p-5">
+        <h2 className="text-sm font-bold text-kulam-dark">Sources &amp; thanks</h2>
+        <p className="mt-2 text-xs leading-relaxed text-stone-600">
+          The origin of the name Kammavar and the account of Renuka Devi are
+          retold here in our own words from community material generously shared
+          by the{" "}
+          <a
+            href="https://www.kammavarthirumanaseva.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-kulam underline"
+          >
+            Peelamedu Kammavar Seva Sangam
+          </a>{" "}
+          (kammavarthirumanaseva.com), Coimbatore — with our thanks.
+        </p>
+        <p className="mt-2 text-xs italic text-stone-500">
+          Disclaimer: these are community traditions passed down through
+          generations, not academic history. Accounts vary by family and region —
+          please verify with your elders.
+        </p>
+      </section>
     </article>
   );
 }
