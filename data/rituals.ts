@@ -1,23 +1,31 @@
-// SAMPLE / ILLUSTRATIVE ritual descriptions — verify with community elders.
-// Keyed by kulamId + lifeEvent so other kulams/events extend this list.
+// Kammavar Naidu rituals — bilingual (Tamil original + English retelling).
+// Sourced from community material shared by the Peelamedu Kammavar Seva Sangam.
+// Earlier illustrative/placeholder rituals were removed: they were guesses and
+// contradicted this authentic account. Verified entries only from here on.
+
+/** A bilingual string. `ta` is the Tamil original, `en` the English retelling. */
+export interface Bi {
+  ta?: string;
+  en: string;
+}
 
 export interface RitualStep {
-  title: string;
-  detail: string;
-  significance?: string; // why it is done / what it means
+  title: Bi;
+  detail: Bi;
+  significance?: Bi; // why it is done / what it means
 }
 
 export interface RitualNarrative {
-  heading: string;
-  body: string[];
+  heading: Bi;
+  body: Bi[];
 }
 
 export interface Ritual {
   id: string;
   kulamId: string;
   lifeEvent: "Wedding" | "Naming" | "Festival" | "Coming of Age" | "Other";
-  title: string;
-  summary: string;
+  title: Bi;
+  summary: Bi;
   steps: RitualStep[];
   // The legend behind the ritual — why the community keeps it at all.
   story?: RitualNarrative;
@@ -29,234 +37,172 @@ export interface Ritual {
 
 export const rituals: Ritual[] = [
   {
-    id: "kamma-wedding",
-    kulamId: "kammavar-naidu",
-    lifeEvent: "Wedding",
-    title: "Kammavar Naidu Wedding",
-    summary:
-      "A Kammavar Naidu wedding blends Telugu-origin rites with Tamil Nadu customs, centred on horoscope matching, the muhurtham and the kula deivam's blessings.",
-    steps: [
-      {
-        title: "Pen Paarthal / Pelli Choopulu",
-        detail:
-          "The two families formally meet so the prospective bride and groom can see each other, often over coffee and tiffin at the bride's home.",
-        significance:
-          "Marks consent of both families to explore the alliance before any commitment.",
-      },
-      {
-        title: "Jathakam / Horoscope matching",
-        detail:
-          "The families exchange horoscopes and an astrologer compares them (Ashtakoota / guna match). The alliance usually proceeds only on a satisfactory score.",
-        significance:
-          "Checks long-term compatibility and auspiciousness — see the Horoscope tool.",
-      },
-      {
-        title: "Nichayathartham (Engagement)",
-        detail:
-          "Betrothal at which elders exchange plates of fruit, betel, turmeric and gifts, and the priest fixes the wedding muhurtham (auspicious date & time).",
-        significance:
-          "Publicly seals the alliance and locks the date the rest of the planning is built around.",
-      },
-      {
-        title: "Pandhakaal & Naandi",
-        detail:
-          "A day or two before, a sanctified pole/post is planted and a Naandi (ancestor-remembrance) ceremony invokes blessings of forefathers.",
-        significance:
-          "Seeks the blessings of family ancestors and removes obstacles before the rites begin.",
-      },
-      {
-        title: "Pellikuthuru & Pellikoduku",
-        detail:
-          "Turmeric and oil are applied to the bride and groom at their respective homes, followed by Mangala Snanam (auspicious bath), new clothes and aarti.",
-        significance:
-          "Purifies and beautifies the couple; turmeric is auspicious and protective.",
-      },
-      {
-        title: "Snakatam / Kashi Yatra (groom)",
-        detail:
-          "The groom playfully pretends to renounce worldly life for Kashi; the bride's brother persuades him to return and marry — light-hearted and symbolic.",
-        significance:
-          "Symbolises the groom choosing married (householder) life over asceticism.",
-      },
-      {
-        title: "Kanyadanam",
-        detail:
-          "At the muhurtham the bride's parents formally give her hand to the groom, pouring sacred water as the priest chants.",
-        significance:
-          "The most sacred gift a parent can make — entrusting their daughter to the groom.",
-      },
-      {
-        title: "Mangalyadharanam (Thaali tying)",
-        detail:
-          "The groom ties the thaali (mangalsutra) around the bride's neck — typically three knots — as the nadaswaram reaches a crescendo (getti melam).",
-        significance:
-          "The defining moment of the marriage; the couple are now wed.",
-      },
-      {
-        title: "Saptapadi (seven steps)",
-        detail:
-          "The couple take seven steps together around the sacred fire (homam), each step a shared vow.",
-        significance:
-          "Each step is a promise — nourishment, strength, prosperity, happiness, progeny, seasons, and lifelong friendship.",
-      },
-      {
-        title: "Talambralu",
-        detail:
-          "The newly-weds joyfully shower each other with pearl-mixed rice amid laughter and family cheer.",
-        significance:
-          "A playful blessing for prosperity, fertility and a joyful union.",
-      },
-      {
-        title: "Reception & Grihapravesam",
-        detail:
-          "A reception celebrates with guests; later the bride is welcomed into the groom's home (Grihapravesam).",
-        significance:
-          "Introduces the couple to the wider community and welcomes the bride to her new home.",
-      },
-    ],
-  },
-  {
-    id: "kamma-barasala",
-    kulamId: "kammavar-naidu",
-    lifeEvent: "Naming",
-    title: "Barasala (Naming Ceremony)",
-    summary:
-      "Held typically on the 21st day, the infant is formally named, often based on the birth star (nakshatra).",
-    steps: [
-      {
-        title: "Cradle ceremony",
-        detail: "The baby is placed in a decorated cradle amid blessings.",
-      },
-      {
-        title: "Naming",
-        detail:
-          "An auspicious name is chosen, frequently guided by the birth nakshatra's syllable.",
-      },
-    ],
-  },
-  {
-    id: "kamma-sankranti",
-    kulamId: "kammavar-naidu",
-    lifeEvent: "Festival",
-    title: "Sankranti",
-    summary:
-      "The harvest festival is the most important seasonal celebration in the Kamma agrarian heartland.",
-    steps: [
-      {
-        title: "Bhogi",
-        detail: "Bonfires and discarding of the old on the first day.",
-      },
-      {
-        title: "Makara Sankranti",
-        detail: "Family gatherings, rangoli (muggulu), and new harvest offerings.",
-      },
-      {
-        title: "Kanuma",
-        detail: "Honouring cattle that support the farming livelihood.",
-      },
-    ],
-  },
-  {
     id: "kamma-gauri-vratham",
     kulamId: "kammavar-naidu",
     lifeEvent: "Festival",
-    title: "Gauri Vratham (கௌரி விரதம்)",
-    summary:
-      "The girls' vratham for Gauri Amman — daughter of Renuka Devi — kept in Aavani and Purattasi on the third day after the full moon, and once in three years on the third day after the Aippasi full moon. Also called Kammavar Thatthelu Pandaga, Uthaapina, or Asanya Sayana Vratham. It is observed by a girl child in her 7th, 9th or 11th year.",
+    title: { ta: "கௌரி விரதம்", en: "Gauri Vratham" },
+    summary: {
+      ta: "கௌரி அம்மனுக்கு — ரேணுகா தேவியின் மகள் — பெண் குழந்தைகள் இருக்கும் விரதம். ஆவணி, புரட்டாசி மாதங்களில் பௌர்ணமிக்கு அடுத்த மூன்றாவது நாளிலும், மூன்று வருடங்களுக்கு ஒரு முறை ஐப்பசி மாத பௌர்ணமிக்கு அடுத்த மூன்றாவது நாளும் அனுஷ்டிக்கப்படுகிறது. இதனை கம்மவார் தத்தெலு பண்டக, உத்தாபின, அசுன்ய சயன விரதம் எனவும் வழங்குவர். பெண் குழந்தையின் 7, 9 அல்லது 11 ஆம் வயதில் இச்சீர் செய்யப்படும்.",
+      en: "The girls' vratham for Gauri Amman — daughter of Renuka Devi — kept in Aavani and Purattasi on the third day after the full moon, and once in three years on the third day after the Aippasi full moon. Also called Kammavar Thatthelu Pandaga, Uthaapina, or Asanya Sayana Vratham. It is observed by a girl child in her 7th, 9th or 11th year.",
+    },
     story: {
-      heading: "Why Kammavar girls keep the Uthaapina Seer",
+      heading: {
+        ta: "கம்மவார் குலப் பெண்கள் உத்தாபின சீர் செய்யக் காரணம்",
+        en: "Why Kammavar girls keep the Uthaapina Seer",
+      },
       body: [
-        "Gauri Amman merged into an ammikkal (the grinding stone) — which is why she is worshipped in that very form to this day. Before she merged into the earth she gave her word: girls of seven kulams would keep her vratham, and for six of them it would be fulfilled — but for the girl born of the Kammavar line alone, it would not. For her, an 'Uthaapina Seer' would have to be done in her 7th, 9th or 11th year.",
-        "In the early days, girls of seven kulams — Brahmana, Kammavar, Komutti, Kolla, Balijavar, Batraju and Udaiyar — kept the vratham. A Kammavar girl, Akkammal, lived with her three elder brothers, who doted on their only sister. When she came of age they arranged her Gauri vratham and invited the girls of the other six kulams to keep it at their home.",
-        "The rule was that the vratham could be broken only after the moon rose at night and was worshipped. But having fasted all day, Akkammal grew faint with hunger. Her brothers, farmers, returned at evening and could not bear to see her that way. So they worked a trick: one tied a mirror on a peepal tree, and another lit a fire in the tamarind tree facing it. The firelight caught in the mirror looked exactly like a moon rising. They led her out and said, 'Look — the moon is up. Worship it and finish your vratham.' Believing what she saw, she worshipped, broke her fast and slept.",
-        "When the real moon rose, the six girls of the other kulams came to the house and were told Akkammal had already finished. 'The moon has only just risen — how could she have finished?' they asked. Hurt and angered, they laid a curse: let the vratham of the girl who did not keep it properly go unfulfilled, and let the girls born in the Kammavar kulam have to perform the Uthaapina Seer in their 7th, 9th or 11th year.",
-        "And because it was her own brothers who spoiled Akkammal's vratham, the rule remains to this day: brothers must not be present when the Uthaapina Seer is performed.",
+        {
+          ta: "கௌரியம்மன் தெய்வமாகி விடுகிறாள். ஆதலால் அம்மிக்கல்லே கௌரியம்மனாகப் பூஜிக்கப்படுகிறது. அப்பொழுது கௌரியம்மன் ஒரு வாக்கு தருகிறாள்: “ஏழு குலப் பெண் குழந்தைகள் விரதம் இருந்து என்னை வணங்குவார்கள். அவர்களில் ஆறு பேர்களது விரதம் செல்லும். கம்மவார் வம்சத்தில் பிறந்த பெண் குழந்தை அக்கம்மாவின் விரதம் மட்டும் செல்லாது போய்விடும். அதனால் கம்மவார் குலத்தில் பிறக்கும் பெண் குழந்தைகளுக்கு 7, 9, 11 ஆம் வயதுகளில் ஏதாவது ஒரு வயதில் ‘உத்தாபின சீர்’ செய்ய வேண்டும்.” பின்னர் கௌரியம்மன் பூமியில் ஐக்கியம் ஆனாள்.",
+          en: "Gauri Amman became divine and merged into the ammikkal (the grinding stone) — which is why she is worshipped in that very form to this day. Before she merged into the earth she gave her word: girls of seven kulams would keep her vratham, and for six of them it would be fulfilled — but for the girl born of the Kammavar line alone, it would not. For her, an 'Uthaapina Seer' would have to be done in her 7th, 9th or 11th year.",
+        },
+        {
+          ta: "தொடக்க காலத்தில் பிராமண குலம், கம்மவார் குலம், கோமுட்டி குலம், கொல்ல குலம், பலிஜவார் குலம், பட்ராஜு குலம், உடையார் குலம் ஆகிய ஏழு குலத்தில் பிறந்த குழந்தைகளும் தத்தம் 7, 9, 11 வயதுகளில் கௌரி விரதம் இருந்தனர். கம்மவார் குலப் பெண் குழந்தை அக்கம்மாள் தனது அண்ணன்மார் மூவரோடு வாழ்ந்து வந்தாள். அவர்கள் தங்களது ஒரே தங்கையான அக்கம்மாள் மீது மிகுதியான பாசம் கொண்டிருந்தனர். அக்கம்மா உரிய வயதினை அடைந்ததும், கௌரி விரதம் வைத்துச் சாமி கும்பிட முடிவு செய்தனர். விரதத்தைக் கடைபிடிக்கின்ற மற்ற ஆறு குல பெண் குழந்தைகளையும் தமது வீட்டிற்கே வரவழைத்து விரதம் இருக்கச் செய்தனர்.",
+          en: "In the early days, girls of seven kulams — Brahmana, Kammavar, Komutti, Kolla, Balijavar, Batraju and Udaiyar — kept the vratham in their 7th, 9th or 11th year. A Kammavar girl, Akkammal, lived with her three elder brothers, who doted on their only sister. When she came of age they arranged her Gauri vratham and invited the girls of the other six kulams to keep it at their home.",
+        },
+        {
+          ta: "பகல் முழுதும் விரதம் மேற்கொண்டதால் அக்கம்மாள் பசி மயக்கத்திற்கு ஆளானாள். விவசாயிகளான அண்ணன்மார்கள் மாலையில் வீடு திரும்பி, பசி மயக்கம் உள்ள தங்கையின் நிலை கண்டு வேதனைக்கு ஆளாயினர். இரவு நிலவு உதித்த பின்னர் நிலாவைப் பார்த்து வணங்கிய பின்னர் தான் விரதத்தை முடிக்க வேண்டும் என்பது நியதி. ஆனால் அதுவரை தமது தங்கை பசி பொறுக்க மாட்டாள் என எண்ணி, நிலா உதித்து விட்டதாக நம்ப வைத்து விரதத்தை முடிக்கச் செய்ய ஒரு உபாயத்தை மேற்கொண்டனர்.",
+          en: "The rule was that the vratham could be broken only after the moon rose at night and was worshipped. But having fasted all day, Akkammal grew faint with hunger. Her brothers, farmers, returned at evening and could not bear to see her that way — so they worked a trick to make her believe the moon had already risen.",
+        },
+        {
+          ta: "ஒரு அண்ணன் அரசமரத்தில் ஒரு கண்ணாடியைக் கட்டி வைத்தார். மற்ற அண்ணன் அதன் எதிரிலிருந்த புளியமரத்தில் தீயை உண்டாக்கினார். கண்ணாடியில் புளியமரத்து நெருப்பு “நிலா” கிளம்பி வருவது போன்ற ஒரு பொய்த் தோற்றத்தை உருவாக்கியது. பின்னர் அண்ணன்மார்கள் அக்கம்மாவை வீட்டிற்கு வெளியில் அழைத்து வந்து, “இதோ பார், நிலா உதித்து விட்டது. நீ நிலாவைக் கும்பிட்டு விரதத்தை முடித்துக் கொள்ளலாம்” என்றனர். தான் கண்ட நிலாத் தோற்றத்தை உண்மை என நம்பிய அக்கம்மாள், நிலாவை வணங்கி, விரதத்தை முடித்துக் கொண்டு, படுத்து உறங்கி விட்டாள்.",
+          en: "One brother tied a mirror on a peepal tree; another lit a fire in the tamarind tree facing it. The firelight caught in the mirror looked exactly like a moon rising. They led her out and said, 'Look — the moon is up. Worship it and finish your vratham.' Believing what she saw, she worshipped, broke her fast and slept.",
+        },
+        {
+          ta: "வானத்தில் உண்மையாக உதித்த நிலாவைக் கண்ட பிற குலக் குழந்தைகள் ஆறு பேரும் அக்கம்மாவின் வீட்டிற்கு வந்தனர். “எங்கள் அக்கம்மா நிலவைப் பார்த்து கும்பிட்டு விரதம் முடித்து விட்டாள்” என்றனர் அண்ணன்மார்கள். “இப்போது தானே நிலா உதித்தது. உங்கள் அக்கம்மா எப்படி விரதம் முடிக்க முடியும்?” என்று கேட்டு மிகுதியான வேதனைக்கும் சினத்திற்கும் ஆளாயினர். “முறையான விரதம் மேற்கொள்ளாத அக்கம்மாவின் கௌரி விரதம் செல்லுபடியாகாமல் போகட்டும். உங்கள் கம்மவார் குலத்தில் பிறந்த பெண் குழந்தைகளுக்கு 7, 9, 11 ஆம் வருடங்களில் ‘உத்தாபின சீர்’ செய்ய வேண்டும்” என்று சாபம் இட்டனர். அக்கம்மாவின் விரதத்திற்கு அவளது அண்ணன்மார்களால் பங்கம் ஏற்பட்டதால், ‘உத்தாபின சீர்’ செய்யும்பொழுது சகோதரர்கள் அருகில் இருக்கக் கூடாது என்ற நியதி ஏற்பட்டது.",
+          en: "When the real moon rose, the six girls of the other kulams came to the house and were told Akkammal had already finished. 'The moon has only just risen — how could she have finished?' they asked. Hurt and angered, they laid a curse: let the vratham of the girl who did not keep it properly go unfulfilled, and let the girls born in the Kammavar kulam have to perform the Uthaapina Seer in their 7th, 9th or 11th year. And because it was her own brothers who spoiled her vratham, the rule remains: brothers must not be present when the Uthaapina Seer is performed.",
+        },
       ],
     },
     steps: [
       {
-        title: "Who keeps it",
-        detail:
-          "A girl child in her 7th, 9th or 11th year, together with five elders who keep the vratham with her — three elderly sumangali women and two men (two couples and one sumangali). Relatives are invited.",
-        significance:
-          "The child is never alone in it — the vratham is kept by the family around her.",
+        title: { ta: "விரதம் இருப்பவர்கள்", en: "Who keeps it" },
+        detail: {
+          ta: "உற்றார் உறவினர் சுற்றத்தாரை அழைத்தல் வேண்டும். வயதான சுமங்கலிப் பெண்கள் மூவரும், ஆடவர் இருவரும் (இரண்டு தம்பதிகள், ஒரு சுமங்கலி என ஐவர்) குழந்தையுடன் சேர்ந்து விரதம் இருத்தல் வேண்டும்.",
+          en: "A girl child in her 7th, 9th or 11th year, together with five elders who keep the vratham with her — three elderly sumangali women and two men (two couples and one sumangali). Relatives are invited.",
+        },
+        significance: {
+          ta: "குழந்தை தனியாக விரதம் இருப்பதில்லை — குடும்பமே அவளுடன் சேர்ந்து இருக்கிறது.",
+          en: "The child is never alone in it — the vratham is kept by the family around her.",
+        },
       },
       {
-        title: "Before sunrise",
-        detail:
-          "All five sit with the child in the middle, a thalaivazhai leaf is laid, and they eat a light tiffin. Nothing is eaten during the day. The child must not sleep in the daytime; a swing is tied for her to play on. She must not touch or step on the threshold that day.",
+        title: { ta: "சூரிய உதயத்திற்கு முன்", en: "Before sunrise" },
+        detail: {
+          ta: "சூரியன் உதிப்பதற்கு முன்னரே ஐவரும் குழந்தையை நடுவில் உட்கார வைத்து, தலைவாழை இலை போட்டுச் சிற்றுண்டி சாப்பிட வேண்டும். பகலில் சாப்பிடக் கூடாது. குழந்தை பகலில் தூங்கக் கூடாது. ஊஞ்சல் கட்டிக் கொடுத்து விளையாடச் செய்ய வேண்டும். விரதம் மேற்கொள்ளும் நாளில் அக்குழந்தை வாசற்படியினையோ, நிலைப்படியினையோ தொடவோ, மிதித்து நடக்கவோ கூடாது.",
+          en: "All five sit with the child in the middle, a thalaivazhai leaf is laid, and they eat a light tiffin. Nothing is eaten during the day. The child must not sleep in the daytime; a swing is tied for her to play on. She must not touch or step on the threshold that day.",
+        },
       },
       {
-        title: "Evening bath and adorning",
-        detail:
-          "The child is bathed with oil, arappu and turmeric, dressed in new clothes, her hair combed and flowers tucked in, well adorned, with naamam on her forehead.",
+        title: { ta: "மாலை நீராட்டும் அலங்காரமும்", en: "Evening bath and adorning" },
+        detail: {
+          ta: "அன்று மாலையில் குழந்தைக்கு எண்ணெய் தேய்த்து அரப்பு வைத்து மஞ்சளைத் தேய்த்துக் குளிப்பாட்ட வேண்டும். புத்தாடை அணியச் செய்ய வேண்டும். தலைவாரி, பூச்சூட்டிக் குழந்தையை நன்கு அலங்கரிக்க வேண்டும். நெற்றியில் நாமம் வைக்க வேண்டும்.",
+          en: "The child is bathed with oil, arappu and turmeric, dressed in new clothes, her hair combed and flowers tucked in, well adorned, with naamam on her forehead.",
+        },
       },
       {
-        title: "Gauri Amman's form",
-        detail:
-          "The ammikkal is cleaned and laid down and the grinding stone (kuzhavi) stood upon it. Eyes, nose, mouth and ears are marked in turmeric, and it is adorned with flowers and jewellery.",
-        significance:
-          "Gauri Amman merged into the ammikkal — so the stone itself is shaped into her form and worshipped.",
+        title: { ta: "கௌரி அம்மன் வடிவம்", en: "Gauri Amman's form" },
+        detail: {
+          ta: "அம்மிக்கல்லை சுத்தம் செய்து படுக்க வைத்து, அரைக்கும் குழவியை நிற்க வைத்து, மஞ்சளில் கண், மூக்கு, வாய், காது வைத்து மலர்களாலும் நகைகளாலும் அலங்கரிக்க வேண்டும். அதனையே கௌரியம்மனாக உருவகித்து வணங்க வேண்டும்.",
+          en: "The ammikkal is cleaned and laid down and the grinding stone (kuzhavi) stood upon it. Eyes, nose, mouth and ears are marked in turmeric, and it is adorned with flowers and jewellery, then worshipped as Gauri Amman herself.",
+        },
+        significance: {
+          ta: "கௌரியம்மன் அம்மிக்கல்லில் ஐக்கியம் ஆனவள்.",
+          en: "Gauri Amman merged into the ammikkal — so the stone itself is shaped into her form and worshipped.",
+        },
       },
       {
-        title: "To the temple",
-        detail:
-          "The five who kept the vratham take the child, with relatives, to Gauri Amman. There is no separate temple for her — she may be adorned and worshipped at the village temple or at home, and all the children keeping the vratham in that village may gather in one place and worship together.",
+        title: { ta: "கோயிலுக்குச் செல்லுதல்", en: "To the temple" },
+        detail: {
+          ta: "மாலையில் விரதம் மேற்கொண்ட பெரியோர்கள் ஐவரும் குழந்தையை அழைத்துக் கொண்டு, உற்றார் உறவினர்களுடன் கௌரி அம்மன் கோயிலுக்குச் செல்ல வேண்டும். கௌரி அம்மனுக்கென்று தனியான கோயில் கிடையாது; ஊரில் உள்ள கோயிலிலோ அல்லது வாழும் இல்லத்திலோ கௌரி அம்மனை அலங்கரித்து வழிபடலாம். அவ்வூரில் விரதம் மேற்கொண்ட குழந்தைகள் பலரும் ஒரே இடத்தில் சேர்ந்து கௌரி அம்மனை ஒன்றாகவும் வணங்கலாம்.",
+          en: "The five who kept the vratham take the child, with relatives, to Gauri Amman. There is no separate temple for her — she may be adorned and worshipped at the village temple or at home, and all the children keeping the vratham in that village may gather in one place and worship together.",
+        },
       },
       {
-        title: "What is carried",
-        detail:
-          "A plate with a vaazhai leaf holding five each of uppittu, gujjayam, salt-free dosai, paniyaram and vadai, covered with another leaf; a bowl of salt-free paruppu satham; thengai, pazham, vetrilai-paaku, oodhupathi, karpooram, arali, vilvam, malligai, thaamarai, thulasi and navadhaniyam. An arali-kaai is tied in a turmeric-smeared thread with as many knots as the child's age (7, 9 or 11).",
+        title: { ta: "கோவிலுக்கு எடுத்துச் செல்ல வேண்டியன", en: "What is carried" },
+        detail: {
+          ta: "ஒரு தட்டில் வாழை இலை போட்டு அதில் ஐந்து எண்ணிக்கையில் உப்பட்டு, கஜ்ஜாயம், உப்பில்லாத தோசை, பணியாரம், வடை ஆகியவற்றை வைத்து மற்றொரு இலையால் மூட வேண்டும். அதனோடு ஒரு கிண்ணத்தில் உப்பில்லாத பருப்பு சாதம், தேங்காய், பழம், வெற்றிலை பாக்கு, ஊதுபத்தி, கற்பூரம், அரளி, வில்வம், மல்லிகை, தாமரை, துளசி முதலிய உதிரிப்பூக்கள், நவதானியம் முதலியவற்றை எடுத்துச் செல்ல வேண்டும். மஞ்சள் தடவிய முன்னூலில் அரளிக்காய் ஒன்றினைக் கட்டி, குழந்தையின் வயதிற்கேற்ப (7, 9, 11) முடிச்சுகள் போட வேண்டும்.",
+          en: "A plate with a vaazhai leaf holding five each of uppittu, gujjayam, salt-free dosai, paniyaram and vadai, covered with another leaf; a bowl of salt-free paruppu satham; thengai, pazham, vetrilai-paaku, oodhupathi, karpooram, arali, vilvam, malligai, thaamarai, thulasi and navadhaniyam. An arali-kaai is tied in a turmeric-smeared thread with as many knots as the child's age (7, 9 or 11).",
+        },
       },
       {
-        title: "Hearing the story",
-        detail:
-          "Everything is offered before Gauri Amman. The children and elders listen to Gauri Amman's story, told quietly and with devotion. Afterwards a little of the offerings is left with Sri Gauri; only some loose flowers, an arali sprig and the knotted arali-kaai are carried home.",
-        significance:
-          "The story is the point — each generation hears it at the age it will remember.",
+        title: { ta: "கதை கேட்டல்", en: "Hearing the story" },
+        detail: {
+          ta: "கொண்டு சென்ற பூசைப் பொருள் அனைத்தையும் கௌரியம்மனின் முன்னால் படைத்து வணங்க வேண்டும். விரதம் இருக்கும் குழந்தைகளும் பெரியோர்களும் அங்கு கூறும் கௌரியம்மனின் கதையை அமைதியாகவும் பக்தி சிரத்தையுடனும் கேட்க வேண்டும். கதை கேட்டு முடிந்த பின், கொண்டு போன பலகாரங்களில் கொஞ்சம் ஸ்ரீ கௌரிக்குச் சமர்ப்பித்து விட்டு, கொஞ்சம் உதிரிப் பூக்கள், அரளிக் கொம்பு, அரளிக்காய் ஆகியவற்றை மட்டும் வீட்டிற்கு எடுத்து வர வேண்டும்.",
+          en: "Everything is offered before Gauri Amman. The children and elders listen to Gauri Amman's story, told quietly and with devotion. Afterwards a little of the offerings is left with Sri Gauri; only some loose flowers, an arali sprig and the knotted arali-kaai are carried home.",
+        },
+        significance: {
+          ta: "கதையே இதன் மையம் — ஒவ்வொரு தலைமுறையும் நினைவில் நிற்கும் வயதில் அதைக் கேட்கிறது.",
+          en: "The story is the point — each generation hears it at the age it will remember.",
+        },
       },
       {
-        title: "Washing the elders' feet",
-        detail:
-          "At home the five stand at the doorway facing east. The girl washes their feet with water from a full pot poured into a sembu, applies sandalwood and kungumam, offers flowers, touches their feet and bows.",
+        title: { ta: "பெரியோர்களின் பாதம் கழுவுதல்", en: "Washing the elders' feet" },
+        detail: {
+          ta: "வீட்டிற்கு வந்ததும், விரதம் மேற்கொண்ட பெரியோர்கள் ஐந்து பேரும் வாசலில் கிழக்கு நோக்கி நிற்க வேண்டும். பெண் குழந்தை நிறை குடத்தில் உள்ள நீரை ஒரு செம்பில் நிரப்பி அவர்களது பாதங்களைக் கழுவ வேண்டும். பின்னர் பாதங்களில் சந்தனம், குங்குமம் வைத்து மலர் இட்டு, கால்களைத் தொட்டுக் கும்பிட வேண்டும்.",
+          en: "At home the five stand at the doorway facing east. The girl washes their feet with water from a full pot poured into a sembu, applies sandalwood and kungumam, offers flowers, touches their feet and bows.",
+        },
       },
       {
-        title: "Worshipping the moon",
-        detail:
-          "When the moon truly appears, the women of the house stand the child among the five elders, place an arali sprig in every hand and have them open their palms, pour mor, and look at the moon and worship — three times. The arali sprig is then set down and the elders bless the child.",
-        significance:
-          "The honest moon Akkammal never saw is the one every Kammavar girl now waits for.",
+        title: { ta: "நிலா வணங்குதல்", en: "Worshipping the moon" },
+        detail: {
+          ta: "வானத்தில் நிலாத் தோன்றியதும், வீட்டில் உள்ள பெண்கள் குழந்தையைப் பெரியவர் ஐவர் நடுவில் நிற்க வைத்து, எல்லோரது கைகளிலும் அரளிக் கொம்பு கொடுத்துக் கையை விரிக்கச் சொல்லி, மோர் விட்டு நிலாவைப் பார்த்துக் கும்பிடச் சொல்ல வேண்டும். மூன்று முறை கும்பிட்ட பின்னர், அரளிக் கொம்பைக் கீழே போட வேண்டும். பெரியவர்கள் குழந்தையை வாழ்த்த வேண்டும்.",
+          en: "When the moon truly appears, the women of the house stand the child among the five elders, place an arali sprig in every hand and have them open their palms, pour mor, and look at the moon and worship — three times. The arali sprig is then set down and the elders bless the child.",
+        },
+        significance: {
+          ta: "அக்கம்மாள் காணாத உண்மையான நிலாவைத் தான் இன்று ஒவ்வொரு கம்மவார் பெண்ணும் காத்திருந்து வணங்குகிறாள்.",
+          en: "The honest moon Akkammal never saw is the one every Kammavar girl now waits for.",
+        },
       },
       {
-        title: "The mavilakku",
-        detail:
-          "A kolam is drawn at the doorstep and the child stands on the threshold facing east — two sumangalis behind her, one in front. Three small mavilakkus are made and lit with ghee wicks. The sumangali in front sings 'முடிமுடி தாராலு இந்தாண்டம்மா' and passes the plate back; the one behind receives it with 'தாராலு தெச்சண்டம்மா' and places a mavilakku in the child's mouth, to be swallowed without chewing. This is done three times, for all three mavilakkus.",
+        title: { ta: "மாவிளக்கு", en: "The mavilakku" },
+        detail: {
+          ta: "வீட்டில் தலைவாசலில் கோலம் போட்டு நிலைப்படியில் குழந்தையை கிழக்கு நோக்கி நிற்க வைக்க வேண்டும். குழந்தைக்குப் பின்னால் இரண்டு சுமங்கலிகளும், முன்னால் ஒரு சுமங்கலியும் நின்று, சின்னதாகச் செய்த மூன்று மாவிளக்குகளில் திரி போட்டு நெய் தீபம் ஏற்ற வேண்டும். முன்னால் நிற்கும் சுமங்கலி “முடிமுடி தாராலு இந்தாண்டம்மா” எனச் சொல்லி பின்னால் நிற்பவரிடம் கொடுக்க, அவர் “முள்ளா தாராலு தெச்சுண்டம்மா” என்று பாடிக் கொடுக்க, முன்னால் நிற்பவர் ஒரு மாவிளக்கை குழந்தையின் வாயில் போட்டு, மெல்லாமல் விழுங்கச் சொல்ல வேண்டும். இதுபோல மூன்று முறை செய்து மூன்று மாவிளக்குகளையும் விழுங்கச் சொல்ல வேண்டும்.",
+          en: "A kolam is drawn at the doorstep and the child stands on the threshold facing east — two sumangalis behind her, one in front. Three small mavilakkus are made and lit with ghee wicks. The sumangali in front sings 'முடிமுடி தாராலு இந்தாண்டம்மா' and passes the plate back; the one behind receives it with 'முள்ளா தாராலு தெச்சுண்டம்மா' and places a mavilakku in the child's mouth, to be swallowed without chewing. This is done three times, for all three.",
+        },
       },
       {
-        title: "Tying the arali-kaai and eating",
-        detail:
-          "The three together tie the knotted arali-kaai on the child's right hand. All five then come inside and eat with the child seated in the middle. They first mix uppittu, vadai, gujjayam, pazham and ghee and each give her a handful. As all have fasted, satham, paruppu, sambar, rasam, kaikari and appalam are served. When everyone has eaten, the child alone clears the six leaves, and vetrilai-paaku is given to the elders.",
+        title: { ta: "அரளிக்காய் கட்டுதலும் உணவும்", en: "Tying the arali-kaai and eating" },
+        detail: {
+          ta: "மூவரும் சேர்ந்து குழந்தையின் வலது கையில் முடிச்சிட்ட அரளிக்காயைக் கட்ட வேண்டும். பின்னர் விரதம் இருந்த ஐவரும் குழந்தையோடு அமர்ந்து சாப்பிட வேண்டும்; குழந்தை ஐவருக்கும் நடுவில் அமர வேண்டும். ஐவரும் முதலில் உப்பட்டு, வடை, கஜ்ஜாயம், பழம், நெய் சேர்த்துப் பிசைந்து ஆளுக்கு ஒரு கை குழந்தைக்குக் கொடுக்க வேண்டும். சாதம், பருப்பு, சாம்பார், ரசம், காய்கறி, அப்பளம் ஆகியன படைக்கப்படுதல் வேண்டும். எல்லோரும் சாப்பிட்டு முடித்தவுடன், ஆறு பேரது சாப்பிட்ட இலைகளைக் குழந்தையே எடுக்க வேண்டும். பின்னர் பெரியோர்களுக்கு வெற்றிலை பாக்கு கொடுக்க வேண்டும்.",
+          en: "The three together tie the knotted arali-kaai on the child's right hand. All five then come inside and eat with the child seated in the middle. They first mix uppittu, vadai, gujjayam, pazham and ghee and each give her a handful. As all have fasted, satham, paruppu, sambar, rasam, kaikari and appalam are served. When everyone has eaten, the child alone clears the six leaves, and vetrilai-paaku is given to the elders.",
+        },
       },
       {
-        title: "The next morning",
-        detail:
-          "The child is bathed, dressed and adorned and taken to the Gauri Amman temple with thengai, pazham, vetrilai, paaku, poo, karpooram, oodhupathi and navadhaniyam. After the pooja the thread on her hand is untied and placed before the goddess, and the arali-kaai is carried with the worshipped flowers and dropped into a well — 'மஞ்சிமஞ்சி பூவுலு கௌரம்மகு, வாடின பூவுலு கங்கம்மகு'. On the way the flower-tray is set down at three places and kummi is clapped.",
+        title: { ta: "மறுநாள் காலை", en: "The next morning" },
+        detail: {
+          ta: "மறுநாள் காலையில் குழந்தையைக் குளிக்க வைத்து, ஆடை உடுத்தி, அலங்கரித்து, பூஜைப் பொருட்களோடு (தேங்காய், பழம், வெற்றிலை, பாக்கு, பூ, கற்பூரம், ஊதுபத்தி, நவதானியம்) கௌரி அம்மன் கோயிலுக்கு அழைத்துச் செல்ல வேண்டும். பூஜை முடிந்தவுடன் கையில் கட்டிய அரளிக்காய் நூலை அவிழ்த்து சாமி முன் வைக்க வேண்டும். அங்கு பூஜித்த மலர்களுடன் அந்த அரளிக்காயையும் ஒரு தட்டில் வைத்து எடுத்து வந்து கிணற்றில் (கங்கம்மா) விட வேண்டும் — “மஞ்சிமஞ்சி பூவுலு கௌரம்மகு, வாடின பூவுலு கங்கம்மகு”. செல்லும் வழியில் 3 இடங்களில் பூத்தட்டை வைத்து கும்மி தட்ட வேண்டும். அடுத்த ஆண்டு விரதம் இருக்க வேண்டிய குழந்தைகளும் (6, 8 வயதினர்) உடன் சேர்ந்து கொள்வர்.",
+          en: "The child is bathed, dressed and adorned and taken to the Gauri Amman temple with thengai, pazham, vetrilai, paaku, poo, karpooram, oodhupathi and navadhaniyam. After the pooja the thread on her hand is untied and placed before the goddess, and the arali-kaai is carried with the worshipped flowers and dropped into a well (Gangamma) — 'மஞ்சிமஞ்சி பூவுலு கௌரம்மகு, வாடின பூவுலு கங்கம்மகு'. On the way the flower-tray is set down at three places and kummi is clapped. Children due to keep the vratham next year (aged 6 and 8) join in.",
+        },
       },
       {
-        title: "Completing the Uthaapina Seer",
-        detail:
-          "The five who kept the vratham with the child must remain well until the Gauri vratham day of the following year — only then is the vratham complete. On that day the child is bathed, dressed and taken again to Gauri Amman with flowers, coconut, fruit and a new pudavai and ravikkai. Thanks are offered for the seer being fulfilled, and good sesame oil, paruppu and palakaaram in new vessels are given to the five.",
+        title: { ta: "உத்தாபின சீர் நிறைவேறியமை", en: "Completing the Uthaapina Seer" },
+        detail: {
+          ta: "சீர் செய்த அடுத்த ஆண்டு கௌரி விரதத்திற்குரிய நாள் வரை குழந்தையோடு விரதம் மேற்கொண்ட ஐவரும் நலமாக இருத்தல் வேண்டும்; அப்போது தான் விரதம் பூர்த்தியாகும். அடுத்த ஆண்டு கௌரிவிரத நாளில் குழந்தையைக் குளிப்பாட்டி, புத்தாடை உடுத்தி அலங்கரித்து கௌரி அம்மன் கோயிலுக்கு அழைத்துச் செல்ல வேண்டும். பூ, தேங்காய், பழத்துடன் ஒரு தட்டில் புதிய புடவை, ரவிக்கைத் துணி வைத்துக்கொண்டு சென்று, அம்மனின் முன் வைத்து நன்றி செலுத்தி வணங்க வேண்டும். பின்னர் விரதம் இருந்த ஐவருக்கும் நல்லெண்ணெய், பருப்புடன் புதிய பாத்திரங்களில் பலகாரம் கொடுத்தனுப்ப வேண்டும்.",
+          en: "The five who kept the vratham with the child must remain well until the Gauri vratham day of the following year — only then is the vratham complete. On that day the child is bathed, dressed and taken again to Gauri Amman with flowers, coconut, fruit and a new pudavai and ravikkai. Thanks are offered for the seer being fulfilled, and good sesame oil, paruppu and palakaaram in new vessels are given to the five.",
+        },
       },
     ],
     closing: {
-      heading: "The reason our elders gave",
+      heading: {
+        ta: "நம் முன்னோர்கள் கூறிய காரணம்",
+        en: "The reason our elders gave",
+      },
       body: [
-        "Our ancestors did not keep any seer or ceremony without cause, merely to pass the time. The Kammavar kulam has kept every seer as a guiding path for life.",
-        "A girl child's first stage is the pedhai paruvam (around 7 to 9). At that age whatever happens around her slowly takes root in her mind — which is why these are kept precisely then. Through the Uthaapina Seer, the good of the vratham, respect for elders, the feeling of being surrounded by relatives, and devotion take root in her heart. As she grows, those qualities grow with her — and through her, both the home she is born into and the home she marries into prosper.",
-        "In this the Kammavar kulam receives the grace of Renuka Devi — the form of the all-powerful Parasakthi — and her daughter Gauri Amman stands beside them too.",
+        {
+          ta: "நம் முன்னோர்கள், எந்த ஒரு சீரினையும் சடங்கினையும் காரணகாரியங்கள் இன்றி வெறும் பொழுது போக்கிற்காகக் கடைப் பிடிக்கவில்லை. கம்மவார் குலத்தினரும், எல்லாச் சீர்களையும் சடங்குகளையும் வாழ்க்கையின் வழிகாட்டும் நெறிகளாகவே கடைபிடித்து வந்துள்ளனர்.",
+          en: "Our ancestors did not keep any seer or ceremony without cause, merely to pass the time. The Kammavar kulam has kept every seer as a guiding path for life.",
+        },
+        {
+          ta: "பெண் குழந்தையின் முதல் பருவம் பேதைப் பருவம் (7, 9 வயது). அந்த வயதில் குழந்தையின் மனதில் தம்மைச் சுற்றி நடக்கின்ற நிகழ்ச்சிகள் மெல்ல மெல்ல வேரூன்றும். எனவே அந்த வயதில் கடைபிடிக்கப்படுகின்றன. “உத்தாபின சீரால்” அக்குழந்தையின் உள்ளத்தில் விரதத்தின் நன்மை, பெரியோர்களை மதித்தல், உறவினர் சூழ்ந்திருத்தல், தெய்வ வழிபாடு ஆகிய நல்ல பண்புகள் வேரூன்றுகின்றன. குழந்தை வளர வளர நல்ல பண்புகளும் அவளோடு சேர்ந்து வளர்கிறது. அவளால், பிறந்த வீடும் புகுந்த வீடும் நலம் பெறுகின்றன.",
+          en: "A girl child's first stage is the pedhai paruvam (around 7 to 9). At that age whatever happens around her slowly takes root in her mind — which is why these are kept precisely then. Through the Uthaapina Seer, the good of the vratham, respect for elders, the feeling of being surrounded by relatives, and devotion take root in her heart. As she grows, those qualities grow with her — and through her, both the home she is born into and the home she marries into prosper.",
+        },
+        {
+          ta: "எல்லாம் வல்லவளாகிய பராசக்தியின் வடிவமாகிய — கம்மவார் குலத்தில் எல்லம்மாவாகிய ரேணுகா தேவியின் அனுக்கிரகம் கிடைக்கப்பெறும், அவள் மகள் கௌரி அம்மனும் துணையிருப்பாள்.",
+          en: "In this the Kammavar kulam receives the grace of Renuka Devi — the form of the all-powerful Parasakthi — and her daughter Gauri Amman stands beside them too.",
+        },
       ],
     },
     source:
-      "Retold in our own words from community material shared by the Peelamedu Kammavar Seva Sangam (kammavarthirumanaseva.com), Coimbatore.",
+      "Retold from community material shared by the Peelamedu Kammavar Seva Sangam (kammavarthirumanaseva.com), Coimbatore — with our thanks.",
   },
 ];

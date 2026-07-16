@@ -1,4 +1,4 @@
-import { rituals } from "@/data/rituals";
+import RitualsLibrary from "@/components/RitualsLibrary";
 
 export const metadata = { title: "Rituals Library — Kulam Heritage" };
 
@@ -10,83 +10,18 @@ export default function RitualsPage() {
           Rituals Library
         </h1>
         <p className="mt-2 max-w-3xl text-stone-700">
-          Traditional Kamma ceremonies across life events. Each is summarised with
-          its key steps.
+          Kammavar Naidu ceremonies in our own words — the story behind each one,
+          how it is kept, and the reasoning our elders gave. Shown in Tamil with
+          an English reading alongside.
         </p>
       </header>
 
-      <div className="space-y-6">
-        {rituals.map((r) => (
-          <section
-            key={r.id}
-            className="rounded-xl border border-kulam-gold/40 bg-white p-5 shadow-sm"
-          >
-            <div className="flex items-center gap-2">
-              <span className="rounded-full bg-kulam/10 px-2.5 py-0.5 text-xs font-semibold text-kulam">
-                {r.lifeEvent}
-              </span>
-              <h2 className="text-xl font-bold text-kulam-dark">{r.title}</h2>
-            </div>
-            <p className="mt-2 text-stone-700">{r.summary}</p>
-
-            {r.story && (
-              <div className="mt-4 rounded-xl border-l-4 border-kulam-gold bg-kulam-gold/5 p-4">
-                <h3 className="font-serif text-base font-bold text-kulam-dark">
-                  {r.story.heading}
-                </h3>
-                <div className="mt-2 space-y-2 text-sm leading-relaxed text-stone-700">
-                  {r.story.body.map((p, i) => (
-                    <p key={i}>{p}</p>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            <ol className="mt-4 space-y-3">
-              {r.steps.map((s, i) => (
-                <li key={i} className="flex gap-3">
-                  <span className="flex h-6 w-6 flex-none items-center justify-center rounded-full bg-kulam text-xs font-bold text-white">
-                    {i + 1}
-                  </span>
-                  <div>
-                    <div className="font-semibold">{s.title}</div>
-                    <div className="text-sm text-stone-600">{s.detail}</div>
-                    {s.significance && (
-                      <div className="mt-1 text-xs text-kulam">
-                        <span className="font-semibold">Why:</span> {s.significance}
-                      </div>
-                    )}
-                  </div>
-                </li>
-              ))}
-            </ol>
-
-            {r.closing && (
-              <div className="mt-5 rounded-xl bg-kulam/5 p-4">
-                <h3 className="font-serif text-base font-bold text-kulam-dark">
-                  {r.closing.heading}
-                </h3>
-                <div className="mt-2 space-y-2 text-sm leading-relaxed text-stone-700">
-                  {r.closing.body.map((p, i) => (
-                    <p key={i}>{p}</p>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {r.source && (
-              <p className="mt-4 border-t border-stone-100 pt-3 text-xs italic text-stone-400">
-                {r.source}
-              </p>
-            )}
-          </section>
-        ))}
-      </div>
+      <RitualsLibrary />
 
       <p className="text-xs italic text-stone-500">
         These are community traditions passed down through generations, not
         academic history — customs vary by family and region. Please verify with
-        your elders.
+        your elders. More rituals are being added from community sources.
       </p>
     </div>
   );
