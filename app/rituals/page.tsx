@@ -28,6 +28,20 @@ export default function RitualsPage() {
               <h2 className="text-xl font-bold text-kulam-dark">{r.title}</h2>
             </div>
             <p className="mt-2 text-stone-700">{r.summary}</p>
+
+            {r.story && (
+              <div className="mt-4 rounded-xl border-l-4 border-kulam-gold bg-kulam-gold/5 p-4">
+                <h3 className="font-serif text-base font-bold text-kulam-dark">
+                  {r.story.heading}
+                </h3>
+                <div className="mt-2 space-y-2 text-sm leading-relaxed text-stone-700">
+                  {r.story.body.map((p, i) => (
+                    <p key={i}>{p}</p>
+                  ))}
+                </div>
+              </div>
+            )}
+
             <ol className="mt-4 space-y-3">
               {r.steps.map((s, i) => (
                 <li key={i} className="flex gap-3">
@@ -46,9 +60,34 @@ export default function RitualsPage() {
                 </li>
               ))}
             </ol>
+
+            {r.closing && (
+              <div className="mt-5 rounded-xl bg-kulam/5 p-4">
+                <h3 className="font-serif text-base font-bold text-kulam-dark">
+                  {r.closing.heading}
+                </h3>
+                <div className="mt-2 space-y-2 text-sm leading-relaxed text-stone-700">
+                  {r.closing.body.map((p, i) => (
+                    <p key={i}>{p}</p>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {r.source && (
+              <p className="mt-4 border-t border-stone-100 pt-3 text-xs italic text-stone-400">
+                {r.source}
+              </p>
+            )}
           </section>
         ))}
       </div>
+
+      <p className="text-xs italic text-stone-500">
+        These are community traditions passed down through generations, not
+        academic history — customs vary by family and region. Please verify with
+        your elders.
+      </p>
     </div>
   );
 }
