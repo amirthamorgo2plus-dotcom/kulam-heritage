@@ -23,7 +23,13 @@ export interface RitualNarrative {
 export interface Ritual {
   id: string;
   kulamId: string;
-  lifeEvent: "Wedding" | "Naming" | "Festival" | "Coming of Age" | "Other";
+  lifeEvent:
+    | "Wedding"
+    | "Childbirth"
+    | "Childhood"
+    | "Festival"
+    | "Coming of Age"
+    | "Other";
   title: Bi;
   summary: Bi;
   steps: RitualStep[];
@@ -36,6 +42,109 @@ export interface Ritual {
 }
 
 export const rituals: Ritual[] = [
+  {
+    id: "kamma-pitta-sangiyam",
+    kulamId: "kammavar-naidu",
+    lifeEvent: "Childbirth",
+    title: { ta: "பிட்ட சாங்கியம் (குழந்தைச் சீர்)", en: "Pitta Sangiyam (Child Seer)" },
+    summary: {
+      ta: "தாய் வீட்டில் மகப்பேற்றினை முடித்துக் கொண்டு, குழந்தையுடன் கணவன் வீடு திரும்பும் பெண்ணுக்கு, பெற்றவர்கள் செய்யும் சாங்கியமே பிட்ட சாங்கியம் எனப்படுவது. கம்ம குலப் பெண்ணின் வாழ்க்கையில் அவளுக்குச் செய்யப்படும் சிறப்புச் சீர்களில் இதைத்தான் கடைசியாகச் செய்யப்படுவது. குழந்தைக்கு 5, 7, 9 அல்லது 11 ஆம் மாதங்களில் இச்சீரைச் செய்யலாம்.",
+      en: "The seer her parents perform for a woman who has completed her confinement at her mother's home and is returning to her husband's house with the baby. Of all the special seers done for a Kamma woman across her life, this is the last one. It may be done in the child's 5th, 7th, 9th or 11th month.",
+    },
+    steps: [
+      {
+        title: { ta: "எப்போது செய்ய வேண்டும்", en: "When it must be done" },
+        detail: {
+          ta: "இந்தக் காலத்தில் இந்தச் சடங்கை எப்போது வேண்டுமானாலும் செய்கிறார்கள். பெண் குழந்தையாக இருந்தால், கௌரி விரதம் என்னும் உத்தாபிஞ்சேதி சாங்கியம் செய்வதற்கு முன்பே இந்தப் பிட்ட சாங்கியம் செய்ய வேண்டும்.",
+          en: "These days people perform it whenever convenient. But if the child is a girl, the Pitta Sangiyam must be done before the Uthaapinjedhi Sangiyam — the Gauri Vratham.",
+        },
+        significance: {
+          ta: "கம்மவார் பெண்ணின் சீர்கள் ஒரு வரிசை — பிட்ட சாங்கியம் முடிந்த பின்னரே கௌரி விரதம்.",
+          en: "A Kammavar girl's seers run in order — the Gauri Vratham only follows once this one is complete.",
+        },
+      },
+      {
+        title: { ta: "வாங்க வேண்டியவை", en: "What is bought" },
+        detail: {
+          ta: "முக்கியமாக மூன்று புடவை, ரவிக்கைகள், ஒரு தொட்டில் கொக்கி, 2 தொட்டில் துணிகள், பால் ஊற்றும் சங்கு, எண்ணெய் பாத்திரம், ஒரு கரண்டி, ஒரு செம்பு, ஒரு குடம் ஆகியவை. பெண் வீட்டாரின் வசதியைப் பொறுத்து, பாத்திரங்களும் குழந்தைக்கு நகையும் வாங்க வேண்டும்.",
+          en: "Chiefly three pudavais and ravikkais, a cradle hook, two cradle cloths, a conch for pouring milk, an oil vessel, a ladle, a sembu and a kudam. Depending on what the girl's family can afford, vessels and jewellery for the child are also bought.",
+        },
+      },
+      {
+        title: { ta: "சீர் மூட்டை கட்டுதல்", en: "Tying the seer bundle" },
+        detail: {
+          ta: "ஒரு சதுரமான புதுத் துண்டில் நான்கு மூலையிலும் மஞ்சள் தடவி, அதில் ஒரு தேங்காய், வெற்றிலை பாக்கு, பூ, சந்தன வில்லை, குங்குமச் சிமிழ், 5 எலுமிச்சம் பழம், மஞ்சள் சரடு 3 பிடி, தொட்டில் கொக்கி, சங்கு, ஒரு புடவை, ரவிக்கை, சுண்டு காரம் எனப்படும் சுக்கு, வசம்பு, மிளகு, ஜாதிக்காய், பூண்டு சேர்த்த பொடி ஆகியவற்றுடன் பணம் வைத்துக் கட்ட வேண்டும். இந்த மூட்டையைப் பெண்ணின் சகோதரர் எடுத்து வர வேண்டும்.",
+          en: "A new square cloth is smeared with turmeric at its four corners and tied into a bundle holding a coconut, vetrilai-paaku, flowers, a sandal cake, a kungumam box, five lemons, three lengths of turmeric thread, the cradle hook, the conch, a pudavai and ravikkai, and the powder called sundu-kaaram (dry ginger, vasambu, pepper, nutmeg and garlic), along with money. The girl's brother must carry this bundle.",
+        },
+      },
+      {
+        title: { ta: "மாப்பிள்ளை வீட்டிற்குச் செல்லுதல்", en: "Going to the husband's house" },
+        detail: {
+          ta: "செம்பில் மஞ்சள் பொட்டு, எண்ணெய் பாத்திரத்தில் எண்ணெயும், குடத்தில் சக்கரையும் போட்டு, புதுப் பாத்திரத்தில் இனிப்பு, காரம், வெற்றிலை பாக்கு வைத்து அனுப்ப வேண்டும். இந்தச் சீருக்குப் பழம் வைப்பதில்லை. நல்ல நேரத்தில் பெண் புது புடவையை உடுத்திக் கொள்ள வேண்டும். 5 சுமங்கலிகள் பெண்ணை வாசலில் கிழக்கு நோக்கி நிறுத்தி மஞ்சள் பூசி, பூ வைத்து, மஞ்சள் சரடு கட்டிவிட்டுத் தாங்களும் பூ வைத்து, பொட்டு வைத்து, மஞ்சள் சரடு கட்டிக் கொள்ள வேண்டும். பின்னர் பெண்ணின் மடியில் வெற்றிலை பாக்கு, எலுமிச்சம் பழம் வைத்து, தாங்களும் எடுத்துக் கொண்டு மாப்பிள்ளை வீட்டிற்குச் செல்ல வேண்டும். அங்கு வாசற்படியில் ஆரத்தி எடுத்துக் குழந்தையும் தாயும் வரவேற்க வேண்டும்.",
+          en: "A turmeric dot is put on the sembu, oil in the oil vessel, sugar in the kudam, and sweets, savouries and vetrilai-paaku in a new vessel. No fruit is placed for this seer. At an auspicious hour the woman wears a new pudavai. Five sumangalis stand her at the doorway facing east, apply turmeric, place flowers and tie the turmeric thread — then do the same for themselves. Vetrilai-paaku and lemon are placed in her lap, and they set out for the husband's house, where mother and child are welcomed with aarathi at the threshold.",
+        },
+      },
+      {
+        title: { ta: "சீர் நிறைவு", en: "Completing the seer" },
+        detail: {
+          ta: "சீர் மூட்டையைப் பூஜை அறையில் வைத்துக் கும்பிட்டு, மூட்டையை அவிழ்த்து, அதில் உள்ள புடவையை எடுத்து மாப்பிள்ளையின் தாய் அல்லது சகோதரி கட்டிக் கொண்டு, மஞ்சள், குங்குமம், வெற்றிலை பாக்கு, எலுமிச்சம் பழம், பூ ஆகியவற்றை எடுத்துத் தட்டில் வைக்க வேண்டும். மாப்பிள்ளை வீட்டில் உள்ள சுமங்கலிப் பெண்கள் 5 பேர், பெண்ணிற்கு மஞ்சள் பூசிப் பொட்டு வைத்து, மஞ்சள் சரடு கட்டி விட்டு, வெற்றிலை பாக்கு, எலுமிச்சம் பழம் கொடுத்து, அவர்களும் எடுத்துக் கொள்ள வேண்டும். பின்னர் அன்றோ அல்லது வேறு ஒரு நல்ல நாளில் மற்றொரு புடவையைத் தாய் வீட்டிற்குச் சென்று கட்டிக் கொண்டு வர வேண்டும். இத்துடன் கம்ம குலப் பெண்ணிற்குச் செய்யும் சாங்கியம் நிறைவு பெறும்.",
+          en: "The bundle is set in the puja room and worshipped, then opened; the groom's mother or sister wears the pudavai from it, and turmeric, kungumam, vetrilai-paaku, lemon and flowers are placed on a plate. Five sumangalis of the husband's house apply turmeric to the woman, place her pottu, tie her turmeric thread and give her vetrilai-paaku and lemon, taking the same themselves. Then, that day or on another auspicious day, she goes to her mother's house and returns wearing another pudavai. With this, the cycle of seers performed for a Kamma woman is complete.",
+        },
+      },
+    ],
+    source:
+      "Retold from community material shared by the Peelamedu Kammavar Seva Sangam (kammavarthirumanaseva.com), Coimbatore — with our thanks.",
+  },
+  {
+    id: "kamma-mottai-kottedhi",
+    kulamId: "kammavar-naidu",
+    lifeEvent: "Childhood",
+    title: { ta: "மொட்டை கொட்டேதி (முடி இறக்குதல்)", en: "Mottai Kottedhi (First Tonsure)" },
+    summary: {
+      ta: "பிறந்த குழந்தையின் தலை உச்சி, மென்மைத் தன்மை மாறி வலுப் பெற்றதும், முடி இறக்குதல் செய்ய வேண்டும். குழந்தை பிறந்து 7, 9 அல்லது 11 ஆம் மாதங்களில், அவரவர் குலதெய்வக் கோயிலில் இச்சாங்கியம் செய்ய வேண்டும்.",
+      en: "Once the soft crown of a newborn's head has firmed and grown strong, the first tonsure is done — in the child's 7th, 9th or 11th month, at the family's own kula deivam temple.",
+    },
+    steps: [
+      {
+        title: { ta: "ஏற்பாடுகள்", en: "Preparations" },
+        detail: {
+          ta: "நல்ல நாள் பார்த்து தாய் வீட்டார், குழந்தைக்கும் பெற்றோர்களுக்கும் புத்தாடைகள் எடுக்க வேண்டும். கோயிலில் திருமஞ்சனம் செய்ய, பொங்கல் வைக்கச் சாமான்கள் வாங்க வேண்டும்.",
+          en: "An auspicious day is chosen and the mother's family buys new clothes for the child and the parents, along with provisions for the thirumanjanam and the pongal at the temple.",
+        },
+      },
+      {
+        title: { ta: "தாய்மாமன் மடியில்", en: "In the maternal uncle's lap" },
+        detail: {
+          ta: "தாய்மாமன் மடியில் குழந்தையை உட்கார வைத்து முடி இறக்க வேண்டும்.",
+          en: "The child is seated in the maternal uncle's (thaai maaman's) lap and the hair is removed.",
+        },
+        significance: {
+          ta: "கம்மவார் சீர்களில் தாய்மாமனுக்கே முதல் இடம் — குழந்தையின் வாழ்வின் ஒவ்வொரு படியிலும் அவர் உடன் இருக்கிறார்.",
+          en: "The maternal uncle holds pride of place in Kammavar seers — he is present at every step of the child's life.",
+        },
+      },
+      {
+        title: { ta: "காது குத்துதல்", en: "Ear piercing" },
+        detail: {
+          ta: "முடி இறக்கும் நாளில் காதும் குத்தலாம்; அதற்குக் கம்மல் வாங்க வேண்டும். பின் குழந்தையைக் குளிக்க வைத்து புதுத் துணிகள் அணிவித்து, காது குத்தி கம்மல்கள் அணிவிக்க வேண்டும்.",
+          en: "The ears may be pierced on the same day, and kammal (earrings) are bought for it. The child is then bathed, dressed in new clothes, and the kammal put on.",
+        },
+        significance: {
+          ta: "மகாலட்சுமியின் கம்மலில் இருந்து தோன்றிய குலம் — அக்கம்மலையே குழந்தையின் காதிலும் சூட்டுகிறோம்.",
+          en: "A kulam born from Mahalakshmi's kammal puts that very kammal on its child's ears — see the name-origin on the History page.",
+        },
+      },
+      {
+        title: { ta: "ஆசீர்வாதமும் விருந்தும்", en: "Blessing and the feast" },
+        detail: {
+          ta: "பூஜைகள் முடித்துக் கொண்டு, குழந்தையையும் பெற்றோரையும் ஆசீர்வாதம் செய்ய வேண்டும். பின்னர் எல்லோருக்கும் விருந்து கொடுத்து அனுப்ப வேண்டும்.",
+          en: "The pujas are completed, the child and the parents are blessed, and everyone is sent off with a feast.",
+        },
+      },
+    ],
+    source:
+      "Retold from community material shared by the Peelamedu Kammavar Seva Sangam (kammavarthirumanaseva.com), Coimbatore — with our thanks.",
+  },
   {
     id: "kamma-gauri-vratham",
     kulamId: "kammavar-naidu",
@@ -199,6 +308,124 @@ export const rituals: Ritual[] = [
         {
           ta: "எல்லாம் வல்லவளாகிய பராசக்தியின் வடிவமாகிய — கம்மவார் குலத்தில் எல்லம்மாவாகிய ரேணுகா தேவியின் அனுக்கிரகம் கிடைக்கப்பெறும், அவள் மகள் கௌரி அம்மனும் துணையிருப்பாள்.",
           en: "In this the Kammavar kulam receives the grace of Renuka Devi — the form of the all-powerful Parasakthi — and her daughter Gauri Amman stands beside them too.",
+        },
+      ],
+    },
+    source:
+      "Retold from community material shared by the Peelamedu Kammavar Seva Sangam (kammavarthirumanaseva.com), Coimbatore — with our thanks.",
+  },
+  {
+    id: "kamma-payindu-sangiyam",
+    kulamId: "kammavar-naidu",
+    lifeEvent: "Coming of Age",
+    title: { ta: "பயிண்டு சாங்கியம் (மாராப்பு சீர்)", en: "Payindu Sangiyam (Maraappu Seer)" },
+    summary: {
+      ta: "ஒரு பெண் குழந்தை தான் ஒரு பெண்ணாக உருமாறிக் கொண்டிருப்பதை உணர்த்தும் சடங்குதான் “பயின்டேசேதி” என்னும் மாராப்புச் சீர் ஆகும். ஆடி, புரட்டாசி, மார்கழி மாதங்கள் தவிர பிற மாதங்களில், ஒரு நல்ல நாள் பார்த்து இச்சடங்கைச் செய்யலாம். பெண்ணின் ஒன்பதாவது வயதில் செய்யப்படும்.",
+      en: "The rite called 'Payindedhi' — the Maraappu Seer — is the one that marks a girl beginning to become a woman. It may be done in any month except Aadi, Purattasi and Maargazhi, on an auspicious day, in her ninth year.",
+    },
+    steps: [
+      {
+        title: { ta: "உறவினர் கூடுதல்", en: "The family gathers" },
+        detail: {
+          ta: "பெண்ணின் ஒன்பதாவது வயதில், ஒரு நல்ல நாளில், தாய் மாமா, மாமி, பாட்டி, தாத்தா எல்லோரும் சேர்ந்து பெண்ணை அழைத்து வந்து, புதிய புடவை, ரவிக்கை, நகை முதலியவை வாங்கி வந்து, உறவினர்களை அழைத்துச் சடங்கு செய்ய வேண்டும்.",
+          en: "In her ninth year, on an auspicious day, the maternal uncle and aunt, grandmother and grandfather all come together, bring the girl, buy a new pudavai, ravikkai and jewellery, and invite the relatives for the rite.",
+        },
+      },
+      {
+        title: { ta: "எண்ணெய் ஸ்நானம்", en: "The oil bath" },
+        detail: {
+          ta: "தாய் மாமாவின் மனைவி, பெண்ணிற்கு எண்ணெய் ஸ்நானம் செய்ய வேண்டும். பின்னர் ஒரு மனைப்பலகை போட்டு, ஜமக்காளம் விரித்து அமர வைத்து, ஒரு தட்டில் சேலை, ரவிக்கை, வெற்றிலை பாக்கு, எலுமிச்சம் பழம், பூ ஆகியவற்றைக் கொடுத்து, சந்தனம், குங்குமம் வைத்துப் பூச்சூட்ட வேண்டும்.",
+          en: "The maternal uncle's wife gives the girl an oil bath. A manaipalagai is set down, a jamakkalam spread, and she is seated; a plate with a saree, ravikkai, vetrilai-paaku, lemon and flowers is given, sandalwood and kungumam applied, and flowers placed in her hair.",
+        },
+      },
+      {
+        title: { ta: "மாராப்பு புடவை கட்டுதல்", en: "Draping the maraappu" },
+        detail: {
+          ta: "பெண்ணை அழைத்துப் போய், புடவைக்கு மஞ்சள் வைத்து, ஒரு முனையில் வெற்றிலை பாக்கு, பவுன் அல்லது பணம் வைத்து முடிந்து, வலதுபுறம் மாராப்பு வருமாறு புடவை கட்டி விட வேண்டும்.",
+          en: "The girl is taken aside, turmeric is applied to the pudavai, vetrilai-paaku and a sovereign or money are knotted into one end, and the saree is draped so that the maraappu falls over the right shoulder.",
+        },
+        significance: {
+          ta: "மாராப்பு தான் இச்சடங்கின் மையம் — குழந்தை பெண்ணாகிறாள் என்பதை ஆடையே அறிவிக்கிறது.",
+          en: "The maraappu is the whole point — the garment itself announces that the child is becoming a woman.",
+        },
+      },
+      {
+        title: { ta: "ஆசீர்வாதம்", en: "The blessing" },
+        detail: {
+          ta: "பெண்ணை மனைப்பலகையில் அமர்த்தி, குத்துவிளக்குகள் ஏற்றி வைத்து, தாத்தா, பாட்டி மற்றும் உறவினர்கள் எல்லோரும் ஆசீர்வாதம் செய்ய வேண்டும். 5 அல்லது 7 அல்லது 9 தட்டுகளில் வெற்றிலை பாக்கு, பழம், பலகாரம் எல்லாம் வைக்க வேண்டும்.",
+          en: "She is seated on the manaipalagai, kuthuvilakkus are lit, and the grandfather, grandmother and all the relatives bless her. Five, seven or nine plates are laid with vetrilai-paaku, fruit and palakaaram.",
+        },
+      },
+      {
+        title: { ta: "வீடு திரும்புதல்", en: "Returning home" },
+        detail: {
+          ta: "நல்ல நேரத்தில், பெண்ணை மாமா, மாமி, அம்மா வீட்டிற்கு அழைத்து வர வேண்டும். அங்கு வாசலில் நிறுத்தி ஆர்த்தி எடுக்க வேண்டும். பூஜை அறையில் போய் கற்பூரம் ஏற்றி சாமி கும்பிட்டுச் சந்தனம், குங்குமம் கொடுக்க வேண்டும்.",
+          en: "At an auspicious hour the uncle, aunt and mother bring her home. She is stood at the doorway and aarathi is taken. In the puja room camphor is lit, the deity worshipped, and sandalwood and kungumam given.",
+        },
+      },
+    ],
+    source:
+      "Retold from community material shared by the Peelamedu Kammavar Seva Sangam (kammavarthirumanaseva.com), Coimbatore — with our thanks.",
+  },
+  {
+    id: "kamma-ruthu-mangala-seer",
+    kulamId: "kammavar-naidu",
+    lifeEvent: "Coming of Age",
+    title: { ta: "ருது மங்கள சீர்", en: "Ruthu Mangala Seer" },
+    summary: {
+      ta: "நம் குலப் பெண்ணின் பருவமடைதல் மிகச் சிறப்பாகச் செய்யப்பட்டு வந்தது. ருதுவான நாள், நேரம், நட்சத்திரம் குறித்து ஜாதகம் கணிப்பதும் வழக்கம்.",
+      en: "A girl of our kulam coming of age was marked with great honour. It is also customary to note the day, time and natchathiram of her ruthu and to cast her horoscope from it.",
+    },
+    steps: [
+      {
+        title: { ta: "முதல் நாள்", en: "The first day" },
+        detail: {
+          ta: "ருதுவானவுடன் பெண்ணிற்கு மாமி முறை உள்ளவர்கள் ஸ்நானம் செய்வித்து, பால், பழம், சக்கரை சேர்த்துக் கலந்து தர வேண்டும்.",
+          en: "As soon as she comes of age, the women who stand as maami bathe her and give her milk, fruit and sugar mixed together.",
+        },
+      },
+      {
+        title: { ta: "தாய்ச்சீர்", en: "The mother's seer" },
+        detail: {
+          ta: "பின்னர் தாய்ச்சீர் செய்யப்படும். பெண்ணிற்கு நீராடி, தாய் எடுக்கும் புதுப் புடவை, நகை அணிவித்து, ஒரு இடத்தில் அமரச் செய்ய வேண்டும். இருபுறமும் குத்துவிளக்குகள் ஏற்றி வைத்து சீர்த் தட்டுகள் வைக்க வேண்டும்.",
+          en: "Then the thaai-cheer is performed. She is bathed, dressed in the new pudavai and jewellery her mother has brought, and seated in one place, with kuthuvilakkus lit on both sides and the seer plates set out.",
+        },
+      },
+      {
+        title: { ta: "முக்கிய சடங்குப் பொருள்", en: "The central offering" },
+        detail: {
+          ta: "ஐந்து படி நெல்லை ஒரு பாத்திரத்தில் போட்டு, இரண்டு அச்சு பனைவெல்லம் அதன் மேல் வைக்க வேண்டும். இது தான் முக்கிய சடங்குப் பொருளாகும். சுமங்கலிப் பெண்கள், பெண்ணிற்கு மஞ்சள் குங்குமம் வைத்து இனிப்பு தருவார்கள்.",
+          en: "Five padi of paddy are put in a vessel and two moulds of palm jaggery placed on top — this is the central object of the rite. The sumangalis apply turmeric and kungumam to her and give her sweets.",
+        },
+      },
+      {
+        title: { ta: "தனிக் குடில்", en: "The separate hut" },
+        detail: {
+          ta: "தாய்மாமனால் அமைக்கப்பட்ட கம்மந்தட்டுகளால் ஆன குடிலில், பெண்ணைத் தனியே இருக்கும்படி செய்வார்கள்.",
+          en: "In a hut built by the maternal uncle from kammanthattu (millet-stalk screens), she is given a place to stay apart.",
+        },
+      },
+      {
+        title: { ta: "சீர் செய்தல்", en: "Completing the seer" },
+        detail: {
+          ta: "அன்றோ அல்லது மூன்று மாதம் கழித்தோ, ஒரு நல்ல நாளில், தாய்மாமனால் பெண் வீட்டில் முன் கூறியபடி சீர் செய்ய வேண்டும்.",
+          en: "That same day, or three months later on an auspicious day, the maternal uncle performs the seer at the girl's house as described above.",
+        },
+      },
+    ],
+    closing: {
+      heading: {
+        ta: "தனிக் குடில் ஏன்?",
+        en: "Why the separate hut?",
+      },
+      body: [
+        {
+          ta: "உடல்ரீதியாகத் திருமணத் தகுதி பெற்றுவிட்ட பெண்ணுக்கு மனரீதியாகவும் வலிமை வேண்டும்; பெற்றோரை விட்டுத் தனித்து இருக்கும் வலிமையை வரவழைக்கவும், சுகாதாரம் கருதியும், அச்சமயத்தில் முழுமையான ஓய்வு தேவை என்பதாலும் பெண்ணைத் தனியே குடில் கட்டி வைக்கும் முறை வழக்கத்தில் இருந்து வந்தது.",
+          en: "A girl who has become physically ready for marriage needs to be ready in mind too. The custom of building her a hut of her own came from four reasons together: to call up in her the strength to be apart from her parents, out of care for hygiene, and because complete rest is what she truly needs at that time.",
+        },
+        {
+          ta: "ஆனால் இன்றைய காலத்தில் வேகமாய் மாறிவரும் வாழ்க்கைச் சூழலில், நம் அனைவரும் இந்தச் சடங்கை மறந்தும் மறுத்தும் வருகிறோம்.",
+          en: "But in today's fast-changing way of life, we have all been forgetting this rite — and refusing it.",
         },
       ],
     },
